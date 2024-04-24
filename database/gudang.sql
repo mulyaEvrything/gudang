@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2024 at 11:45 AM
+-- Generation Time: Apr 24, 2024 at 09:03 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -34,6 +34,7 @@ CREATE TABLE `tbl_barang` (
   `stok_minimum` int(11) NOT NULL,
   `stok` int(11) NOT NULL DEFAULT 0,
   `satuan` int(11) NOT NULL,
+  `harga` int(11) NOT NULL,
   `foto` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
@@ -41,10 +42,10 @@ CREATE TABLE `tbl_barang` (
 -- Dumping data for table `tbl_barang`
 --
 
-INSERT INTO `tbl_barang` (`id_barang`, `nama_barang`, `jenis`, `stok_minimum`, `stok`, `satuan`, `foto`) VALUES
-('B0001', 'Yamalub', 1, 10, 1200, 2, NULL),
-('B0002', 'AHM OIL', 1, 5, 33, 2, NULL),
-('B0003', 'Iconic Plus', 1, 10, 23, 1, NULL);
+INSERT INTO `tbl_barang` (`id_barang`, `nama_barang`, `jenis`, `stok_minimum`, `stok`, `satuan`, `harga`, `foto`) VALUES
+('B0001', 'Yamalub', 1, 10, 1200, 2, 0, NULL),
+('B0002', 'AHM OIL', 1, 5, 33, 2, 0, NULL),
+('B0003', 'Iconic Plus', 1, 10, 23, 1, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -165,24 +166,6 @@ CREATE TABLE `tbl_invoice` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_jenis`
---
-
-CREATE TABLE `tbl_jenis` (
-  `id_jenis` int(11) NOT NULL,
-  `nama_jenis` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `tbl_jenis`
---
-
-INSERT INTO `tbl_jenis` (`id_jenis`, `nama_jenis`) VALUES
-(1, 'Oli');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `tbl_satuan`
 --
 
@@ -257,12 +240,6 @@ ALTER TABLE `tbl_invoice`
   ADD PRIMARY KEY (`id_invoice`);
 
 --
--- Indexes for table `tbl_jenis`
---
-ALTER TABLE `tbl_jenis`
-  ADD PRIMARY KEY (`id_jenis`);
-
---
 -- Indexes for table `tbl_satuan`
 --
 ALTER TABLE `tbl_satuan`
@@ -289,12 +266,6 @@ ALTER TABLE `tbl_detail_invoice`
 --
 ALTER TABLE `tbl_invoice`
   MODIFY `id_invoice` int(10) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tbl_jenis`
---
-ALTER TABLE `tbl_jenis`
-  MODIFY `id_jenis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_satuan`

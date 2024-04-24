@@ -12,10 +12,10 @@ else {
     // ambil data GET dari tombol detail
     $id_barang = $_GET['id'];
 
-    // sql statement untuk menampilkan data dari tabel "tbl_barang", tabel "tbl_jenis", dan tabel "tbl_satuan" berdasarkan "id_barang"
-    $query = mysqli_query($mysqli, "SELECT a.id_barang, a.nama_barang, a.jenis, a.stok_minimum, a.stok, a.satuan, a.foto, b.nama_jenis, c.nama_satuan
-                                    FROM tbl_barang as a INNER JOIN tbl_jenis as b INNER JOIN tbl_satuan as c 
-                                    ON a.jenis=b.id_jenis AND a.satuan=c.id_satuan 
+    // sql statement untuk menampilkan data dari tabel "tbl_barang",  dan tabel "tbl_satuan" berdasarkan "id_barang"
+    $query = mysqli_query($mysqli, "SELECT a.id_barang, a.nama_barang, a.stok_minimum, a.stok, a.satuan, a.foto, c.nama_satuan
+                                    FROM tbl_barang as a INNER JOIN tbl_satuan as c 
+                                    ON a.satuan=c.id_satuan 
                                     WHERE a.id_barang='$id_barang'")
                                     or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
     // ambil data hasil query
@@ -68,11 +68,7 @@ else {
                 <td>:</td>
                 <td><?php echo $data['nama_barang']; ?></td>
               </tr>
-              <tr>
-                <td>Jenis Barang</td>
-                <td>:</td>
-                <td><?php echo $data['nama_jenis']; ?></td>
-              </tr>
+              
               <tr>
                 <td>Stok Minimum</td>
                 <td>:</td>

@@ -139,7 +139,7 @@ else { ?>
                     <th class="text-center">No.</th>
                     <th class="text-center">ID Barang</th>
                     <th class="text-center">Nama Barang</th>
-                    <th class="text-center">Jenis Barang</th>
+                  
                     <th class="text-center">Stok</th>
                     <th class="text-center">Satuan</th>
                   </tr>
@@ -149,9 +149,9 @@ else { ?>
                   // variabel untuk nomor urut tabel
                   $no = 1;
                   // sql statement untuk menampilkan data dari tabel "tbl_barang", tabel "tbl_jenis", dan tabel "tbl_satuan"
-                  $query = mysqli_query($mysqli, "SELECT a.id_barang, a.nama_barang, a.jenis, a.stok_minimum, a.stok, a.satuan, b.nama_jenis, c.nama_satuan
-                                                  FROM tbl_barang as a INNER JOIN tbl_jenis as b INNER JOIN tbl_satuan as c 
-                                                  ON a.jenis=b.id_jenis AND a.satuan=c.id_satuan 
+                  $query = mysqli_query($mysqli, "SELECT a.id_barang, a.nama_barang, a.stok_minimum, a.stok, a.satuan, c.nama_satuan
+                                                  FROM tbl_barang as a INNER JOIN tbl_satuan as c 
+                                                  ON  a.satuan=c.id_satuan 
                                                   ORDER BY a.id_barang ASC")
                                                   or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
                   // ambil data hasil query
@@ -161,7 +161,7 @@ else { ?>
                       <td width="50" class="text-center"><?php echo $no++; ?></td>
                       <td width="80" class="text-center"><?php echo $data['id_barang']; ?></td>
                       <td width="200"><?php echo $data['nama_barang']; ?></td>
-                      <td width="150"><?php echo $data['nama_jenis']; ?></td>
+           
                       <?php
                       // mengecek data "stok"
                       // jika data stok minim
@@ -199,7 +199,7 @@ else { ?>
                     <th class="text-center">No.</th>
                     <th class="text-center">ID Barang</th>
                     <th class="text-center">Nama Barang</th>
-                    <th class="text-center">Jenis Barang</th>
+                    
                     <th class="text-center">Stok</th>
                     <th class="text-center">Satuan</th>
                   </tr>
@@ -209,9 +209,9 @@ else { ?>
                   // variabel untuk nomor urut tabel
                   $no = 1;
                   // sql statement untuk menampilkan data dari tabel "tbl_barang", tabel "tbl_jenis", dan tabel "tbl_satuan" berdasarkan "stok"
-                  $query = mysqli_query($mysqli, "SELECT a.id_barang, a.nama_barang, a.jenis, a.stok_minimum, a.stok, a.satuan, b.nama_jenis, c.nama_satuan
-                                                  FROM tbl_barang as a INNER JOIN tbl_jenis as b INNER JOIN tbl_satuan as c 
-                                                  ON a.jenis=b.id_jenis AND a.satuan=c.id_satuan 
+                  $query = mysqli_query($mysqli, "SELECT a.id_barang, a.nama_barang, a.stok_minimum, a.stok, a.satuan, c.nama_satuan
+                                                  FROM tbl_barang as a INNER JOIN tbl_satuan as c 
+                                                  ON a.satuan=c.id_satuan 
                                                   WHERE a.stok<=a.stok_minimum ORDER BY a.id_barang ASC")
                                                   or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
                   // ambil data hasil query
@@ -221,7 +221,7 @@ else { ?>
                       <td width="50" class="text-center"><?php echo $no++; ?></td>
                       <td width="80" class="text-center"><?php echo $data['id_barang']; ?></td>
                       <td width="200"><?php echo $data['nama_barang']; ?></td>
-                      <td width="150"><?php echo $data['nama_jenis']; ?></td>
+                    
                       <td width="70" class="text-right"><?php echo $data['stok']; ?></td>
                       <td width="70"><?php echo $data['nama_satuan']; ?></td>
                     </tr>
