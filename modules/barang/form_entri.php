@@ -76,23 +76,11 @@ else { ?>
               </div>
 
               <div class="form-group">
-                <label>Jenis Barang <span class="text-danger">*</span></label>
-                <select name="jenis" class="form-control chosen-select" autocomplete="off" required>
-                  <option selected disabled value="">-- Pilih --</option>
-                  <?php
-                  // sql statement untuk menampilkan data dari tabel "tbl_jenis"
-                  $query_jenis = mysqli_query($mysqli, "SELECT * FROM tbl_jenis ORDER BY nama_jenis ASC")
-                                                        or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
-                  // ambil data hasil query
-                  while ($data_jenis = mysqli_fetch_assoc($query_jenis)) {
-                    // tampilkan data
-                    echo "<option value='$data_jenis[id_jenis]'>$data_jenis[nama_jenis]</option>";
-                  }
-                  ?>
-                </select>
-                <div class="invalid-feedback">Jenis Barang tidak boleh kosong.</div>
+                <label>Harga Satuan<span class="text-danger">*</span></label>
+                <input type="text" name="harga_satuan" class="form-control" autocomplete="off" onKeyPress="return goodchars(event,'0123456789',this)" required>
+                <div class="invalid-feedback">Harga satuan tidak boleh kosong.</div>
               </div>
-
+              
               <div class="form-group">
                 <label>Stok Minimum <span class="text-danger">*</span></label>
                 <input type="text" name="stok_minimum" class="form-control" autocomplete="off" onKeyPress="return goodchars(event,'0123456789',this)" required>

@@ -19,7 +19,7 @@ else {
 
     // mengecek data barang untuk mencegah penghapusan data barang yang sudah digunakan di tabel "tbl_barang_masuk"
     // sql statement untuk menampilkan data "barang" dari tabel "tbl_barang_masuk" berdasarkan input "id_barang"
-    $query = mysqli_query($mysqli, "SELECT barang FROM tbl_barang_masuk WHERE barang='$id_barang'")
+    $query = mysqli_query($mysqli, "SELECT nama_barang FROM tbl_barang WHERE nama_barang='$id_barang'")
                                     or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
     // ambil jumlah baris data hasil query
     $rows = mysqli_num_rows($query);

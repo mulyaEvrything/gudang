@@ -17,7 +17,7 @@ else {
     // ambil data hasil submit dari form
     $id_barang          = mysqli_real_escape_string($mysqli, $_POST['id_barang']);
     $nama_barang        = mysqli_real_escape_string($mysqli, trim($_POST['nama_barang']));
-    $jenis              = mysqli_real_escape_string($mysqli, $_POST['jenis']);
+    $harga_satuan       = mysqli_real_escape_string($mysqli, $_POST['harga_satuan']);
     $stok_minimum       = mysqli_real_escape_string($mysqli, $_POST['stok_minimum']);
     $satuan             = mysqli_real_escape_string($mysqli, $_POST['satuan']);
 
@@ -35,7 +35,7 @@ else {
     if (empty($nama_file)) {
       // sql statement untuk update data di tabel "tbl_barang" berdasarkan "id_barang"
       $update = mysqli_query($mysqli, "UPDATE tbl_barang
-                                       SET nama_barang='$nama_barang', jenis='$jenis', stok_minimum='$stok_minimum', satuan='$satuan'
+                                       SET nama_barang='$nama_barang', harga='$harga_satuan', stok_minimum='$stok_minimum', satuan='$satuan'
                                        WHERE id_barang='$id_barang'")
                                        or die('Ada kesalahan pada query update : ' . mysqli_error($mysqli));
       // cek query
@@ -52,7 +52,7 @@ else {
       if (move_uploaded_file($tmp_file, $path)) {
         // sql statement untuk update data di tabel "tbl_barang" berdasarkan "id_barang"
         $update = mysqli_query($mysqli, "UPDATE tbl_barang
-                                         SET nama_barang='$nama_barang', jenis='$jenis', stok_minimum='$stok_minimum', satuan='$satuan', foto='$nama_file_enkripsi'
+                                         SET nama_barang='$nama_barang', harga='$harga_satuan', stok_minimum='$stok_minimum', satuan='$satuan', foto='$nama_file_enkripsi'
                                          WHERE id_barang='$id_barang'")
                                          or die('Ada kesalahan pada query update : ' . mysqli_error($mysqli));
         // cek query

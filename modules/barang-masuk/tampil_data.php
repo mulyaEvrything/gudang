@@ -81,41 +81,41 @@ else {
                 <th class="text-center">ID Transaksi</th>
                 <th class="text-center">Tanggal</th>
                 <th class="text-center">Barang</th>
-                <th class="text-center">Jumlah Masuk</th>
-                <th class="text-center">Satuan</th>
+                
                 <th class="text-center">Aksi</th>
               </tr>
             </thead>
             <tbody>
-              <?php
-              // variabel untuk nomor urut tabel
-              $no = 1;
-              // sql statement untuk menampilkan data dari tabel "tbl_barang_masuk", tabel "tbl_barang", dan tabel "tbl_satuan"
-              $query = mysqli_query($mysqli, "SELECT a.id_transaksi, a.tanggal, a.barang, a.jumlah, b.nama_barang, c.nama_satuan
-                                              FROM tbl_barang_masuk as a INNER JOIN tbl_barang as b INNER JOIN tbl_satuan as c
-                                              ON a.barang=b.id_barang AND b.satuan=c.id_satuan 
-                                              ORDER BY a.id_transaksi DESC")
-                                              or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
-              // ambil data hasil query
-              while ($data = mysqli_fetch_assoc($query)) { ?>
+              
+                <!-- variabel untuk nomor urut tabel -->
+              
+                <!-- sql statement untuk menampilkan data dari tabel "tbl_barang_masuk", tabel "tbl_barang", dan tabel "tbl_satuan" -->
+            
+                <!-- ambil data hasil query -->
+              
                 <!-- tampilkan data -->
                 <tr>
-                  <td width="50" class="text-center"><?php echo $no++; ?></td>
-                  <td width="90" class="text-center"><?php echo $data['id_transaksi']; ?></td>
-                  <td width="70" class="text-center"><?php echo date('d-m-Y', strtotime($data['tanggal'])); ?></td>
-                  <td width="220"><?php echo $data['nama_barang']; ?></td>
-                  <td width="100" class="text-right"><?php echo number_format($data['jumlah'], 0, '', '.'); ?></td>
-                  <td width="60"><?php echo $data['nama_satuan']; ?></td>
+                  <td width="50" class="text-center"></td>
+                  <td width="90" class="text-center"></td>
+                  <td width="70" class="text-center"></td>
+                  <td width="220"></td>
+
                   <td width="50" class="text-center">
                     <div>
                       <!-- tombol hapus data -->
-                      <a href="modules/barang-masuk/proses_hapus.php?id=<?php echo $data['id_transaksi']; ?>" onclick="return confirm('Anda yakin ingin menghapus data barang masuk <?php echo $data['id_transaksi']; ?>?')" class="btn btn-icon btn-round btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
-                        <i class="fas fa-trash fa-sm"></i>
+                      <a href="#" class="btn btn-icon btn-round btn-primary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Detail">
+                        <i class="fas fa-clone fa-sm"></i>
                       </a>
+
+                      <!-- tombol ubah data -->
+                      <a href="#" class="btn btn-icon btn-round btn-secondary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Ubah">
+                        <i class="fas fa-pencil-alt fa-sm"></i>
+                      </a>
+
                     </div>
                   </td>
                 </tr>
-              <?php } ?>
+      
             </tbody>
           </table>
         </div>

@@ -16,7 +16,7 @@ else {
       echo '<div class="alert alert-notify alert-success alert-dismissible fade show" role="alert">
               <span data-notify="icon" class="fas fa-check"></span> 
               <span data-notify="title" class="text-success">Sukses!</span> 
-              <span data-notify="message">Data barang keluar berhasil disimpan.</span>
+              <span data-notify="message">Data barang masuk berhasil disimpan.</span>
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -28,7 +28,7 @@ else {
       echo '<div class="alert alert-notify alert-success alert-dismissible fade show" role="alert">
               <span data-notify="icon" class="fas fa-check"></span> 
               <span data-notify="title" class="text-success">Sukses!</span> 
-              <span data-notify="message">Data barang keluar berhasil dihapus.</span>
+              <span data-notify="message">Data barang masuk berhasil dihapus.</span>
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -41,31 +41,31 @@ else {
       <div class="d-flex align-items-left align-items-md-top flex-column flex-md-row">
         <div class="page-header text-white">
           <!-- judul halaman -->
-          <h4 class="page-title text-white"><i class="fas fa-sign-out-alt mr-2"></i> Barang Keluar</h4>
+          <h4 class="page-title text-white"><i class="fas fa-sign-in-alt mr-2"></i> Barang Keluar</h4>
           <!-- breadcrumbs -->
           <ul class="breadcrumbs">
             <li class="nav-home"><a href="?module=dashboard"><i class="flaticon-home text-white"></i></a></li>
             <li class="separator"><i class="flaticon-right-arrow"></i></li>
-            <li class="nav-item"><a href="?module=barang_keluar" class="text-white">Barang Keluar</a></li>
+            <li class="nav-item"><a href="?module=barang_masuk" class="text-white">Barang Keluar</a></li>
             <li class="separator"><i class="flaticon-right-arrow"></i></li>
             <li class="nav-item"><a>Data</a></li>
           </ul>
         </div>
         <div class="ml-md-auto py-2 py-md-0">
           <!-- tombol entri data -->
-          <a href="?module=form_entri_barang_keluar" class="btn btn-secondary btn-round">
+          <a href="?module=form_entri_barang_masuk" class="btn btn-secondary btn-round">
             <span class="btn-label"><i class="fa fa-plus mr-2"></i></span> Entri Data
           </a>
           <!-- tombol export data -->
-          <!-- <a href="modules/barang-keluar/print.php" target="_blank" class="btn btn-success btn-round">
-            <span class="btn-label"><i class="fa fa-file-excel mr-2"></i></span> Cetak Surat Jalan
+          <!-- <a href="modules/barang-masuk/print.php" target="_blank" class="btn btn-success btn-round">
+            <span class="btn-label"><i class="fa fa-file-excel mr-2"></i></span> Cetak Invoice
           </a> -->
         </div>
       </div>
     </div>
   </div>
 
-  <div class="page-inner mt--5 print">
+  <div class="page-inner mt--5">
     <div class="card">
       <div class="card-header">
         <!-- judul tabel -->
@@ -81,41 +81,51 @@ else {
                 <th class="text-center">ID Transaksi</th>
                 <th class="text-center">Tanggal</th>
                 <th class="text-center">Barang</th>
-                <th class="text-center">Jumlah Keluar</th>
-                <th class="text-center">Satuan</th>
+                
                 <th class="text-center">Aksi</th>
               </tr>
             </thead>
             <tbody>
-              <?php
-              // variabel untuk nomor urut tabel
-              $no = 1;
-              // sql statement untuk menampilkan data dari tabel "tbl_barang_keluar", tabel "tbl_barang", dan tabel "tbl_satuan"
-              $query = mysqli_query($mysqli, "SELECT a.id_transaksi, a.tanggal, a.barang, a.jumlah, b.nama_barang, c.nama_satuan
-                                              FROM tbl_barang_keluar as a INNER JOIN tbl_barang as b INNER JOIN tbl_satuan as c
-                                              ON a.barang=b.id_barang AND b.satuan=c.id_satuan 
-                                              ORDER BY a.id_transaksi DESC")
-                                              or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
-              // ambil data hasil query
-              while ($data = mysqli_fetch_assoc($query)) { ?>
+              
+                <!-- variabel untuk nomor urut tabel -->
+              
+                <!-- sql statement untuk menampilkan data dari tabel "tbl_barang_masuk", tabel "tbl_barang", dan tabel "tbl_satuan" -->
+            
+                <!-- ambil data hasil query -->
+              
                 <!-- tampilkan data -->
                 <tr>
-                  <td width="50" class="text-center"><?php echo $no++; ?></td>
-                  <td width="90" class="text-center"><?php echo $data['id_transaksi']; ?></td>
-                  <td width="70" class="text-center"><?php echo date('d-m-Y', strtotime($data['tanggal'])); ?></td>
-                  <td width="220"><?php echo $data['nama_barang']; ?></td>
-                  <td width="100" class="text-right"><?php echo number_format($data['jumlah'], 0, '', '.'); ?></td>
-                  <td width="60"><?php echo $data['nama_satuan']; ?></td>
-                  <td width="50" class="text-center">
+                  <td width="25" class="text-center"></td>
+                  <td width="70" class="text-center"></td>
+                  <td width="70" class="text-center"></td>
+                  <td width="110"></td>
+
+                  <td width="70" class="text-center">
                     <div>
                       <!-- tombol hapus data -->
-                      <a href="modules/barang-keluar/proses_hapus.php?id=<?php echo $data['id_transaksi']; ?>" onclick="return confirm('Anda yakin ingin menghapus data barang keluar <?php echo $data['id_transaksi']; ?>?')" class="btn btn-icon btn-round btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
-                        <i class="fas fa-trash fa-sm"></i>
+                      <a href="#" class="btn btn-icon btn-round btn-primary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Detail">
+                        <i class="fas fa-clone fa-sm"></i>
                       </a>
+
+                      <!-- tombol ubah data -->
+                      <a href="#" class="btn btn-icon btn-round btn-secondary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Ubah">
+                        <i class="fas fa-pencil-alt fa-sm"></i>
+                      </a>
+
+                      <!-- tombol cetak invoice -->
+                      <a href="modules/barang-keluar/print_invoice.php" class="btn btn-icon btn-round btn-success btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Cetak Invoice">
+                        <i class="fas fa-print fa-sm "></i>
+                      </a>
+                      <!-- tombol cetak surat jalan -->
+                      <a href="modules/barang-keluar/print_surat_jalan.php" class="btn btn-icon btn-round btn-warning btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Cetak Surat Jalan">
+                        <i class="fas fa-print fa-sm "></i>
+                      </a>
+
+                      
                     </div>
                   </td>
                 </tr>
-              <?php } ?>
+      
             </tbody>
           </table>
         </div>

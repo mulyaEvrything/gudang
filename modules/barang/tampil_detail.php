@@ -13,7 +13,7 @@ else {
     $id_barang = $_GET['id'];
 
     // sql statement untuk menampilkan data dari tabel "tbl_barang",  dan tabel "tbl_satuan" berdasarkan "id_barang"
-    $query = mysqli_query($mysqli, "SELECT a.id_barang, a.nama_barang, a.stok_minimum, a.stok, a.satuan, a.foto, c.nama_satuan
+    $query = mysqli_query($mysqli, "SELECT a.id_barang, a.nama_barang, a.stok_minimum, a.stok, a.harga, a.satuan, a.foto, c.nama_satuan
                                     FROM tbl_barang as a INNER JOIN tbl_satuan as c 
                                     ON a.satuan=c.id_satuan 
                                     WHERE a.id_barang='$id_barang'")
@@ -78,6 +78,11 @@ else {
                 <td>Stok</td>
                 <td>:</td>
                 <td><?php echo $data['stok']; ?></td>
+              </tr>
+              <tr>
+                <td>Harga Satuan</td>
+                <td>:</td>
+                <td><?php echo 'Rp ' . number_format($data['harga'],0,',','.');?></td>
               </tr>
               <tr>
                 <td>Satuan</td>

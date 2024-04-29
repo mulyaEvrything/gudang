@@ -392,11 +392,7 @@ else {
                 <span class="sub-item">Data Barang</span>
               </a>
             </li>
-            <li class="active">
-              <a href="?module=jenis">
-                <span class="sub-item">Jenis Barang</span>
-              </a>
-            </li>
+            
             <li>
               <a href="?module=satuan">
                 <span class="sub-item">Satuan</span>
@@ -430,11 +426,7 @@ else {
                 <span class="sub-item">Data Barang</span>
               </a>
             </li>
-            <li>
-              <a href="?module=jenis">
-                <span class="sub-item">Jenis Barang</span>
-              </a>
-            </li>
+            
             <li class="active">
               <a href="?module=satuan">
                 <span class="sub-item">Satuan</span>
@@ -468,11 +460,7 @@ else {
                 <span class="sub-item">Data Barang</span>
               </a>
             </li>
-            <li>
-              <a href="?module=jenis">
-                <span class="sub-item">Jenis Barang</span>
-              </a>
-            </li>
+            
             <li>
               <a href="?module=satuan">
                 <span class="sub-item">Satuan</span>

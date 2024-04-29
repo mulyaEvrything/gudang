@@ -131,63 +131,12 @@ else {
         <!-- menampilkan informasi jumlah data jenis barang -->
         
         <!-- menampilkan informasi jumlah data satuan -->
-        <div class="col-sm-12 col-md-4">
-          <div class="card card-stats card-round">
-            <div class="card-body">
-              <div class="row align-items-center">
-                <div class="col-icon">
-                  <div class="icon-big text-center icon-info bubble-shadow-small">
-                    <i class="fas fa-folder-open"></i>
-                  </div>
-                </div>
-                <div class="col col-stats ml-3 ml-sm-0">
-                  <div class="numbers">
-                    <p class="card-category">Data Satuan</p>
-                    <?php
-                    // sql statement untuk menampilkan jumlah data pada tabel "tbl_satuan"
-                    $query = mysqli_query($mysqli, "SELECT * FROM tbl_satuan")
-                                                    or die('Ada kesalahan pada query jumlah data satuan : ' . mysqli_error($mysqli));
-                    // ambil jumlah data dari hasil query
-                    $jumlah_satuan = mysqli_num_rows($query);
-                    ?>
-                    <!-- tampilkan data -->
-                    <h4 class="card-title"><?php echo number_format($jumlah_satuan, 0, '', '.'); ?></h4>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        
         </div>
         <!-- menampilkan informasi jumlah data user -->
-        <div class="col-sm-12 col-md-4">
-          <div class="card card-stats card-round">
-            <div class="card-body">
-              <div class="row align-items-center">
-                <div class="col-icon">
-                  <div class="icon-big text-center icon-success bubble-shadow-small">
-                    <i class="fas fa-user-circle"></i>
-                  </div>
-                </div>
-                <div class="col col-stats ml-3 ml-sm-0">
-                  <div class="numbers">
-                    <p class="card-category">Data User</p>
-                    <?php
-                    // sql statement untuk menampilkan jumlah data pada tabel "tbl_user"
-                    $query = mysqli_query($mysqli, "SELECT * FROM tbl_user")
-                                                    or die('Ada kesalahan pada query jumlah data user : ' . mysqli_error($mysqli));
-                    // ambil jumlah data dari hasil query
-                    $jumlah_user = mysqli_num_rows($query);
-                    ?>
-                    <!-- tampilkan data -->
-                    <h4 class="card-title"><?php echo number_format($jumlah_user, 0, '', '.'); ?></h4>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <!--  -->
       </div>
-
+                              <!-- @mulya.evrythings -->
       <hr class="mt-1 pb-2">
     <?php } ?>
     
