@@ -59,7 +59,7 @@ else {
           <div class="card-body">
             <table class="table table-striped">
               <tr>
-                <td width="120">ID Barang</td>
+                <td width="120">Kode Barang</td>
                 <td width="10">:</td>
                 <td><?php echo $data['id_barang']; ?></td>
               </tr>
@@ -82,7 +82,7 @@ else {
               <tr>
                 <td>Harga Satuan</td>
                 <td>:</td>
-                <td><?php echo 'Rp ' . number_format($data['harga'],0,',','.');?></td>
+                <td><?php echo 'Rp ' . number_format($data['harga'],0,'.','.');?></td>
               </tr>
               <tr>
                 <td>Satuan</td>

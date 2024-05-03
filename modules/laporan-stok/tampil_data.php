@@ -197,7 +197,7 @@ else { ?>
                 <thead>
                   <tr>
                     <th class="text-center">No.</th>
-                    <th class="text-center">ID Barang</th>
+                    <th class="text-center">Kode Barang</th>
                     <th class="text-center">Nama Barang</th>
                     
                     <th class="text-center">Stok</th>

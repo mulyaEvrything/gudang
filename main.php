@@ -177,7 +177,7 @@ else { ?>
         <footer class="footer">
           <div class="container-fluid">
             <div class="copyright ml-auto">
-              Copyright &copy; 2023 - <a href="#" class="text-secondary">Code Null</a>.
+              Copyright &copy; 2024 - <a href="#" class="text-secondary">Mulya - Hamidah</a>.
             </div>
           </div>
         </footer>

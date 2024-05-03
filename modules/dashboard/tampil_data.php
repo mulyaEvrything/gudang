@@ -120,26 +120,7 @@ else {
           </div>
         </div>
       </div>
-    </div>
-
-    <?php
-    // mengecek hak akses
-    // jika hak akses bukan "Kepala Gudang" 
-    if ($_SESSION['hak_akses'] != 'Kepala Gudang') { ?>
-      <!-- tampilkan informasi jumlah data jenis barang, satuan, dan user -->
-      <div class="row">
-        <!-- menampilkan informasi jumlah data jenis barang -->
-        
-        <!-- menampilkan informasi jumlah data satuan -->
-        
-        </div>
-        <!-- menampilkan informasi jumlah data user -->
-        <!--  -->
-      </div>
-                              <!-- @mulya.evrythings -->
-      <hr class="mt-1 pb-2">
-    <?php } ?>
-    
+    </div>    
     <!-- menampilkan informasi stok barang yang telah mencapai batas minimum -->
     <div class="card">
       <div class="card-header">
@@ -153,7 +134,7 @@ else {
             <thead>
               <tr>
                 <th class="text-center">No.</th>
-                <th class="text-center">ID Barang</th>
+                <th class="text-center">Kode Barang</th>
                 <th class="text-center">Nama Barang</th>
                 <th class="text-center">Stok</th>
                 <th class="text-center">Satuan</th>

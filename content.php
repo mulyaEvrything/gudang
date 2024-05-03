@@ -91,6 +91,18 @@ else {
     // panggil file form entri barang keluar
     include "modules/barang-keluar/form_entri.php";
   }
+
+  // jika module yang dipilih "data_customer" dan hak akses bukan "Kepala Gudang"
+  elseif ($_GET['module'] == 'data_customer' && $_SESSION['hak_akses'] != 'Kepala Gudang') {
+    // panggil file tampil_data
+    include "modules/data-customer/tampil_data.php";
+  }
+  // jika module yang dipilih "form_entri_customer" dan hak akses bukan "Kepala Gudang"
+  elseif ($_GET['module'] == 'form_entri_customer' && $_SESSION['hak_akses'] != 'Kepala Gudang') {
+    // panggil file form_entri_customer
+    include "modules/data-customer/form_entri.php";
+  }
+
   // jika module yang dipilih "laporan_stok"
   elseif ($_GET['module'] == 'laporan_stok') {
     // panggil file tampil data laporan stok

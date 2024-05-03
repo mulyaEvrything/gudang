@@ -54,7 +54,7 @@ else {
           <div class="row">
             <div class="col-md-7">
               <div class="form-group">
-                <label>ID Barang <span class="text-danger">*</span></label>
+                <label>Kode Barang <span class="text-danger">*</span></label>
                 <input type="text" name="id_barang" class="form-control" value="<?php echo $data['id_barang']; ?>" readonly>
               </div>
 
@@ -66,7 +66,7 @@ else {
 
               <div class="form-group">
                 <label>Harga Satuan <span class="text-danger">*</span></label>
-                <input type="text" name="harga_satuan" class="form-control" autocomplete="off" onKeyPress="return goodchars(event,'0123456789',this)" value="<?php echo $data['harga']; ?>" required>
+                <input type="text" id="myInput" name="harga_satuan" class="form-control" autocomplete="off" onKeyPress="return goodchars(event,'0123456789',this)" value="<?php echo $data['harga']; ?>" required>
                 <div class="invalid-feedback">Harga satuan tidak boleh kosong.</div>
               </div>
 
@@ -182,6 +182,22 @@ else {
           reader.readAsDataURL(fileInput.files[0]);
         }
       });
+    });
+    // Format desimal untuk kolom harga satuan
+    const input = document.getElementById('myInput');
+
+    input.addEventListener('input', () => {
+      const value = input.value.replace(/[.]/g, ''); // remove existing periods
+      const formattedValue = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      input.value = formattedValue;
+    });
+
+    // When the form is submitted, send the correct value to the server
+    const form = document.querySelector('form');
+    form.addEventListener('submit', (event) => {
+      const input = document.getElementById('myInput');
+      const value = input.value.replace(/[.]/g, ''); // remove periods before sending to server
+      input.value = value;
     });
   </script>
 <?php } ?>
