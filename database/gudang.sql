@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 29, 2024 at 07:17 AM
+-- Generation Time: May 04, 2024 at 08:25 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -52,7 +52,8 @@ INSERT INTO `tbl_barang` (`id_barang`, `nama_barang`, `stok_minimum`, `stok`, `s
 ('B0008', 'Repsol ATF 3', 10, 0, 2, 6900000, NULL),
 ('B0009', 'Grease EPI NLGI 2', 5, 0, 2, 10500000, NULL),
 ('B0010', 'Repsol Giant 1020 SAE 10W CF4/SG', 10, 0, 2, 5500000, NULL),
-('B0011', 'Repsol Giant 1020 SAE 30W CF/SF', 10, 0, 2, 5750000, NULL);
+('B0011', 'Repsol Giant 1020 SAE 30W CF/SF', 10, 0, 2, 5750001, NULL),
+('B0012', 'Ahai', 2, 0, 4, 5000000, NULL);
 
 -- --------------------------------------------------------
 
@@ -129,8 +130,15 @@ CREATE TABLE `tbl_customer` (
   `alamat` varchar(50) NOT NULL,
   `kontak` varchar(25) DEFAULT NULL,
   `no_tlp` varchar(15) DEFAULT NULL,
-  `site` varchar(50) DEFAULT NULL
+  `sites` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_customer`
+--
+
+INSERT INTO `tbl_customer` (`id_customer`, `nama_perusahaan`, `alamat`, `kontak`, `no_tlp`, `sites`) VALUES
+(2, 'PT. Malindo Jaya Abadi', 'Jl. Banjarmasin berjaya selalu damai abadi', 'Mamat', '085927795806', 'Pekapuran');
 
 -- --------------------------------------------------------
 
@@ -140,7 +148,7 @@ CREATE TABLE `tbl_customer` (
 
 CREATE TABLE `tbl_detail_barang_keluar` (
   `id_keluar` varchar(50) NOT NULL,
-  `id_barang` varchar(5) NOT NULL,
+  `id_barang` varchar(5) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `jumlah` int(11) NOT NULL,
   `harga` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -153,7 +161,7 @@ CREATE TABLE `tbl_detail_barang_keluar` (
 
 CREATE TABLE `tbl_detail_barang_masuk` (
   `id_masuk` varchar(50) NOT NULL,
-  `id_barang` varchar(5) NOT NULL,
+  `id_barang` varchar(5) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `jumlah` int(11) NOT NULL,
   `harga` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -200,7 +208,8 @@ CREATE TABLE `tbl_user` (
 
 INSERT INTO `tbl_user` (`id_user`, `nama_user`, `username`, `password`, `hak_akses`) VALUES
 (4, 'Developer', 'adminlsa', '$2y$12$/k/WZ9/UmH1BmvwZR1HkcudK5ZsXALiMMggXqAEdlt80JvKUyyE5y', 'Administrator'),
-(5, 'Pimpinan', 'direktur', '$2y$12$jlyTwCTSY033KQojP0./IOuJn3llTCLyDkIR/LuEy4PnnL3XXci/.', 'Kepala Gudang');
+(5, 'Pimpinan', 'direktur', '$2y$12$jlyTwCTSY033KQojP0./IOuJn3llTCLyDkIR/LuEy4PnnL3XXci/.', 'Kepala Gudang'),
+(6, 'mulya', 'mulya', '$2y$12$988f7oycdcx4vw1sAwLu3eu.Wvay9gCD1KnsvZsvDCOV8ZBd/CIFi', 'Kepala Gudang');
 
 --
 -- Indexes for dumped tables
@@ -239,13 +248,17 @@ ALTER TABLE `tbl_customer`
 -- Indexes for table `tbl_detail_barang_keluar`
 --
 ALTER TABLE `tbl_detail_barang_keluar`
-  ADD PRIMARY KEY (`id_keluar`,`id_barang`);
+  ADD PRIMARY KEY (`id_keluar`,`id_barang`),
+  ADD KEY `id_barang` (`id_barang`);
 
 --
 -- Indexes for table `tbl_detail_barang_masuk`
 --
 ALTER TABLE `tbl_detail_barang_masuk`
-  ADD PRIMARY KEY (`id_masuk`,`id_barang`);
+  ADD PRIMARY KEY (`id_masuk`,`id_barang`),
+  ADD KEY `id_barang` (`id_barang`),
+  ADD KEY `id_barang_2` (`id_barang`),
+  ADD KEY `id_barang_3` (`id_barang`);
 
 --
 -- Indexes for table `tbl_satuan`
@@ -267,7 +280,7 @@ ALTER TABLE `tbl_user`
 -- AUTO_INCREMENT for table `tbl_customer`
 --
 ALTER TABLE `tbl_customer`
-  MODIFY `id_customer` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_customer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_satuan`
@@ -279,7 +292,7 @@ ALTER TABLE `tbl_satuan`
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
@@ -289,7 +302,20 @@ ALTER TABLE `tbl_user`
 -- Constraints for table `tbl_barang_keluar`
 --
 ALTER TABLE `tbl_barang_keluar`
-  ADD CONSTRAINT `tbl_barang_keluar_ibfk_1` FOREIGN KEY (`id_customer`) REFERENCES `tbl_customer` (`id_customer`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `tbl_barang_keluar_ibfk_1` FOREIGN KEY (`id_customer`) REFERENCES `tbl_customer` (`id_customer`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `tbl_barang_keluar_ibfk_2` FOREIGN KEY (`id_transaksi`) REFERENCES `tbl_barang_masuk` (`id_transaksi`);
+
+--
+-- Constraints for table `tbl_detail_barang_keluar`
+--
+ALTER TABLE `tbl_detail_barang_keluar`
+  ADD CONSTRAINT `tbl_detail_barang_keluar_ibfk_1` FOREIGN KEY (`id_barang`) REFERENCES `tbl_barang` (`id_barang`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tbl_detail_barang_masuk`
+--
+ALTER TABLE `tbl_detail_barang_masuk`
+  ADD CONSTRAINT `tbl_detail_barang_masuk_ibfk_1` FOREIGN KEY (`id_barang`) REFERENCES `tbl_barang` (`id_barang`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
