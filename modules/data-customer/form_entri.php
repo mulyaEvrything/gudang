@@ -51,14 +51,12 @@ else { ?>
               </div>
               <div class="form-group">
                 <label>Site (Jika ada)<span class="text-danger">*</span></label>
-                <input type="text" name="site" class="form-control" autocomplete="off" required>
-                <div class="invalid-feedback">Site tidak boleh kosong.</div>
+                <input type="text" name="site" class="form-control" autocomplete="off">
               </div>
 
               <div class="form-group">
                 <label>Kontak (Jika ada)<span class="text-danger">*</span></label>
-                <input type="text" name="kontak" class="form-control" autocomplete="off" required>
-                <div class="invalid-feedback">Nama perusahaan tidak boleh kosong.</div>
+                <input type="text" name="kontak" class="form-control" autocomplete="off">
               </div>
               
               <div class="form-group">

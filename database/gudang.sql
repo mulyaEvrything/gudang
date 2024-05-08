@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 04, 2024 at 08:25 AM
+-- Generation Time: May 08, 2024 at 08:13 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -52,8 +52,7 @@ INSERT INTO `tbl_barang` (`id_barang`, `nama_barang`, `stok_minimum`, `stok`, `s
 ('B0008', 'Repsol ATF 3', 10, 0, 2, 6900000, NULL),
 ('B0009', 'Grease EPI NLGI 2', 5, 0, 2, 10500000, NULL),
 ('B0010', 'Repsol Giant 1020 SAE 10W CF4/SG', 10, 0, 2, 5500000, NULL),
-('B0011', 'Repsol Giant 1020 SAE 30W CF/SF', 10, 0, 2, 5750001, NULL),
-('B0012', 'Ahai', 2, 0, 4, 5000000, NULL);
+('B0011', 'Repsol Giant 1020 SAE 30W CF/SF', 10, 0, 2, 5750001, NULL);
 
 -- --------------------------------------------------------
 
@@ -71,24 +70,6 @@ CREATE TABLE `tbl_barang_keluar` (
   `cetak_surat_jln` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
---
--- Triggers `tbl_barang_keluar`
---
-DELIMITER $$
-CREATE TRIGGER `hapus_stok_keluar` BEFORE DELETE ON `tbl_barang_keluar` FOR EACH ROW BEGIN
-UPDATE tbl_barang SET stok=stok+OLD.jumlah
-WHERE id_barang=OLD.barang;
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `stok_keluar` AFTER INSERT ON `tbl_barang_keluar` FOR EACH ROW BEGIN
-UPDATE tbl_barang SET stok=stok-NEW.jumlah
-WHERE id_barang=NEW.barang;
-END
-$$
-DELIMITER ;
-
 -- --------------------------------------------------------
 
 --
@@ -99,24 +80,6 @@ CREATE TABLE `tbl_barang_masuk` (
   `id_transaksi` varchar(50) NOT NULL,
   `tanggal` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Triggers `tbl_barang_masuk`
---
-DELIMITER $$
-CREATE TRIGGER `hapus_stok_masuk` BEFORE DELETE ON `tbl_barang_masuk` FOR EACH ROW BEGIN
-UPDATE tbl_barang SET stok=stok-OLD.jumlah
-WHERE id_barang=OLD.barang;
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `stok_masuk` AFTER INSERT ON `tbl_barang_masuk` FOR EACH ROW BEGIN
-UPDATE tbl_barang SET stok=stok+NEW.jumlah
-WHERE id_barang=NEW.barang;
-END
-$$
-DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -138,7 +101,9 @@ CREATE TABLE `tbl_customer` (
 --
 
 INSERT INTO `tbl_customer` (`id_customer`, `nama_perusahaan`, `alamat`, `kontak`, `no_tlp`, `sites`) VALUES
-(2, 'PT. Malindo Jaya Abadi', 'Jl. Banjarmasin berjaya selalu damai abadi', 'Mamat', '085927795806', 'Pekapuran');
+(2, 'PT. Malindo Jaya Abadi', 'Jl. Banjarmasin berjaya selalu damai abadi', 'Mamat', '085927795806', 'Pekapuran'),
+(4, 'jln mahligai indah', 'akdhakjhdkajdh', 'Udin', '', 'Mantuil'),
+(5, 'PT. Taspen Persero', 'Jl Banjarbaru', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -209,7 +174,8 @@ CREATE TABLE `tbl_user` (
 INSERT INTO `tbl_user` (`id_user`, `nama_user`, `username`, `password`, `hak_akses`) VALUES
 (4, 'Developer', 'adminlsa', '$2y$12$/k/WZ9/UmH1BmvwZR1HkcudK5ZsXALiMMggXqAEdlt80JvKUyyE5y', 'Administrator'),
 (5, 'Pimpinan', 'direktur', '$2y$12$jlyTwCTSY033KQojP0./IOuJn3llTCLyDkIR/LuEy4PnnL3XXci/.', 'Kepala Gudang'),
-(6, 'mulya', 'mulya', '$2y$12$988f7oycdcx4vw1sAwLu3eu.Wvay9gCD1KnsvZsvDCOV8ZBd/CIFi', 'Kepala Gudang');
+(6, 'mulya', 'mulya', '$2y$12$988f7oycdcx4vw1sAwLu3eu.Wvay9gCD1KnsvZsvDCOV8ZBd/CIFi', 'Kepala Gudang'),
+(7, 'midah', 'midah', '$2y$12$TwyHxVGxPRIYhTNSQnXnOe4itehz8yJxqfX0xMRLMnEVauXF/JfdW', 'Admin Gudang');
 
 --
 -- Indexes for dumped tables
@@ -280,7 +246,7 @@ ALTER TABLE `tbl_user`
 -- AUTO_INCREMENT for table `tbl_customer`
 --
 ALTER TABLE `tbl_customer`
-  MODIFY `id_customer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_customer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_satuan`
@@ -292,7 +258,7 @@ ALTER TABLE `tbl_satuan`
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
