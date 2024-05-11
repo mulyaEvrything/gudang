@@ -103,6 +103,30 @@ else {
     include "modules/data-customer/form_entri.php";
   }
 
+  // jika module yang dipilih "tampil_detail_barang_masuk" dan hak akses bukan "Kepala Gudang"
+  elseif ($_GET['module'] == 'tampil_detail_barang_masuk' && $_SESSION['hak_akses'] != 'Kepala Gudang') {
+    // panggil file form_entri_customer
+    include "modules/barang-masuk/tampil_detail.php";
+  }
+
+  // jika module yang dipilih "ubah_barang_masuk" dan hak akses bukan "Kepala Gudang"
+  elseif ($_GET['module'] == 'ubah_barang_masuk' && $_SESSION['hak_akses'] != 'Kepala Gudang') {
+    // panggil file form_entri_customer
+    include "modules/barang-masuk/form_ubah.php";
+  }
+
+  // jika module yang dipilih "tampil_detail_barang_keluar" dan hak akses bukan "Kepala Gudang"
+  elseif ($_GET['module'] == 'tampil_detail_barang_keluar' && $_SESSION['hak_akses'] != 'Kepala Gudang') {
+    // panggil file form_entri_customer
+    include "modules/barang-keluar/tampil_detail.php";
+  }
+
+  // jika module yang dipilih "ubah_barang_keluar" dan hak akses bukan "Kepala Gudang"
+  elseif ($_GET['module'] == 'ubah_barang_keluar' && $_SESSION['hak_akses'] != 'Kepala Gudang') {
+    // panggil file form_entri_customer
+    include "modules/barang-keluar/form_ubah.php";
+  }
+
   // jika module yang dipilih "laporan_stok"
   elseif ($_GET['module'] == 'laporan_stok') {
     // panggil file tampil data laporan stok

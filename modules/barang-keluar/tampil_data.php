@@ -102,13 +102,13 @@ else {
 
                   <td width="70" class="text-center">
                     <div>
-                      <!-- tombol hapus data -->
-                      <a href="#" class="btn btn-icon btn-round btn-primary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Detail">
+                      <!-- tombol detail data -->
+                      <a href="?module=tampil_detail_barang_keluar" class="btn btn-icon btn-round btn-primary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Detail">
                         <i class="fas fa-clone fa-sm"></i>
                       </a>
 
                       <!-- tombol ubah data -->
-                      <a href="#" class="btn btn-icon btn-round btn-secondary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Ubah">
+                      <a href="?module=ubah_barang_keluar" class="btn btn-icon btn-round btn-secondary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Ubah">
                         <i class="fas fa-pencil-alt fa-sm"></i>
                       </a>
 

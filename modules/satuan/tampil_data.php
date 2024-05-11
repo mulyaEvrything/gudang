@@ -95,9 +95,9 @@ else {
             <span class="btn-label"><i class="fa fa-plus mr-2"></i></span> Entri Data
           </a>
           <!-- tombol export data -->
-          <a href="modules/satuan/export.php" class="btn btn-success btn-round">
+          <!-- <a href="modules/satuan/export.php" class="btn btn-success btn-round">
             <span class="btn-label"><i class="fa fa-file-excel mr-2"></i></span> Export
-          </a>
+          </a> -->
         </div>
       </div>
     </div>
@@ -117,7 +117,7 @@ else {
               <tr>
                 <th class="text-center">No.</th>
                 <th class="text-center">Satuan</th>
-                <th class="text-center">Aksi</th>
+                <!-- <th class="text-center">Aksi</th> -->
               </tr>
             </thead>
             <tbody>
@@ -132,19 +132,19 @@ else {
                 <!-- tampilkan data -->
                 <tr>
                   <td width="30" class="text-center"><?php echo $no++; ?></td>
-                  <td width="300"><?php echo $data['nama_satuan']; ?></td>
-                  <td width="70" class="text-center">
-                    <div>
+                  <td width="300" class="text-center"><?php echo $data['nama_satuan']; ?></td>
+                  <!-- <td width="70" class="text-center"> -->
+                    <!-- <div> -->
                       <!-- tombol ubah data -->
-                      <a href="?module=form_ubah_satuan&id=<?php echo $data['id_satuan']; ?>" class="btn btn-icon btn-round btn-secondary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Ubah">
+                      <!-- <a href="?module=form_ubah_satuan&id=<?php echo $data['id_satuan']; ?>" class="btn btn-icon btn-round btn-secondary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Ubah">
                         <i class="fas fa-pencil-alt fa-sm"></i>
-                      </a>
+                      </a> -->
                       <!-- tombol hapus data -->
-                      <a href="modules/satuan/proses_hapus.php?id=<?php echo $data['id_satuan']; ?>" onclick="return confirm('Anda yakin ingin menghapus data satuan <?php echo $data['nama_satuan']; ?>?')" class="btn btn-icon btn-round btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
+                      <!-- <a href="modules/satuan/proses_hapus.php?id=<?php echo $data['id_satuan']; ?>" onclick="return confirm('Anda yakin ingin menghapus data satuan <?php echo $data['nama_satuan']; ?>?')" class="btn btn-icon btn-round btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
                         <i class="fas fa-trash fa-sm"></i>
-                      </a>
-                    </div>
-                  </td>
+                      </a> -->
+                    <!-- </div>
+                  </td> -->
                 </tr>
               <?php } ?>
             </tbody>
