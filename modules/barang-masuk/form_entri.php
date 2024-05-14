@@ -42,7 +42,7 @@ else { ?>
                 <?php
                 // membuat "id_transaksi"
                 // sql statement untuk menampilkan 7 digit terakhir dari "id_transaksi" pada tabel "tbl_barang_masuk"
-                $query = mysqli_query($mysqli, "SELECT RIGHT(id_transaksi,7) as nomor FROM tbl_barang_masuk ORDER BY id_transaksi DESC LIMIT 1")
+                $query = mysqli_query($mysqli, "SELECT LEFT(id_transaksi,5) as nomor FROM tbl_barang_masuk ORDER BY id_transaksi DESC LIMIT 1")
                                                 or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
                 // ambil jumlah baris data hasil query
                 $rows = mysqli_num_rows($query);
@@ -60,9 +60,8 @@ else { ?>
                   // nomor urut "id_transaksi" = 1
                   $nomor_urut = 1;
                 }
-
                 // menambahkan karakter "TM-" diawal dan karakter "0" disebelah kiri nomor urut
-                $id_transaksi = "TM-" . str_pad($nomor_urut, 7, "0", STR_PAD_LEFT);
+                $id_transaksi =  str_pad($nomor_urut, 5, "0", STR_PAD_LEFT) . "/LSA-AEK/II/24" ;
                 ?>
                 <label>ID Transaksi <span class="text-danger">*</span></label>
                 <!-- tampilkan "id_transaksi" -->
@@ -80,51 +79,93 @@ else { ?>
           </div>
 
           <hr class="mt-3 mb-4">
-          
-          <div class="row">
-            <div class="col-md-7">
-              <div class="form-group">
-                <label>Barang <span class="text-danger">*</span></label>
-                <select id="data_barang" name="barang" class="form-control chosen-select" autocomplete="off" required>
-                  <option selected disabled value="">-- Pilih --</option>
-                  <?php
                   
-                  // sql statement untuk menampilkan data dari tabel "tbl_barang"
-                  $query_barang = mysqli_query($mysqli, "SELECT id_barang, nama_barang FROM tbl_barang ORDER BY id_barang ASC")
-                                                        or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
-                  // ambil data hasil query
-                  while ($data_barang = mysqli_fetch_assoc($query_barang)) {
-                    // tampilkan data
-                    echo "<option value='$data_barang[id_barang]'>$data_barang[id_barang] - $data_barang[nama_barang]</option>";
-                  }
-                  ?>
-                </select>
-                <div class="invalid-feedback">Barang tidak boleh kosong.</div>
-              </div>
-
+          <div class="row">
+            <div class="col-md-12">
               <div class="form-group">
-                <label>Stok <span class="text-danger">*</span></label>
-                <div class="input-group">
-                  <input type="text" id="data_stok" name="stok" class="form-control" readonly>
-                  <div id="data_satuan" class="input-group-append"></div>
-                </div>
-              </div>
-            </div>
+                <table width="100%" >
+                  <!-- label -->
+                  <tr>
+                    <td>
+                      <label>Barang <span class="text-danger">*</span></label>
+                    </td>
+                    <td width="100" style="padding-left: 50px;">
+                      <label>Jumlah Masuk <span class="text-danger">*</span></label>
+                    </td>
+                    <td width="200" style="padding-left: 50px;">
+                      <label>Harga Satuan<span class="text-danger">*</span></label>
+                    </td>
+                    <td width="200" style="padding-left: 50px;">
+                      <label>Total Harga<span class="text-danger">*</span></label>
+                    </td>
+                  </tr>
+                  <!-- form input -->
+                  <tr>
+                    <td width="365">
+                      <select id="data_barang" name="barang" class="form-control chosen-select" autocomplete="off" required>
+                        <option selected disabled value="">-- Pilih --</option>
+                        <?php
+                        // sql statement untuk menampilkan data dari tabel "tbl_barang"
+                        $query_barang = mysqli_query($mysqli, "SELECT id_barang, nama_barang FROM tbl_barang ORDER BY id_barang ASC")
+                                                              or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
+                        // ambil data hasil query
+                        while ($data_barang = mysqli_fetch_assoc($query_barang)) {
+                          // tampilkan data
+                          echo "<option value='$data_barang[id_barang]'>$data_barang[id_barang] - $data_barang[nama_barang]</option>";
+                        }
+                        ?>
+                      </select>
+                      <div class="invalid-feedback">Barang tidak boleh kosong.</div>
+                    </td>
 
-            <div class="col-md-5 ml-auto">
-              <div class="form-group">
-                <label>Jumlah Masuk <span class="text-danger">*</span></label>
-                <input type="text" id="jumlah" name="jumlah" class="form-control" autocomplete="off" onKeyPress="return goodchars(event,'0123456789',this)" required>
-                <div class="invalid-feedback">Jumlah masuk tidak boleh kosong.</div>
-              </div>
+                    <td width="100" style="padding-left: 50px;">
+                      <input type="text" id="jumlah" name="jumlah" class="form-control" autocomplete="off" onKeyPress="return goodchars(event,'0123456789',this)" required>
+                      <div class="invalid-feedback">Jumlah masuk tidak boleh kosong.</div>
+                    </td>
 
-              <div class="form-group">
-                <label>Total Stok <span class="text-danger">*</span></label>
-                <input type="text" id="total" name="total" class="form-control" readonly>
+                    <td width="200" style="padding-left: 50px;">
+                      <input type="text" id="harga" name="harga" class="form-control" readonly>
+                    </td>
+                    
+                    <td width="200" style="padding-left: 50px;">
+                      <input type="text" id="total" name="total" class="form-control" readonly>
+                    </td>   
+                  </tr>
+                </table>
               </div>
             </div>
           </div>
+          <!-- tombol tambah dan hapus -->
+          <div class="row">
+            <div class="col-md-12">
+              <table width="100%">
+                <tr>
+                  <td align="center">
+                    <div class="form-group">
+                      <input type="" class="btn btn-icon btn-round btn-primary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Add" value="+">
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
         </div>
+
+          <div class="table-responsive">
+            <!-- tabel untuk menampilkan data dari database -->
+            <table class="display table table-bordered table-striped table-hover">
+              <thead>
+                <tr>
+                  <th class="text-center">No.</th>
+                  <th class="text-center">Nama Barang</th>
+                  <th class="text-center">Qty</th>
+                  <th class="text-center">Harga</th>
+                  <th class="text-center">Aksi</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+        
         <div class="card-action">
           <!-- tombol simpan data -->
           <input type="submit" name="simpan" value="Simpan" class="btn btn-secondary btn-round pl-4 pr-4 mr-2">
@@ -150,13 +191,13 @@ else { ?>
           success: function(result) {                   // ketika proses get data selesai
             // tampilkan data
             $('#data_stok').val(result.stok);
+            $('#harga').val(result.harga);
             $('#data_satuan').html('<span class="input-group-text">' + result.nama_satuan + '</span>');
             // set focus
             $('#jumlah').focus();
           }
         });
       });
-
       // menghitung total stok
       $('#jumlah').keyup(function() {
         // mengambil data dari form entri

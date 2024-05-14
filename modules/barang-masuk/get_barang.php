@@ -10,8 +10,10 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH
     // ambil data GET dari ajax
     $id_barang = $_GET['id_barang'];
 
-    // sql statement untuk menampilkan data dari tabel "tbl_barang" dan tabel "tbl_satuan" berdasarkan "id_barang"
-    $query = mysqli_query($mysqli, "SELECT a.stok, b.nama_satuan FROM tbl_barang as a INNER JOIN tbl_satuan as b ON a.satuan=b.id_satuan 
+    // sql statement untuk menampilkan data dari tabel "tbl_barang" dan tabel "tbl_satuan" dan "tbl_detail_barang_masuk" berdasarkan "id_barang"
+    $query = mysqli_query($mysqli, "SELECT a.stok, b.nama_satuan, c.harga FROM tbl_barang as a INNER JOIN tbl_satuan as b INNER JOIN
+                                    tbl_detail_barang_masuk as c 
+                                    ON a.satuan=b.id_satuan AND c.harga=a.harga
                                     WHERE id_barang='$id_barang'")
                                     or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
     // ambil data hasil query
