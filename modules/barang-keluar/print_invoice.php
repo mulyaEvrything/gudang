@@ -119,20 +119,7 @@ else {
         
       </thead>
       <tbody>
-        <?php
-        // variabel untuk nomor urut tabel 
-        $no = 1;
-        $jumlah = 0;
-        // sql statement untuk menampilkan data dari tabel "tbl_jenis"
-        $query = mysqli_query($mysqli, "SELECT *
-        FROM tbl_barang_keluar INNER JOIN tbl_barang ON tbl_barang.id_barang = tbl_barang_keluar.barang
-        INNER JOIN tbl_satuan ON tbl_satuan.id_satuan = tbl_barang.satuan
-        WHERE tbl_barang_keluar.tanggal = (SELECT MAX(tanggal) FROM tbl_barang_keluar)")
-                                        or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
-        // ambil data hasil query
-        while ($data = mysqli_fetch_assoc($query)) { 
-          $jumlah += $data['jumlah'];
-          ?>
+       
           <!-- tampilkan data -->
           <tr>
             <td width="70" align="center"></td>
@@ -142,7 +129,7 @@ else {
             <td width="500"></td>
             <td width="500"></td>
           </tr>
-        <?php } ?>
+      
         
       </tbody>
       <!-- Terbilang, sub total, ppn dan total -->

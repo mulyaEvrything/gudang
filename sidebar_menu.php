@@ -370,11 +370,6 @@ else {
               </a>
             </li>
             <li>
-              <a href="?module=jenis">
-                <span class="sub-item">Jenis Barang</span>
-              </a>
-            </li>
-            <li>
               <a href="?module=satuan">
                 <span class="sub-item">Satuan</span>
               </a>
@@ -485,6 +480,26 @@ else {
         </div>
       </li>
     <?php
+    }
+
+     // jika menu data customer, menu customer aktif
+     if ($_GET['module'] == 'data_customer' || $_GET['module'] == 'form_entri_customer') { ?>
+      <li class="nav-item active">
+        <a href="?module=data_customer">
+          <i class="fas fa-clipboard"></i>
+          <p>Data Customer</p>
+        </a>
+      </li>
+      <?php
+      }
+    else {?>
+      <li class="nav-item">
+        <a href="?module=data_customer">
+          <i class="fas fa-clipboard"></i>
+          <p>Data Customer</p>
+        </a>
+      </li>
+    <?php 
     }
 
     // jika menu barang masuk (tampil data / form entri) dipilih, menu barang masuk aktif
