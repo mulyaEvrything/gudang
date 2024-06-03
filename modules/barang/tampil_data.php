@@ -102,7 +102,7 @@ else {
                 <th class="text-center">Nama Barang</th>
                 <th class="text-center">Harga Satuan</th>
                 <th class="text-center">Satuan</th>
-                <!-- <th class="text-center">Aksi</th> -->
+                <th class="text-center">Aksi</th>
               </tr>
             </thead>
             <tbody>
@@ -124,12 +124,12 @@ else {
                   <td width="200"><?php echo $data['nama_barang']; ?></td>
                   <td width="80" class="text-right"><?php echo 'Rp ' . number_format($data['harga'],0,',','.');?></td>
                   <td width="100" class="text-center"><?php echo $data['nama_satuan']; ?></td>
-                  <!-- <td width="100" class="text-center"> -->
+                  <td width="100" class="text-center">
                     <div>
                       <!-- tombol detail data -->
-                      <!-- <a href="?module=tampil_detail_barang&id=<?php echo $data['id_barang']; ?>" class="btn btn-icon btn-round btn-primary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Detail">
+                      <a href="?module=tampil_detail_barang&id=<?php echo $data['id_barang']; ?>" class="btn btn-icon btn-round btn-primary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Detail">
                         <i class="fas fa-clone fa-sm"></i>
-                      </a> -->
+                      </a>
                       <!-- tombol ubah data -->
                       <!-- <a href="?module=form_ubah_barang&id=<?php echo $data['id_barang']; ?>" class="btn btn-icon btn-round btn-secondary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Ubah">
                         <i class="fas fa-pencil-alt fa-sm"></i>

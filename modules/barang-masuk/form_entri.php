@@ -34,7 +34,7 @@ else { ?>
         <div class="card-title">Entri Data Barang Masuk</div>
       </div>
       <!-- form entri data -->
-      <form action="modules/barang-masuk/proses_entri.php" method="post" class="needs-validation" novalidate>
+      <form action="modules/barang-masuk/proses_entri.php" id="multipleInsertForm" method="post" class="needs-validation" novalidate>
         <div class="card-body">
           <div class="row">
             <div class="col-md-7">
@@ -124,6 +124,16 @@ else { ?>
                     </td>
 
                     <td width="200" style="padding-left: 50px;">
+                        <?php
+                        // sql statement untuk menampilkan data dari tabel "tbl_barang"
+                        $query_har = mysqli_query($mysqli, "SELECT harga FROM tbl_barang WHERE nama_barang")
+                                                              or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
+                        // ambil data hasil query
+                        while ($data_barang = mysqli_fetch_assoc($query_barang)) {
+                          // tampilkan data
+                          echo "<option value='$data_barang[id_barang]'>$data_barang[id_barang] - $data_barang[nama_barang]</option>";
+                        }
+                        ?>
                       <input type="text" id="harga" name="harga" class="form-control" readonly>
                     </td>
                     
@@ -142,7 +152,7 @@ else { ?>
                 <tr>
                   <td align="center">
                     <div class="form-group">
-                      <input type="" class="btn btn-icon btn-round btn-primary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Add" value="+">
+                      <button type="button" id="addRow" class="btn btn-icon btn-round btn-primary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Add">+</button>
                     </div>
                   </td>
                 </tr>
@@ -168,7 +178,7 @@ else { ?>
         
         <div class="card-action">
           <!-- tombol simpan data -->
-          <input type="submit" name="simpan" value="Simpan" class="btn btn-secondary btn-round pl-4 pr-4 mr-2">
+          <button type="submit" name="simpan" class="btn btn-secondary btn-round pl-4 pr-4 mr-2">Simpan</button>
           <!-- tombol kembali ke halaman data barang masuk -->
           <a href="?module=barang_masuk" class="btn btn-default btn-round pl-4 pr-4">Batal</a>
         </div>
@@ -192,21 +202,20 @@ else { ?>
             // tampilkan data
             $('#data_stok').val(result.stok);
             $('#harga').val(result.harga);
-            $('#data_satuan').html('<span class="input-group-text">' + result.nama_satuan + '</span>');
             // set focus
             $('#jumlah').focus();
           }
         });
       });
-      // menghitung total stok
+      // menghitung total harga
       $('#jumlah').keyup(function() {
         // mengambil data dari form entri
-        var stok = $('#data_stok').val();
+        var harga = $('#harga').val();
         var jumlah = $('#jumlah').val();
 
         // mengecek input data
         // jika data barang belum diisi
-        if (stok == "") {
+        if (harga == "") {
           // tampilkan pesan info
           $('#pesan').html('<div class="alert alert-notify alert-info alert-dismissible fade show" role="alert"><span data-notify="icon" class="fas fa-info"></span><span data-notify="title" class="text-info">Info!</span> <span data-notify="message">Silahkan isi data barang terlebih dahulu.</span><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
           // reset input "jumlah"
@@ -230,11 +239,11 @@ else { ?>
         }
         // jika "jumlah" sudah diisi
         else {
-          // hitung total stok
-          var total_stok = eval(stok) + eval(jumlah);
+          // hitung total harga
+          var total_stok = eval(harga) * eval(jumlah);
         }
 
-        // tampilkan total stok
+        // tampilkan total harga
         $('#total').val(total_stok);
       });
     });

@@ -207,6 +207,7 @@ else { ?>
           success: function(result) {                   // ketika proses get data selesai
             // tampilkan data
             $('#data_stok').val(result.stok);
+            $('#harga').val(result.harga);
             $('#data_satuan').html('<span class="input-group-text">' + result.nama_satuan + '</span>');
             // set focus
             $('#jumlah').focus();
@@ -257,11 +258,53 @@ else { ?>
         else {
           // hitung sisa stok
           var sisa_stok = eval(stok) - eval(jumlah);
+          
         }
-
         // tampilkan sisa stok
         $('#sisa').val(sisa_stok);
+      
       });
     });
+
+    // menghitung total harga
+    $('#jumlah').keyup(function() {
+        // mengambil data dari form entri
+        var harga = $('#harga').val();
+        var jumlah = $('#jumlah').val();
+
+        // mengecek input data
+        // jika data barang belum diisi
+        if (harga == "") {
+          // tampilkan pesan info
+          $('#pesan').html('<div class="alert alert-notify alert-info alert-dismissible fade show" role="alert"><span data-notify="icon" class="fas fa-info"></span><span data-notify="title" class="text-info">Info!</span> <span data-notify="message">Silahkan isi data barang terlebih dahulu.</span><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+          // reset input "jumlah"
+          $('#jumlah').val('');
+          // total stok kosong
+          var total_stok = "";
+        }
+        // jika "jumlah" belum diisi
+        else if (jumlah == "") {
+          // total stok kosong
+          var total_stok = "";
+        }
+        // jika "jumlah" diisi 0
+        else if (jumlah == 0) {
+          // tampilkan pesan peringatan
+          $('#pesan').html('<div class="alert alert-notify alert-warning alert-dismissible fade show" role="alert"><span data-notify="icon" class="fas fa-exclamation"></span><span data-notify="title" class="text-warning">Peringatan!</span> <span data-notify="message">Jumlah masuk tidak boleh 0 (nol).</span><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+          // reset input "jumlah"
+          $('#jumlah').val('');
+          // total stok kosong
+          var total_stok = "";
+        }
+        // jika "jumlah" sudah diisi
+        else {
+          // hitung total harga
+          var total_stok = eval(harga) * eval(jumlah);
+        }
+
+        // tampilkan total harga
+        $('#total').val(total_stok);
+      });
+    
   </script>
 <?php } ?>
