@@ -25,14 +25,13 @@ else {
     $tanggal_masuk = date('Y-m-d', strtotime($tanggal));
 
     // sql statement untuk insert data ke tabel "tbl_barang_masuk"
-    $insert = mysqli_query($mysqli, "INSERT INTO tbl_barang_masuk(id_transaksi, tanggal) 
-                                     VALUES('$id_transaksi', '$tanggal_masuk')")
+    $insert = mysqli_query($mysqli, "UPDATE tbl_barang_masuk SET tanggal='$tanggal_masuk' WHERE id_transaksi='$id_transaksi'")
                                      or die('Ada kesalahan pada query insert : ' . mysqli_error($mysqli));
     // cek query
     // jika proses insert berhasil
     if ($insert) {
       // alihkan ke halaman barang masuk dan tampilkan pesan berhasil simpan data
-      header('location: ../../main.php?module=detail_barang_masuk&id='.$id_transaksi.'&pesan=1');
+      header('location: ../../main.php?module=barang_masuk&pesan=2');
     }
   }
 }

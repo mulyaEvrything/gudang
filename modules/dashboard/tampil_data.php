@@ -145,10 +145,18 @@ else {
               // variabel untuk nomor urut tabel
               $no = 1;
               // sql statement untuk menampilkan data dari tabel "tbl_barang", tabel "tbl_jenis", dan tabel "tbl_satuan" berdasarkan "stok"
-              $query = mysqli_query($mysqli, "SELECT a.id_barang, a.nama_barang, a.stok_minimum, a.stok, a.satuan, c.nama_satuan
-                                              FROM tbl_barang as a INNER JOIN tbl_satuan as c 
-                                              ON a.satuan=c.id_satuan 
-                                              WHERE a.stok<=a.stok_minimum ORDER BY a.id_barang ASC")
+              $tanggal = date('Y-m-d');
+              $query = mysqli_query($mysqli, "SELECT *,
+                                      IFNULL((SELECT SUM(jumlah) FROM tbl_detail_barang_masuk dbm, tbl_barang_masuk bm WHERE dbm.id_barang = b.id_barang
+                                            AND dbm.id_masuk = bm.id_transaksi AND bm.tanggal <= '$tanggal'),0) as jlh_masuk,
+                                      IFNULL((SELECT SUM(jumlah) FROM tbl_detail_barang_keluar dbk, tbl_barang_keluar bk WHERE dbk.id_barang = b.id_barang
+                                            AND dbk.id_keluar = bk.id_transaksi AND bk.tanggal <= '$tanggal'),0) as jlh_keluar,
+                                      (SELECT jlh_masuk - jlh_keluar) as stoknow
+                                      FROM tbl_barang b
+                                      LEFT JOIN tbl_satuan s ON s.id_satuan = b.satuan
+                                      WHERE (SELECT (IFNULL((SELECT SUM(jumlah) FROM tbl_detail_barang_masuk dbm, tbl_barang_masuk bm WHERE dbm.id_barang = b.id_barang
+                                            AND dbm.id_masuk = bm.id_transaksi AND bm.tanggal <= '$tanggal'),0)) - ( IFNULL((SELECT SUM(jumlah) FROM tbl_detail_barang_keluar dbk, tbl_barang_keluar bk WHERE dbk.id_barang = b.id_barang
+                                            AND dbk.id_keluar = bk.id_transaksi AND bk.tanggal <= '$tanggal'),0))) <= b.stok_minimum")
                                               or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
               // ambil data hasil query
               while ($data = mysqli_fetch_assoc($query)) { ?>
@@ -157,8 +165,7 @@ else {
                   <td width="50" class="text-center"><?php echo $no++; ?></td>
                   <td width="80" class="text-center"><?php echo $data['id_barang']; ?></td>
                   <td width="200"><?php echo $data['nama_barang']; ?></td>
-                  
-                  <td width="70" class="text-right"><span class="badge badge-warning"><?php echo $data['stok']; ?></span></td>
+                  <td width="70" class="text-right"><span class="badge badge-warning"><?php echo $data['stoknow']; ?></span></td>
                   <td width="70"><?php echo $data['nama_satuan']; ?></td>
                 </tr>
               <?php } ?>

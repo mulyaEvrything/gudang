@@ -37,7 +37,7 @@ else { ?>
       <form action="modules/barang-keluar/proses_entri.php" method="post" class="needs-validation" novalidate>
         <div class="card-body">
           <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-6">
               <div class="form-group">
                 <?php
                 // membuat "id_transaksi"
@@ -70,117 +70,53 @@ else { ?>
               </div>
             </div>
 
-            <div class="col-md-5 ml-auto">
+            <div class="col-md-6 ml-auto">
               <div class="form-group">
-                <label>Tanggal <span class="text-danger">*</span></label>
+                <label>Tanggal Nota<span class="text-danger">*</span></label>
                 <input type="text" name="tanggal" class="form-control date-picker" autocomplete="off" value="<?php echo date("d-m-Y"); ?>" required>
                 <div class="invalid-feedback">Tanggal tidak boleh kosong.</div>
               </div>
             </div>
           </div>
 
-          <hr class="mt-3 mb-4">
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-4">
               <div class="form-group">
-              <table width="100%">
-                <!-- label -->
-                <tr>
-                  <td>
-                    <label>Barang <span class="text-danger">*</span></label>
-                  </td>
-                  <td width="200" style="padding-left: 50px;">
-                    <label>Jumlah Keluar <span class="text-danger">*</span></label>
-                  </td>
-                  <td width="200" style="padding-left: 50px;">
-                    <label>Harga Satuan <span class="text-danger">*</span></label>
-                  </td>
-                  <td width="200" style="padding-left: 50px;">
-                    <label>Total Harga <span class="text-danger">*</span></label>
-                  </td>
-                </tr>
-                <!-- Input -->
-                <tr>
-                  <td>
-                    <select id="data_barang" name="barang" class="form-control chosen-select" autocomplete="off" required>
-                    <option selected disabled value="">-- Pilih --</option>
-                    <?php
-                    // sql statement untuk menampilkan data dari tabel "tbl_barang"
-                    $query_barang = mysqli_query($mysqli, "SELECT id_barang, nama_barang FROM tbl_barang ORDER BY id_barang ASC")
-                                                          or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
-                    // ambil data hasil query
-                    while ($data_barang = mysqli_fetch_assoc($query_barang)) {
-                      // tampilkan data
-                      echo "<option value='$data_barang[id_barang]'>$data_barang[id_barang] - $data_barang[nama_barang]</option>";
-                    }
-                    ?>
-                    </select>
-                    <div class="invalid-feedback">Barang tidak boleh kosong.</div>
-                  </td>
-                  <td width="200" style="padding-left: 50px;">
-                    <input type="text" id="jumlah" name="jumlah" class="form-control" autocomplete="off" onKeyPress="return goodchars(event,'0123456789',this)" required>
-                    <div class="invalid-feedback">Jumlah keluar tidak boleh kosong.</div>
-                  </td>
-                  <td width="200" style="padding-left: 50px;">
-                    <input type="text" id="harga" name="harga" class="form-control" readonly>
-                  </td>
-                    
-                  <td width="200" style="padding-left: 50px;">
-                    <input type="text" id="total" name="total" class="form-control" readonly>
-                  </td>   
-                </tr>
-              </table>
+                <label>Customer <span class="text-danger">*</span></label>
+                <select id="data_cust" name="id_customer" class="form-control chosen-select" autocomplete="off" required>
+                  <option selected disabled value="">-- Pilih --</option>
+                  <?php
+                  // sql statement untuk menampilkan data dari tabel "tbl_barang"
+                  $query_cust = mysqli_query($mysqli, "SELECT * FROM tbl_customer ORDER BY nama_perusahaan ASC")
+                                                        or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
+                  // ambil data hasil query
+                  while ($data_cust = mysqli_fetch_assoc($query_cust)) {
+                    // tampilkan data
+                    echo "<option value='$data_cust[id_customer]'>$data_cust[nama_perusahaan] - $data_cust[sites]</option>";
+                  }
+                  ?>
+                  </select>
+                  <div class="invalid-feedback">Customer tidak boleh kosong.</div>
+              </div>
+            </div>
+
+            <div class="col-md-4 ml-auto">
+              <div class="form-group">
+                <label>No. PO <span class="text-danger">*</span></label>
+                <input type="text" name="no_po" class="form-control" autocomplete="off" required>
+                <div class="invalid-feedback">No. PO tidak boleh kosong.</div>
+              </div>
+            </div>
+            
+            <div class="col-md-4 ml-auto">
+              <div class="form-group">
+                <label>Tanggal Jatuh Tempo<span class="text-danger">*</span></label>
+                <input type="text" name="tanggal_tempo" class="form-control date-picker" autocomplete="off" value="<?php echo date("d-m-Y"); ?>" required>
+                <div class="invalid-feedback">Tanggal tidak boleh kosong.</div>
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Stok <span class="text-danger">*</span></label>
-                <div class="input-group">
-                  <input type="text" id="data_stok" name="stok" class="form-control" readonly>
-                  <div id="data_satuan" class="input-group-append"></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Sisa Stok <span class="text-danger">*</span></label>
-                <input type="text" id="sisa" name="sisa" class="form-control" readonly>
-              </div>
-            </div>
-          </div>
-          <!-- tombol tambah  -->
-          <div class="row">
-            <div class="col-md-12">
-              <table width="100%">
-                <tr>
-                  <td align="center">
-                    <div class="form-group">
-                      <!-- Add -->
-                      <input type="" class="btn btn-icon btn-round btn-primary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Add" value="+">
-                    </div>
-                  </td>
-                </tr>
-              </table>
-            </div>
-          </div>    
         </div>
-        
-          <div class="table-responsive">
-            <!-- tabel untuk menampilkan data dari database -->
-            <table class="display table table-bordered table-striped table-hover">
-              <thead>
-                <tr>
-                  <th class="text-center">No.</th>
-                  <th class="text-center">Nama Barang</th>
-                  <th class="text-center">Qty</th>
-                  <th class="text-center">Harga</th>
-                  <th class="text-center">Aksi</th>
-                </tr>
-              </thead>
-            </table>
-          </div>
         
         <div class="card-action">
           <!-- tombol simpan data -->

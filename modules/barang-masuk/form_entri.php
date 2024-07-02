@@ -6,7 +6,58 @@ if (basename($_SERVER['PHP_SELF']) === basename(__FILE__)) {
   header('location: 404.html');
 }
 // jika file di include oleh file lain, tampilkan isi file
-else { ?>
+else {  
+  if (isset($_GET['pesan'])) {
+  // jika pesan = 1
+  if ($_GET['pesan'] == 1) {
+    // tampilkan pesan sukses simpan data
+    echo '<div class="alert alert-notify alert-success alert-dismissible fade show" role="alert">
+            <span data-notify="icon" class="fas fa-check"></span> 
+            <span data-notify="title" class="text-success">Sukses!</span> 
+            <span data-notify="message">Data barang berhasil disimpan.</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>';
+  }
+  // jika pesan = 2
+  elseif ($_GET['pesan'] == 2) {
+    // tampilkan pesan sukses ubah data
+    echo '<div class="alert alert-notify alert-success alert-dismissible fade show" role="alert">
+            <span data-notify="icon" class="fas fa-check"></span> 
+            <span data-notify="title" class="text-success">Sukses!</span> 
+            <span data-notify="message">Data barang berhasil diubah.</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>';
+  }
+  // jika pesan = 3
+  elseif ($_GET['pesan'] == 3) {
+    // tampilkan pesan sukses hapus data
+    echo '<div class="alert alert-notify alert-success alert-dismissible fade show" role="alert">
+            <span data-notify="icon" class="fas fa-check"></span> 
+            <span data-notify="title" class="text-success">Sukses!</span> 
+            <span data-notify="message">Data barang berhasil dihapus.</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>';
+  }
+  // jika pesan = 4
+  elseif ($_GET['pesan'] == 4) {
+    // tampilkan pesan gagal hapus data
+    echo '<div class="alert alert-notify alert-danger alert-dismissible fade show" role="alert">
+            <span data-notify="icon" class="fas fa-times"></span> 
+            <span data-notify="title" class="text-danger">Gagal!</span> 
+            <span data-notify="message">Data barang tidak bisa dihapus karena sudah tercatat pada Data Transaksi.</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>';
+  }
+}
+?>
   <!-- menampilkan pesan kesalahan -->
   <div id="pesan"></div>
 
@@ -37,7 +88,7 @@ else { ?>
       <form action="modules/barang-masuk/proses_entri.php" id="multipleInsertForm" method="post" class="needs-validation" novalidate>
         <div class="card-body">
           <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-6">
               <div class="form-group">
                 <?php
                 // membuat "id_transaksi"
@@ -69,7 +120,7 @@ else { ?>
               </div>
             </div>
 
-            <div class="col-md-5 ml-auto">
+            <div class="col-md-6 ml-auto">
               <div class="form-group">
                 <label>Tanggal <span class="text-danger">*</span></label>
                 <input type="text" name="tanggal" class="form-control date-picker" autocomplete="off" value="<?php echo date("d-m-Y"); ?>" required>
@@ -77,104 +128,8 @@ else { ?>
               </div>
             </div>
           </div>
-
-          <hr class="mt-3 mb-4">
-                  
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <table width="100%" >
-                  <!-- label -->
-                  <tr>
-                    <td>
-                      <label>Barang <span class="text-danger">*</span></label>
-                    </td>
-                    <td width="100" style="padding-left: 50px;">
-                      <label>Jumlah Masuk <span class="text-danger">*</span></label>
-                    </td>
-                    <td width="200" style="padding-left: 50px;">
-                      <label>Harga Satuan<span class="text-danger">*</span></label>
-                    </td>
-                    <td width="200" style="padding-left: 50px;">
-                      <label>Total Harga<span class="text-danger">*</span></label>
-                    </td>
-                  </tr>
-                  <!-- form input -->
-                  <tr>
-                    <td width="365">
-                      <select id="data_barang" name="barang" class="form-control chosen-select" autocomplete="off" required>
-                        <option selected disabled value="">-- Pilih --</option>
-                        <?php
-                        // sql statement untuk menampilkan data dari tabel "tbl_barang"
-                        $query_barang = mysqli_query($mysqli, "SELECT id_barang, nama_barang FROM tbl_barang ORDER BY id_barang ASC")
-                                                              or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
-                        // ambil data hasil query
-                        while ($data_barang = mysqli_fetch_assoc($query_barang)) {
-                          // tampilkan data
-                          echo "<option value='$data_barang[id_barang]'>$data_barang[id_barang] - $data_barang[nama_barang]</option>";
-                        }
-                        ?>
-                      </select>
-                      <div class="invalid-feedback">Barang tidak boleh kosong.</div>
-                    </td>
-
-                    <td width="100" style="padding-left: 50px;">
-                      <input type="text" id="jumlah" name="jumlah" class="form-control" autocomplete="off" onKeyPress="return goodchars(event,'0123456789',this)" required>
-                      <div class="invalid-feedback">Jumlah masuk tidak boleh kosong.</div>
-                    </td>
-
-                    <td width="200" style="padding-left: 50px;">
-                        <?php
-                        // sql statement untuk menampilkan data dari tabel "tbl_barang"
-                        $query_har = mysqli_query($mysqli, "SELECT harga FROM tbl_barang WHERE nama_barang")
-                                                              or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
-                        // ambil data hasil query
-                        while ($data_barang = mysqli_fetch_assoc($query_barang)) {
-                          // tampilkan data
-                          echo "<option value='$data_barang[id_barang]'>$data_barang[id_barang] - $data_barang[nama_barang]</option>";
-                        }
-                        ?>
-                      <input type="text" id="harga" name="harga" class="form-control" readonly>
-                    </td>
-                    
-                    <td width="200" style="padding-left: 50px;">
-                      <input type="text" id="total" name="total" class="form-control" readonly>
-                    </td>   
-                  </tr>
-                </table>
-              </div>
-            </div>
-          </div>
-          <!-- tombol tambah dan hapus -->
-          <div class="row">
-            <div class="col-md-12">
-              <table width="100%">
-                <tr>
-                  <td align="center">
-                    <div class="form-group">
-                      <button type="button" id="addRow" class="btn btn-icon btn-round btn-primary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Add">+</button>
-                    </div>
-                  </td>
-                </tr>
-              </table>
-            </div>
-          </div>
         </div>
 
-          <div class="table-responsive">
-            <!-- tabel untuk menampilkan data dari database -->
-            <table class="display table table-bordered table-striped table-hover">
-              <thead>
-                <tr>
-                  <th class="text-center">No.</th>
-                  <th class="text-center">Nama Barang</th>
-                  <th class="text-center">Qty</th>
-                  <th class="text-center">Harga</th>
-                  <th class="text-center">Aksi</th>
-                </tr>
-              </thead>
-            </table>
-          </div>
         
         <div class="card-action">
           <!-- tombol simpan data -->

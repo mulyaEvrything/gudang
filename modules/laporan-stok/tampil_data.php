@@ -72,12 +72,12 @@ else { ?>
         </div>
         <!-- form filter data -->
         <div class="card-body">
-          <form action="?module=laporan_barang_masuk" method="post" class="needs-validation" novalidate>
+          <form action="?module=laporan_stok" method="post" class="needs-validation" novalidate>
             <div class="row">
               <div class="col-lg-3">
                 <div class="form-group">
                   <label>Tanggal <span class="text-danger">*</span></label>
-                  <input type="text" name="tanggal_awal" class="form-control date-picker" autocomplete="off" value="<?php echo $tanggal; ?>" required>
+                  <input type="text" name="tanggal" class="form-control date-picker" autocomplete="off" value="<?php echo $tanggal; ?>" required>
                   <div class="invalid-feedback">Tanggal tidak boleh kosong.</div>
                 </div>
               </div>
@@ -139,21 +139,23 @@ else { ?>
                 $no = 1;
 
                 // sql statement untuk menampilkan data dari tabel "tbl_barang_masuk", tabel "tbl_barang", dan tabel "tbl_satuan" berdasarkan "tanggal"
-                $query = mysqli_query($mysqli, "SELECT a.id_transaksi, a.tanggal, a.barang, a.jumlah, b.nama_barang, c.nama_satuan
-                                                FROM tbl_barang_masuk as a INNER JOIN tbl_barang as b INNER JOIN tbl_satuan as c 
-                                                ON a.barang=b.id_barang AND b.satuan=c.id_satuan 
-                                                WHERE a.tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' ORDER BY a.id_transaksi ASC")
+                $query = mysqli_query($mysqli, "SELECT *,
+                                      IFNULL((SELECT SUM(jumlah) FROM tbl_detail_barang_masuk dbm, tbl_barang_masuk bm WHERE dbm.id_barang = b.id_barang
+                                            AND dbm.id_masuk = bm.id_transaksi AND bm.tanggal <= '$tanggal'),0) as jlh_masuk,
+                                      IFNULL((SELECT SUM(jumlah) FROM tbl_detail_barang_keluar dbk, tbl_barang_keluar bk WHERE dbk.id_barang = b.id_barang
+                                            AND dbk.id_keluar = bk.id_transaksi AND bk.tanggal <= '$tanggal'),0) as jlh_keluar,
+                                      (SELECT jlh_masuk - jlh_keluar) as stoknow
+                                      FROM tbl_barang b
+                                      LEFT JOIN tbl_satuan s ON s.id_satuan = b.satuan")
                                                 or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
                 // ambil data hasil query
                 while ($data = mysqli_fetch_assoc($query)) { ?>
                   <!-- tampilkan data -->
                   <tr>
                     <td width="50" class="text-center"><?php echo $no++; ?></td>
-                    <td width="90" class="text-center"><?php echo $data['id_transaksi']; ?></td>
-                    <td width="70" class="text-center"><?php echo date('d-m-Y', strtotime($data['tanggal'])); ?></td>
-                    <td width="220"><?php echo $data['barang']; ?> - <?php echo $data['nama_barang']; ?></td>
-                    <td width="100" class="text-right"><?php echo number_format($data['jumlah'], 0, '', '.'); ?></td>
-                    <td width="60"><?php echo $data['nama_satuan']; ?></td>
+                    <td><?php echo $data['nama_barang']; ?></td>
+                    <td class="text-center"><?php echo $data['stoknow']; ?></td>
+                    <td class="text-center"><?php echo $data['nama_satuan']; ?></td>
                   </tr>
                 <?php } ?>
               </tbody>
