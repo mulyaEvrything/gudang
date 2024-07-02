@@ -38,6 +38,23 @@ else {
 ?>
   <!-- halaman HTML yang akan diexport ke excel -->
   <!-- judul tabel -->
+
+  <?php
+  if (isset($_GET['id'])) {
+    // ambil data GET dari tombol detail
+    $id_transaksi = $_GET['id'];
+
+    // sql statement untuk menampilkan data dari tabel "tbl_barang",  dan tabel "tbl_satuan" berdasarkan "id_barang"
+    $query = mysqli_query($mysqli, "SELECT *,
+                                    IFNULL((SELECT COUNT(id_barang) FROM tbl_detail_barang_keluar dbk WHERE dbk.id_keluar = bk.id_transaksi),0) as jlh_brg,
+                                    IFNULL((SELECT SUM(jumlah) FROM tbl_detail_barang_keluar dbk WHERE dbk.id_keluar = bk.id_transaksi),0) as jlh_item,
+                                    IFNULL((SELECT SUM(jumlah*harga) FROM tbl_detail_barang_keluar dbk WHERE dbk.id_keluar = bk.id_transaksi),0) as total 
+                                    FROM tbl_barang_keluar bk LEFT JOIN tbl_customer c ON c.id_customer = bk.id_customer WHERE id_transaksi='$id_transaksi'")
+                                    or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
+    // ambil data hasil query
+    $data = mysqli_fetch_assoc($query);
+  }
+?>
     
 <table width="100%">
    
@@ -72,12 +89,12 @@ else {
           <tr>
             <td>TGL</td>
             <td>:</td>
-            <td></td>
+            <td><?= date("d-m-Y",strtotime($data['tanggal'])); ?></td>
           </tr>
           <tr>
             <td>NO PO</td>
             <td>:</td>
-            <td></td>
+            <td><?= $data['no_po']; ?></td>
           </tr>
         </table>
       </div>
@@ -88,7 +105,7 @@ else {
           </tr>
           <tr>
             <td>No :</td>
-            <td></td>
+            <td><?= $data['id_transaksi']; ?></td>
           </tr>
         </table>
         
@@ -97,16 +114,16 @@ else {
             <td>Kepada Yth.</td><br>
           </tr>
           <tr>
-            <td width="200">PT BANJAR MALINDO JAYA</td>
+            <td width="200"><?= $data['nama_perusahaan']; ?></td>
           </tr>
           <tr>
-            <td width="200">Citraland Banjarmasin, Commercial I-WALK Komplek manhattan No. 48 Kab.Banjar</td>
+            <td width="200"><?= $data['alamat']; ?></td>
           </tr>
           <tr>
-            <td>No Telp : </td>
+            <td>No Telp : <?= $data['no_tlp']; ?></td>
           </tr>
           <tr>
-            <td>Site :</td>
+            <td>Site : <?= $data['sites']; ?></td>
           </tr>
         </table>
         
@@ -124,16 +141,26 @@ else {
         </tr>
       </thead>
       <tbody>
-        
+      <?php
+            // variabel untuk nomor urut tabel
+            $no = 1;
+            // sql statement untuk menampilkan data dari tabel "tbl_barang" dan tabel "tbl_satuan"
+            $query = mysqli_query($mysqli, "SELECT * from tbl_detail_barang_keluar dbk
+                                                LEFT JOIN tbl_barang b ON b.id_barang = dbk.id_barang
+                                                LEFT JOIN tbl_satuan s ON s.id_satuan = b.satuan
+                                                WHERE dbk.id_keluar = '$id_transaksi'")
+                                                or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
+                // ambil data hasil query
+                while ($row = mysqli_fetch_assoc($query)) { ?>
           <!-- tampilkan data -->
           <tr>
-            <td width="70" align="center"></td>
-            <td width="500"></td>
-            <td width="500"></td>
-            <td width="500"></td>
-            <td width="500"></td>
+            <td width="70" align="center"><?= $no++; ?></td>
+            <td width="500" align="center"><?= $row['id_barang']; ?></td>
+            <td width="500"><?= $row['nama_barang']; ?></td>
+            <td width="500" align="center"><?= $row['jumlah']; ?></td>
+            <td width="500" align="center"><?= $row['nama_satuan']; ?></td>
           </tr>
-       
+          <?php } ?>
         
       </tbody>
       <!-- Terbilang, sub total, ppn dan total -->

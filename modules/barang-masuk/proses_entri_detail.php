@@ -17,16 +17,16 @@ else {
     
     // ambil data hasil submit dari form
     $id_transaksi  = mysqli_real_escape_string($mysqli, $_POST['id_transaksi']);
-    $tanggal       = mysqli_real_escape_string($mysqli, trim($_POST['tanggal']));
-    // $barang        = mysqli_real_escape_string($mysqli, $_POST['barang']);
-    // $jumlah        = mysqli_real_escape_string($mysqli, $_POST['jumlah']);
+    $barang        = mysqli_real_escape_string($mysqli, $_POST['barang']);
+    $jumlah        = mysqli_real_escape_string($mysqli, $_POST['jumlah']);
+    $harga        = mysqli_real_escape_string($mysqli, $_POST['harga']);
 
     // ubah format tanggal menjadi Tahun-Bulan-Hari (Y-m-d) sebelum disimpan ke database
     $tanggal_masuk = date('Y-m-d', strtotime($tanggal));
 
     // sql statement untuk insert data ke tabel "tbl_barang_masuk"
-    $insert = mysqli_query($mysqli, "INSERT INTO tbl_barang_masuk(id_transaksi, tanggal) 
-                                     VALUES('$id_transaksi', '$tanggal_masuk')")
+    $insert = mysqli_query($mysqli, "INSERT INTO tbl_detail_barang_masuk(id_masuk, id_barang, jumlah, harga) 
+                                     VALUES('$id_transaksi', '$barang', $jumlah, $harga) ON DUPLICATE KEY UPDATE jumlah=jumlah+$jumlah")
                                      or die('Ada kesalahan pada query insert : ' . mysqli_error($mysqli));
     // cek query
     // jika proses insert berhasil

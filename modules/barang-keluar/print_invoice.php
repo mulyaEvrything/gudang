@@ -38,6 +38,23 @@ else {
 ?>
   <!-- halaman HTML yang akan diexport ke excel -->
   <!-- judul tabel -->
+
+<?php
+  if (isset($_GET['id'])) {
+    // ambil data GET dari tombol detail
+    $id_transaksi = $_GET['id'];
+
+    // sql statement untuk menampilkan data dari tabel "tbl_barang",  dan tabel "tbl_satuan" berdasarkan "id_barang"
+    $query = mysqli_query($mysqli, "SELECT *,
+                                    IFNULL((SELECT COUNT(id_barang) FROM tbl_detail_barang_keluar dbk WHERE dbk.id_keluar = bk.id_transaksi),0) as jlh_brg,
+                                    IFNULL((SELECT SUM(jumlah) FROM tbl_detail_barang_keluar dbk WHERE dbk.id_keluar = bk.id_transaksi),0) as jlh_item,
+                                    IFNULL((SELECT SUM(jumlah*harga) FROM tbl_detail_barang_keluar dbk WHERE dbk.id_keluar = bk.id_transaksi),0) as total 
+                                    FROM tbl_barang_keluar bk LEFT JOIN tbl_customer c ON c.id_customer = bk.id_customer WHERE id_transaksi='$id_transaksi'")
+                                    or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
+    // ambil data hasil query
+    $data = mysqli_fetch_assoc($query);
+  }
+?>
  
 <table>
   <tr>
@@ -69,17 +86,17 @@ else {
           <tr>
             <td>TGL FAKTUR</td>
             <td>:</td>
-            <td></td>
+            <td><?= date("d-m-Y",strtotime($data['tanggal'])); ?></td>
           </tr>
           <tr>
             <td>TGL JATUH TEMPO</td>
             <td>:</td>
-            <td></td>
+            <td><?= date("d-m-Y",strtotime($data['tgl_jatuh_tempo'])); ?></td>
           </tr>
           <tr>
             <td>NO PO</td>
             <td>:</td>
-            <td></td>
+            <td><?= $data['no_po']; ?></td>
           </tr>
         </table>
       </div>
@@ -90,7 +107,7 @@ else {
           </tr>
           <tr>
             <td>No :</td>
-            <td></td>
+            <td><?= $data['id_transaksi']; ?></td>
           </tr>
         </table>
         
@@ -99,7 +116,12 @@ else {
             <td>Kepada Yth</td><br>
           </tr>
           <tr>
-            <td width="200">Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta iure velit optio enim fugit tempora id nulla perspiciatis, maiores molestiae quod magnam repudiandae minima ducimus nam, ex excepturi facilis eligendi.</td>
+            <td width="200">
+              <?= $data['nama_perusahaan']; ?><br>
+              <?= $data['alamat']; ?><br>
+              No Telp : <?= $data['no_tlp']; ?><br>
+              Site : <?= $data['sites']; ?>
+            </td>
           </tr>
         </table>
         
@@ -110,25 +132,35 @@ else {
       <thead>
         <tr>
           <td height="30" width="4%" align="center" vertical="center">NO</td>
-          <td height="30" width="15%"align="center" vertical="center">KODE BARANG</td>
-          <td height="30" width="40%"align="center" vertical="center">NAMA BARANG</td>
-          <td height="30" width="20%" align="center" vertical="center">HARGA SATUAN</td>
+          <td height="30" width="15%" align="center" vertical="center">KODE BARANG</td>
+          <td height="30" width="40%" align="center" vertical="center">NAMA BARANG</td>
+          <td height="30" width="20%" align="center" vertical="center">HARGA SATUAN (Rp.)</td>
           <td height="30" width="5%" align="center" vertical="center">QTY</td>
-          <td height="30" width="20%" align="center" vertical="center">JUMLAH</td>
+          <td height="30" width="20%" align="center" vertical="center">JUMLAH (Rp.)</td>
         </tr>
         
       </thead>
       <tbody>
-       
+        <?php
+            // variabel untuk nomor urut tabel
+            $no = 1;
+            // sql statement untuk menampilkan data dari tabel "tbl_barang" dan tabel "tbl_satuan"
+            $query = mysqli_query($mysqli, "SELECT * from tbl_detail_barang_keluar dbk
+                                                LEFT JOIN tbl_barang b ON b.id_barang = dbk.id_barang
+                                                WHERE dbk.id_keluar = '$id_transaksi'")
+                                                or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
+                // ambil data hasil query
+                while ($row = mysqli_fetch_assoc($query)) { ?>
           <!-- tampilkan data -->
           <tr>
-            <td width="70" align="center"></td>
-            <td width="500"></td>
-            <td width="500"></td>
-            <td width="500"></td>
-            <td width="500"></td>
-            <td width="500"></td>
+            <td width="70" align="center"><?= $no++; ?></td>
+            <td width="500" align="center"><?= $row['id_barang']; ?></td>
+            <td width="500"><?= $row['nama_barang']; ?></td>
+            <td width="500" align="right"><?php echo number_format($row['harga'],0,',','.'); ?></td>
+            <td width="500" align="center"><?= $row['jumlah']; ?></td>
+            <td width="500" align="right"><?php echo number_format($row['harga']*$row['jumlah'],0,',','.'); ?></td>
           </tr>
+          <?php } ?>
       
         
       </tbody>
@@ -136,7 +168,7 @@ else {
       <tr>
           <td colspan="3" style="padding-left: 5px;" width="59%" rowspan="2"> Terbilang :<br> ..... </td>
           <td colspan="2" rowspan="2"> SUB TOTAL <br> PPN <br> TOTAL </td>
-          <td rowspan="2" align="right">... <br> ... <br> ...</td>
+          <td rowspan="2" align="right"><?php echo number_format($data['total'],0,',','.'); ?> <br> ... <br> ...</td>
         </tr>
         
 
