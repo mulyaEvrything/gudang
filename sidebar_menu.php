@@ -322,8 +322,8 @@ else {
     <?php
     }
   }
-  // jika hak akses = Admin Gudang, tampilkan menu
-  elseif ($_SESSION['hak_akses'] == 'Admin Gudang') {
+  // jika hak akses = Gudang, tampilkan menu
+  elseif ($_SESSION['hak_akses'] == 'Gudang') {
     // pengecekan menu aktif
     // jika menu dashboard dipilih, menu dashboard aktif
     if ($_GET['module'] == 'dashboard') { ?>
@@ -635,8 +635,8 @@ else {
     <?php
     }
   }
-  // jika hak akses = Kepala Gudang, tampilkan menu
-  elseif ($_SESSION['hak_akses'] == 'Kepala Gudang') {
+  // jika hak akses = Pimpinan, tampilkan menu
+  elseif ($_SESSION['hak_akses'] == 'Pimpinan') {
     // pengecekan menu aktif
     // jika menu dashboard dipilih, menu dashboard aktif
     if ($_GET['module'] == 'dashboard') { ?>

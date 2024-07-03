@@ -56,8 +56,8 @@ else { ?>
             <select name="hak_akses" class="form-control chosen-select" autocomplete="off" required>
               <option selected disabled value="">-- Pilih --</option>
               <option value="Administrator">Administrator</option>
-              <option value="Admin Gudang">Admin Gudang</option>
-              <option value="Kepala Gudang">Kepala Gudang</option>
+              <option value="Gudang">Gudang</option>
+              <option value="Pimpinan">Pimpinan</option>
             </select>
             <div class="invalid-feedback">Hak akses tidak boleh kosong.</div>
           </div>

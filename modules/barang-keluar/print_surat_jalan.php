@@ -104,8 +104,7 @@ else {
             <td>SURAT JALAN</td>
           </tr>
           <tr>
-            <td>No :</td>
-            <td><?= $data['id_transaksi']; ?></td>
+            <td>No: <?= $data['id_transaksi']; ?></td>
           </tr>
         </table>
         
@@ -177,7 +176,7 @@ else {
             </td>
             <td colspan="2">
               Bila segel rusak atau Drum  meragukan harap konfirmasi ke kantor <br>
-              Barang yang sudah diterima tidak dapat ditukar/
+              Barang yang sudah diterima tidak dapat ditukar /
               dikembalikan.
             </td>
           </tr>

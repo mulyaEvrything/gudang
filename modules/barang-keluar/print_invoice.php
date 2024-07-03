@@ -106,8 +106,8 @@ else {
             <td><u>INVOICE/FAKTUR</u></td>
           </tr>
           <tr>
-            <td>No :</td>
-            <td><?= $data['id_transaksi']; ?></td>
+            <td>No: <?= $data['id_transaksi']; ?></td>
+            <td></td>
           </tr>
         </table>
         

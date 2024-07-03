@@ -127,12 +127,12 @@ else {
                 <!-- tampilkan data -->
                 <tr>
                   <td class="text-center"><?php echo $no++; ?></td>
-                  <td  class="text-center"><?php echo $data['nama_perusahaan']; ?></td>
-                  <td ><?php echo $data['alamat']; ?></td>
+                  <td class="text-left"><?php echo $data['nama_perusahaan']; ?></td>
+                  <td class="text-left"><?php echo $data['alamat']; ?></td>
                   <td class="text-left"><?php echo $data['kontak']; ?></td>
                   <td class="text-center"><?php echo $format; ?></td>
-                  <td ><?php echo $data['sites']; ?></td>
-                  <td  class="text-center">
+                  <td class="text-left"><?php echo $data['sites']; ?></td>
+                  <td class="text-center">
                     <div>
                       
                       <!-- tombol ubah data -->

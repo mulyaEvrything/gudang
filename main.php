@@ -1,14 +1,3 @@
-<!-- Aplikasi Persediaan Barang Gudang Material dengan PHP 8 dan MySQLi
-************************************************************************
-* Developer   : Code Null
-* Company     : Code Null
-* Release     : Mei 2021
-* Update      : -
-* Website     : www.codenull.com
-* E-mail      : hi.codenull@gmail.com
-* WhatsApp    : -
--->
-
 <?php
 session_start();      // mengaktifkan session
 
@@ -174,13 +163,13 @@ else { ?>
         <!-- End Main Content -->
 
         <!-- Footer -->
-        <footer class="footer">
+        <!-- <footer class="footer">
           <div class="container-fluid">
             <div class="copyright ml-auto">
               Copyright &copy; 2024 - <a href="#" class="text-secondary">Mulya - Hamidah</a>.
             </div>
           </div>
-        </footer>
+        </footer> -->
         <!-- End Footer -->
       </div>
     </div>

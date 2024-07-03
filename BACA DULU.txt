@@ -7,13 +7,13 @@ PETUNJUK PENGGUNAAN
 5. Untuk membuka program ketikan localhost/gudang pada browser
 6. Login user :
 Hak Akses 	: Administrator
-Username 	: administrator
+Username 	: adminlsa
 Password 	: 123
 
-Hak Akses 	: Admin Gudang
-Username 	: admin gudang
+Hak Akses 	: Gudang
+Username 	: midah
 Password 	: 123
 
-Hak Akses 	: Kepala Gudang
-Username 	: kepala gudang
+Hak Akses 	: Pimpinan
+Username 	: mulya
 Password 	: 123

@@ -117,14 +117,14 @@ else {
                 while ($data = mysqli_fetch_assoc($query)) { ?>
                 <tr>
                   <td class="text-center"><?php echo $no++; ?></td>
-                  <td><?php echo $data['id_transaksi']; ?></td>
+                  <td class="text-center"><?php echo $data['id_transaksi']; ?></td>
                   <td class="text-center"><?php echo date('d-m-Y', strtotime($data['tanggal'])); ?></td>
                   <td class="text-center"><?php echo date('d-m-Y', strtotime($data['tgl_jatuh_tempo'])); ?></td>
-                  <td class="text-right"><?php echo $data['nama_perusahaan'];?></td>
-                  <td class="text-right"><?php echo $data['no_po'];?></td>
-                  <td class="text-right"><?php echo $data['jlh_brg'];?></td>
-                  <td class="text-right"><?php echo $data['jlh_item'];?></td>
-                  <td class="text-right"><?php echo number_format($data['total'],0,',','.'); ?></td>
+                  <td class="text-left"><?php echo $data['nama_perusahaan'];?></td>
+                  <td class="text-center"><?php echo $data['no_po'];?></td>
+                  <td class="text-center"><?php echo $data['jlh_brg'];?></td>
+                  <td class="text-center"><?php echo $data['jlh_item'];?></td>
+                  <td class="text-center"><?php echo number_format($data['total'],0,',','.'); ?></td>
                   <td width="70" class="text-center">
                     <div>
                       <!-- tombol detail data -->
