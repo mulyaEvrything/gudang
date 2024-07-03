@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2024 at 08:13 AM
+-- Generation Time: Jul 03, 2024 at 12:42 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -33,7 +33,7 @@ CREATE TABLE `tbl_barang` (
   `stok_minimum` int(11) NOT NULL,
   `stok` int(11) NOT NULL DEFAULT 0,
   `satuan` int(11) NOT NULL,
-  `harga` int(11) NOT NULL,
+  `harga` double NOT NULL,
   `foto` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
@@ -42,7 +42,7 @@ CREATE TABLE `tbl_barang` (
 --
 
 INSERT INTO `tbl_barang` (`id_barang`, `nama_barang`, `stok_minimum`, `stok`, `satuan`, `harga`, `foto`) VALUES
-('B0001', 'Repsol DXR 8 15W-40 API CI-4', 10, 0, 2, 6300000, NULL),
+('B0001', 'Repsol DXR 8 15W-40 API CI-4', 10, 10, 2, 6300000, NULL),
 ('B0002', 'Repsol Maker Hydroflux', 10, 0, 2, 5400000, NULL),
 ('B0003', 'Repsol Maker Hydroflux VG68', 10, 0, 3, 5500000, NULL),
 ('B0004', 'Repsol Navigator EP GL-5 SAE 90', 10, 0, 2, 7300000, NULL),
@@ -66,9 +66,19 @@ CREATE TABLE `tbl_barang_keluar` (
   `tgl_jatuh_tempo` date NOT NULL,
   `no_po` varchar(100) NOT NULL,
   `id_customer` int(11) NOT NULL,
-  `cetak_invoice` varchar(50) NOT NULL,
-  `cetak_surat_jln` varchar(50) NOT NULL
+  `cetak_invoice` varchar(50) DEFAULT NULL,
+  `cetak_surat_jln` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `tbl_barang_keluar`
+--
+
+INSERT INTO `tbl_barang_keluar` (`id_transaksi`, `tanggal`, `tgl_jatuh_tempo`, `no_po`, `id_customer`, `cetak_invoice`, `cetak_surat_jln`) VALUES
+('00001/LSA-AEK/II/24', '2024-07-03', '2024-07-03', '12893764542', 12, NULL, NULL),
+('00002/LSA-AEK/II/24', '2024-07-04', '2024-07-04', '123123', 12, NULL, NULL),
+('00003/LSA-AEK/II/24', '2024-07-06', '2024-07-10', '123213123', 12, NULL, NULL),
+('00004/LSA-AEK/II/24', '2024-07-20', '2024-07-26', '12312313', 12, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -80,6 +90,13 @@ CREATE TABLE `tbl_barang_masuk` (
   `id_transaksi` varchar(50) NOT NULL,
   `tanggal` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `tbl_barang_masuk`
+--
+
+INSERT INTO `tbl_barang_masuk` (`id_transaksi`, `tanggal`) VALUES
+('00001/LSA-AEK/II/24', '2024-07-03');
 
 -- --------------------------------------------------------
 
@@ -101,9 +118,9 @@ CREATE TABLE `tbl_customer` (
 --
 
 INSERT INTO `tbl_customer` (`id_customer`, `nama_perusahaan`, `alamat`, `kontak`, `no_tlp`, `sites`) VALUES
-(2, 'PT. Malindo Jaya Abadi', 'Jl. Banjarmasin berjaya selalu damai abadi', 'Mamat', '085927795806', 'Pekapuran'),
-(4, 'jln mahligai indah', 'akdhakjhdkajdh', 'Udin', '', 'Mantuil'),
-(5, 'PT. Taspen Persero', 'Jl Banjarbaru', '', '', '');
+(11, 'PT. Ngudud Bersama', 'Jl. Per Ududtan', 'Haji Isam', '085877772221', 'Pekapuran'),
+(12, 'PT. Bermain Bersama', 'Jl. Handil Bhakti RW.05. RT.01.', 'Haji Mamat', '085877772222', 'Pekapuran'),
+(13, 'PT. Oli Sahaja', 'Jl. Kuin Utara', 'Haji Uhuy', '085877772223', 'Pekapuran 3');
 
 -- --------------------------------------------------------
 
@@ -118,6 +135,16 @@ CREATE TABLE `tbl_detail_barang_keluar` (
   `harga` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `tbl_detail_barang_keluar`
+--
+
+INSERT INTO `tbl_detail_barang_keluar` (`id_keluar`, `id_barang`, `jumlah`, `harga`) VALUES
+('00001/LSA-AEK/II/24', 'B0001', 3, 6300000),
+('00002/LSA-AEK/II/24', 'B0001', 2, 6300000),
+('00003/LSA-AEK/II/24', 'B0001', 10, 6300000),
+('00004/LSA-AEK/II/24', 'B0001', 12, 6300000);
+
 -- --------------------------------------------------------
 
 --
@@ -130,6 +157,15 @@ CREATE TABLE `tbl_detail_barang_masuk` (
   `jumlah` int(11) NOT NULL,
   `harga` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_detail_barang_masuk`
+--
+
+INSERT INTO `tbl_detail_barang_masuk` (`id_masuk`, `id_barang`, `jumlah`, `harga`) VALUES
+('00001/LSA-AEK/II/24', 'B0002', 2, 5400000),
+('00001/LSA-AEK/II/24', 'B0003', 3, 5500000),
+('00003/LSA-AEK/II/24', 'B0002', 2, 5400000);
 
 -- --------------------------------------------------------
 
@@ -150,8 +186,7 @@ INSERT INTO `tbl_satuan` (`id_satuan`, `nama_satuan`) VALUES
 (2, 'Drum'),
 (3, 'Pail'),
 (4, '200/L'),
-(5, '180/KG'),
-(6, '17/KG');
+(5, '180/KG');
 
 -- --------------------------------------------------------
 
@@ -164,7 +199,7 @@ CREATE TABLE `tbl_user` (
   `nama_user` varchar(30) NOT NULL,
   `username` varchar(30) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `hak_akses` enum('Administrator','Admin Gudang','Kepala Gudang') NOT NULL
+  `hak_akses` enum('Administrator','Gudang','Pimpinan') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
@@ -173,9 +208,9 @@ CREATE TABLE `tbl_user` (
 
 INSERT INTO `tbl_user` (`id_user`, `nama_user`, `username`, `password`, `hak_akses`) VALUES
 (4, 'Developer', 'adminlsa', '$2y$12$/k/WZ9/UmH1BmvwZR1HkcudK5ZsXALiMMggXqAEdlt80JvKUyyE5y', 'Administrator'),
-(5, 'Pimpinan', 'direktur', '$2y$12$jlyTwCTSY033KQojP0./IOuJn3llTCLyDkIR/LuEy4PnnL3XXci/.', 'Kepala Gudang'),
-(6, 'mulya', 'mulya', '$2y$12$988f7oycdcx4vw1sAwLu3eu.Wvay9gCD1KnsvZsvDCOV8ZBd/CIFi', 'Kepala Gudang'),
-(7, 'midah', 'midah', '$2y$12$TwyHxVGxPRIYhTNSQnXnOe4itehz8yJxqfX0xMRLMnEVauXF/JfdW', 'Admin Gudang');
+(8, 'a', 'aa', '1', 'Administrator'),
+(9, 'mulya', 'mulya', '$2y$12$U1so1uG0/80/FcOxEql8fuotNQ1SPZBoR/nBPYPrVXSAmeSuoFu3C', 'Pimpinan'),
+(10, 'Noor Hamidah', 'midah', '$2y$12$szN96TWI8litd.eAIeJjy.EdYU28nhunm/4dBlvBcg7Ur.J2Jxu5W', 'Gudang');
 
 --
 -- Indexes for dumped tables
@@ -185,7 +220,8 @@ INSERT INTO `tbl_user` (`id_user`, `nama_user`, `username`, `password`, `hak_aks
 -- Indexes for table `tbl_barang`
 --
 ALTER TABLE `tbl_barang`
-  ADD PRIMARY KEY (`id_barang`);
+  ADD PRIMARY KEY (`id_barang`),
+  ADD KEY `satuan` (`satuan`);
 
 --
 -- Indexes for table `tbl_barang_keluar`
@@ -246,7 +282,7 @@ ALTER TABLE `tbl_user`
 -- AUTO_INCREMENT for table `tbl_customer`
 --
 ALTER TABLE `tbl_customer`
-  MODIFY `id_customer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_customer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tbl_satuan`
@@ -258,18 +294,23 @@ ALTER TABLE `tbl_satuan`
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables
 --
 
 --
+-- Constraints for table `tbl_barang`
+--
+ALTER TABLE `tbl_barang`
+  ADD CONSTRAINT `tbl_barang_ibfk_1` FOREIGN KEY (`satuan`) REFERENCES `tbl_satuan` (`id_satuan`) ON UPDATE CASCADE;
+
+--
 -- Constraints for table `tbl_barang_keluar`
 --
 ALTER TABLE `tbl_barang_keluar`
-  ADD CONSTRAINT `tbl_barang_keluar_ibfk_1` FOREIGN KEY (`id_customer`) REFERENCES `tbl_customer` (`id_customer`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `tbl_barang_keluar_ibfk_2` FOREIGN KEY (`id_transaksi`) REFERENCES `tbl_barang_masuk` (`id_transaksi`);
+  ADD CONSTRAINT `tbl_barang_keluar_ibfk_1` FOREIGN KEY (`id_customer`) REFERENCES `tbl_customer` (`id_customer`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tbl_detail_barang_keluar`
