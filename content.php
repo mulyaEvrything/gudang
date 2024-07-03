@@ -75,6 +75,26 @@ else {
   elseif ($_GET['module'] == 'form_entri_barang_masuk' && $_SESSION['hak_akses'] != 'Kepala Gudang') {
     // panggil file form entri barang masuk
     include "modules/barang-masuk/form_entri.php";
+  } 
+  // jika module yang dipilih "detail_barang_masuk" dan hak akses bukan "Kepala Gudang"
+  elseif ($_GET['module'] == 'detail_barang_masuk' && $_SESSION['hak_akses'] != 'Kepala Gudang') {
+    // panggil file form entri barang masuk
+    include "modules/barang-masuk/form_entri_detail.php";
+  }
+  // jika module yang dipilih "detail_barang_masuk" dan hak akses bukan "Kepala Gudang"
+  elseif ($_GET['module'] == 'ubah_barang_masuk' && $_SESSION['hak_akses'] != 'Kepala Gudang') {
+    // panggil file form entri barang masuk
+    include "modules/barang-masuk/form_ubah.php";
+  }
+  // jika module yang dipilih "detail_barang_keluar" dan hak akses bukan "Kepala Gudang"
+  elseif ($_GET['module'] == 'detail_barang_keluar' && $_SESSION['hak_akses'] != 'Kepala Gudang') {
+    // panggil file form entri barang masuk
+    include "modules/barang-keluar/form_entri_detail.php";
+  }
+  // jika module yang dipilih "detail_barang_keluar" dan hak akses bukan "Kepala Gudang"
+  elseif ($_GET['module'] == 'ubah_barang_masuk' && $_SESSION['hak_akses'] != 'Kepala Gudang') {
+    // panggil file form entri barang masuk
+    include "modules/barang-keluar/form_ubah.php";
   }
 // Add Mulya
   elseif ($_GET['module'] == 'form_entri_barang_masuk2' && $_SESSION['hak_akses'] != 'Kepala Gudang') {

@@ -24,6 +24,17 @@ else {
     }
     // jika pesan = 2
     elseif ($_GET['pesan'] == 2) {
+      // tampilkan pesan sukses ubah data
+      echo '<div class="alert alert-notify alert-success alert-dismissible fade show" role="alert">
+              <span data-notify="icon" class="fas fa-check"></span> 
+              <span data-notify="title" class="text-success">Sukses!</span> 
+              <span data-notify="message">Data barang masuk berhasil diubah.</span>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>';
+    }// jika pesan = 2
+    elseif ($_GET['pesan'] == 3) {
       // tampilkan pesan sukses hapus data
       echo '<div class="alert alert-notify alert-success alert-dismissible fade show" role="alert">
               <span data-notify="icon" class="fas fa-check"></span> 
@@ -78,43 +89,50 @@ else {
             <thead>
               <tr>
                 <th class="text-center">No.</th>
-                <th class="text-center">ID Transaksi</th>
+                <th class="text-center">No. Faktur</th>
                 <th class="text-center">Tanggal</th>
-                <th class="text-center">Barang</th>
-                
+                <th class="text-center">Jlh. Barang</th>
+                <th class="text-center">Jlh. Item</th>
+                <th class="text-center">Total (Rp.)</th>
                 <th class="text-center">Aksi</th>
               </tr>
             </thead>
             <tbody>
-              
-                <!-- variabel untuk nomor urut tabel -->
-              
-                <!-- sql statement untuk menampilkan data dari tabel "tbl_barang_masuk", tabel "tbl_barang", dan tabel "tbl_satuan" -->
-            
-                <!-- ambil data hasil query -->
-              
-                <!-- tampilkan data -->
+            <?php
+                // variabel untuk nomor urut tabel
+                $no = 1;
+                // sql statement untuk menampilkan data dari tabel "tbl_barang" dan tabel "tbl_satuan"
+                $query = mysqli_query($mysqli, "SELECT *,
+                                                IFNULL((SELECT COUNT(id_barang) FROM tbl_detail_barang_masuk dbm WHERE dbm.id_masuk = bm.id_transaksi),0) as jlh_brg,
+                                                IFNULL((SELECT SUM(jumlah) FROM tbl_detail_barang_masuk dbm WHERE dbm.id_masuk = bm.id_transaksi),0) as jlh_item,
+                                                IFNULL((SELECT SUM(jumlah*harga) FROM tbl_detail_barang_masuk dbm WHERE dbm.id_masuk = bm.id_transaksi),0) as total
+                                                from tbl_barang_masuk bm")
+                                                or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
+                // ambil data hasil query
+                while ($data = mysqli_fetch_assoc($query)) { ?>
                 <tr>
-                  <td width="50" class="text-center"></td>
-                  <td width="90" class="text-center"></td>
-                  <td width="70" class="text-center"></td>
-                  <td width="220"></td>
-
-                  <td width="50" class="text-center">
+                  <td class="text-center"><?php echo $no++; ?></td>
+                  <td><?php echo $data['id_transaksi']; ?></td>
+                  <td class="text-center"><?php echo date('d-m-Y', strtotime($data['tanggal'])); ?></td>
+                  <td class="text-right"><?php echo $data['jlh_brg'];?></td>
+                  <td class="text-right"><?php echo $data['jlh_item'];?></td>
+                  <td class="text-right"><?php echo number_format($data['total'],0,',','.'); ?></td>
+                  <td class="text-center">
                     <div>
                       <!-- tombol detail data -->
-                      <a href="?module=tampil_detail_barang_masuk" class="btn btn-icon btn-round btn-primary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Detail">
-                        <i class="fas fa-clone fa-sm"></i>
+                      <a href="?module=detail_barang_masuk&id=<?= $data['id_transaksi'] ?>" class="btn btn-icon btn-round btn-primary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Detail">
+                        <i class="fas fa-eye fa-sm"></i>
                       </a>
 
                       <!-- tombol ubah data -->
-                      <a href="?module=ubah_barang_masuk" class="btn btn-icon btn-round btn-secondary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Ubah">
+                      <a href="?module=ubah_barang_masuk&id=<?= $data['id_transaksi'] ?>" class="btn btn-icon btn-round btn-secondary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Ubah">
                         <i class="fas fa-pencil-alt fa-sm"></i>
                       </a>
 
                     </div>
                   </td>
                 </tr>
+                <?php } ?>
       
             </tbody>
           </table>

@@ -159,21 +159,23 @@ else { ?>
                 $no = 1;
 
                 // sql statement untuk menampilkan data dari tabel "tbl_barang_keluar", tabel "tbl_barang", dan tabel "tbl_satuan" berdasarkan "tanggal"
-                $query = mysqli_query($mysqli, "SELECT a.id_transaksi, a.tanggal, a.barang, a.jumlah, b.nama_barang, c.nama_satuan
-                                                FROM tbl_barang_keluar as a INNER JOIN tbl_barang as b INNER JOIN tbl_satuan as c 
-                                                ON a.barang=b.id_barang AND b.satuan=c.id_satuan 
-                                                WHERE a.tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' ORDER BY a.id_transaksi ASC")
+                $query = mysqli_query($mysqli, "SELECT * FROM tbl_detail_barang_keluar dbk
+                                      INNER JOIN tbl_barang_keluar bk ON bk.id_transaksi = dbk.id_keluar
+                                      INNER JOIN tbl_barang b ON b.id_barang = dbk.id_barang
+                                      INNER JOIN tbl_satuan s ON s.id_satuan = b.satuan
+                                      WHERE bk.tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir'
+                                      ORDER BY bk.id_transaksi ASC")
                                                 or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
                 // ambil data hasil query
                 while ($data = mysqli_fetch_assoc($query)) { ?>
                   <!-- tampilkan data -->
                   <tr>
-                    <td width="50" class="text-center"><?php echo $no++; ?></td>
+                  <td width="50" class="text-center"><?php echo $no++; ?></td>
                     <td width="90" class="text-center"><?php echo $data['id_transaksi']; ?></td>
                     <td width="70" class="text-center"><?php echo date('d-m-Y', strtotime($data['tanggal'])); ?></td>
-                    <td width="220"><?php echo $data['barang']; ?> - <?php echo $data['nama_barang']; ?></td>
+                    <td width="220"><?php echo $data['nama_barang']; ?></td>
                     <td width="100" class="text-right"><?php echo number_format($data['jumlah'], 0, '', '.'); ?></td>
-                    <td width="60"><?php echo $data['nama_satuan']; ?></td>
+                    <td width="60" class="text-center"><?php echo $data['nama_satuan']; ?></td>
                   </tr>
                 <?php } ?>
               </tbody>

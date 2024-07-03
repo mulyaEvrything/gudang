@@ -10,13 +10,10 @@ else {
   // mengecek data GET "id_barang"
   if (isset($_GET['id'])) {
     // ambil data GET dari tombol detail
-    $id_barang = $_GET['id'];
+    $id_transaksi = $_GET['id'];
 
     // sql statement untuk menampilkan data dari tabel "tbl_barang",  dan tabel "tbl_satuan" berdasarkan "id_barang"
-    $query = mysqli_query($mysqli, "SELECT a.id_barang, a.nama_barang, a.stok_minimum, a.stok, a.harga, a.satuan, a.foto, c.nama_satuan
-                                    FROM tbl_barang as a INNER JOIN tbl_satuan as c 
-                                    ON a.satuan=c.id_satuan 
-                                    WHERE a.id_barang='$id_barang'")
+    $query = mysqli_query($mysqli, "SELECT * FROM tbl_barang_masuk WHERE id_transaksi='$id_transaksi'")
                                     or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
     // ambil data hasil query
     $data = mysqli_fetch_assoc($query);
@@ -27,12 +24,12 @@ else {
         <div class="d-flex align-items-left align-items-md-top flex-column flex-md-row">
             <div class="page-header text-white">
             <!-- judul halaman -->
-            <h4 class="page-title text-white"><i class="fas fa-sign-in-alt mr-2"></i> Barang Keluar</h4>
+            <h4 class="page-title text-white"><i class="fas fa-sign-in-alt mr-2"></i> Barang Masuk</h4>
             <!-- breadcrumbs -->
             <ul class="breadcrumbs">
                 <li class="nav-home"><a href="?module=dashboard"><i class="flaticon-home text-white"></i></a></li>
                 <li class="separator"><i class="flaticon-right-arrow"></i></li>
-                <li class="nav-item"><a href="?module=barang" class="text-white">Barang Keluar</a></li>
+                <li class="nav-item"><a href="?module=barang" class="text-white">Barang Masuk</a></li>
                 <li class="separator"><i class="flaticon-right-arrow"></i></li>
                 <li class="nav-item"><a>Ubah</a></li>
             </ul>
@@ -43,21 +40,41 @@ else {
     </div>
 
     <div class="page-inner mt--5">
-        <div class="card">
-            <div class="card-header">
-                <!-- judul form -->
-                <div class="card-title">Ubah Barang Keluar</div>
+    <div class="card">
+      <div class="card-header">
+        <!-- judul form -->
+        <div class="card-title">Ubah Data Barang Masuk</div>
+      </div>
+      <!-- form entri data -->
+      <form action="modules/barang-masuk/proses_ubah.php" id="multipleInsertForm" method="post" class="needs-validation" novalidate>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-7">
+              <div class="form-group">
+                <label>No. Faktur <span class="text-danger">*</span></label>
+                <!-- tampilkan "id_transaksi" -->
+                <input type="text" name="id_transaksi" class="form-control" value="<?php echo $data['id_transaksi']; ?>" readonly>
+              </div>
             </div>
-                <!-- detail data -->
-                <div class="card-body">
-                <!--  -->
-                </div>
-                <div class="card-action">
-                    <!-- tombol simpan data -->
-                    <input type="submit" name="simpan" value="Simpan" class="btn btn-secondary btn-round pl-4 pr-4 mr-2">
-                    <!-- tombol kembali ke halaman data barang -->
-                    <a href="?module=barang_masuk" class="btn btn-default btn-round pl-4 pr-4">Batal</a>
-                </div>
+
+            <div class="col-md-5 ml-auto">
+              <div class="form-group">
+                <label>Tanggal <span class="text-danger">*</span></label>
+                <input type="text" name="tanggal" class="form-control date-picker" autocomplete="off" value="<?php echo date("d-m-Y", strtotime($data['tanggal'])); ?>" required>
+                <div class="invalid-feedback">Tanggal tidak boleh kosong.</div>
+              </div>
+            </div>
+          </div>
         </div>
+
+        
+        <div class="card-action">
+          <!-- tombol simpan data -->
+          <button type="submit" name="simpan" class="btn btn-secondary btn-round pl-4 pr-4 mr-2">Simpan</button>
+          <!-- tombol kembali ke halaman data barang masuk -->
+          <a href="?module=barang_masuk" class="btn btn-default btn-round pl-4 pr-4">Batal</a>
+        </div>
+      </form>
     </div>
+  </div>
 <?php } ?>
