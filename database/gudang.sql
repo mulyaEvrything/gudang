@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 03, 2024 at 12:42 PM
+-- Generation Time: Jul 06, 2024 at 10:06 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -75,10 +75,7 @@ CREATE TABLE `tbl_barang_keluar` (
 --
 
 INSERT INTO `tbl_barang_keluar` (`id_transaksi`, `tanggal`, `tgl_jatuh_tempo`, `no_po`, `id_customer`, `cetak_invoice`, `cetak_surat_jln`) VALUES
-('00001/LSA-AEK/II/24', '2024-07-03', '2024-07-03', '12893764542', 12, NULL, NULL),
-('00002/LSA-AEK/II/24', '2024-07-04', '2024-07-04', '123123', 12, NULL, NULL),
-('00003/LSA-AEK/II/24', '2024-07-06', '2024-07-10', '123213123', 12, NULL, NULL),
-('00004/LSA-AEK/II/24', '2024-07-20', '2024-07-26', '12312313', 12, NULL, NULL);
+('00001/LSA-BKA/VII/2024', '2024-07-06', '2024-07-06', '1', 14, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -96,7 +93,7 @@ CREATE TABLE `tbl_barang_masuk` (
 --
 
 INSERT INTO `tbl_barang_masuk` (`id_transaksi`, `tanggal`) VALUES
-('00001/LSA-AEK/II/24', '2024-07-03');
+('0001/LSA-AEK/VI/2024', '2024-07-06');
 
 -- --------------------------------------------------------
 
@@ -107,6 +104,7 @@ INSERT INTO `tbl_barang_masuk` (`id_transaksi`, `tanggal`) VALUES
 CREATE TABLE `tbl_customer` (
   `id_customer` int(11) NOT NULL,
   `nama_perusahaan` varchar(50) NOT NULL,
+  `singkatan` varchar(10) NOT NULL,
   `alamat` varchar(50) NOT NULL,
   `kontak` varchar(25) DEFAULT NULL,
   `no_tlp` varchar(15) DEFAULT NULL,
@@ -117,10 +115,10 @@ CREATE TABLE `tbl_customer` (
 -- Dumping data for table `tbl_customer`
 --
 
-INSERT INTO `tbl_customer` (`id_customer`, `nama_perusahaan`, `alamat`, `kontak`, `no_tlp`, `sites`) VALUES
-(11, 'PT. Ngudud Bersama', 'Jl. Per Ududtan', 'Haji Isam', '085877772221', 'Pekapuran'),
-(12, 'PT. Bermain Bersama', 'Jl. Handil Bhakti RW.05. RT.01.', 'Haji Mamat', '085877772222', 'Pekapuran'),
-(13, 'PT. Oli Sahaja', 'Jl. Kuin Utara', 'Haji Uhuy', '085877772223', 'Pekapuran 3');
+INSERT INTO `tbl_customer` (`id_customer`, `nama_perusahaan`, `singkatan`, `alamat`, `kontak`, `no_tlp`, `sites`) VALUES
+(14, 'PT Berkerja Keras Anjay', 'BKA', 'Jl. Kuin utara No.36. Rt.12. Rw.03.', 'Amang Udin', '087899992133', 'Jembatan Putih'),
+(15, 'PT Kada Karuan Negeri', 'KKN', 'Jl. Handil Bhakti No.36. Rt.12. Rw.05 Kota Banjarm', 'Acil Bayah', '087855341234', 'Permata Indah'),
+(16, 'PT Pusaka Abadi Nan Jaya', 'PANJ', 'Jl. Kuin utara No.18. Rt.12. Rw.5 Kota Banjarmasin', 'Alm Udin', '087899992322', 'Kuburan');
 
 -- --------------------------------------------------------
 
@@ -140,10 +138,8 @@ CREATE TABLE `tbl_detail_barang_keluar` (
 --
 
 INSERT INTO `tbl_detail_barang_keluar` (`id_keluar`, `id_barang`, `jumlah`, `harga`) VALUES
-('00001/LSA-AEK/II/24', 'B0001', 3, 6300000),
-('00002/LSA-AEK/II/24', 'B0001', 2, 6300000),
-('00003/LSA-AEK/II/24', 'B0001', 10, 6300000),
-('00004/LSA-AEK/II/24', 'B0001', 12, 6300000);
+('00001/LSA-BKA/VII/2024', 'B0001', 1, 6300000),
+('00001/LSA-BKA/VII/2024', 'B0002', 1, 5400000);
 
 -- --------------------------------------------------------
 
@@ -163,9 +159,17 @@ CREATE TABLE `tbl_detail_barang_masuk` (
 --
 
 INSERT INTO `tbl_detail_barang_masuk` (`id_masuk`, `id_barang`, `jumlah`, `harga`) VALUES
-('00001/LSA-AEK/II/24', 'B0002', 2, 5400000),
-('00001/LSA-AEK/II/24', 'B0003', 3, 5500000),
-('00003/LSA-AEK/II/24', 'B0002', 2, 5400000);
+('0001/LSA-AEK/VI/2024', 'B0001', 10, 6300000),
+('0001/LSA-AEK/VI/2024', 'B0002', 10, 5400000),
+('0001/LSA-AEK/VI/2024', 'B0003', 10, 5500000),
+('0001/LSA-AEK/VI/2024', 'B0004', 10, 7300000),
+('0001/LSA-AEK/VI/2024', 'B0005', 10, 7650000),
+('0001/LSA-AEK/VI/2024', 'B0006', 10, 7900000),
+('0001/LSA-AEK/VI/2024', 'B0007', 10, 7700000),
+('0001/LSA-AEK/VI/2024', 'B0008', 10, 6900000),
+('0001/LSA-AEK/VI/2024', 'B0009', 10, 10500000),
+('0001/LSA-AEK/VI/2024', 'B0010', 10, 5500000),
+('0001/LSA-AEK/VI/2024', 'B0011', 10, 5750001);
 
 -- --------------------------------------------------------
 
@@ -208,7 +212,6 @@ CREATE TABLE `tbl_user` (
 
 INSERT INTO `tbl_user` (`id_user`, `nama_user`, `username`, `password`, `hak_akses`) VALUES
 (4, 'Developer', 'adminlsa', '$2y$12$/k/WZ9/UmH1BmvwZR1HkcudK5ZsXALiMMggXqAEdlt80JvKUyyE5y', 'Administrator'),
-(8, 'a', 'aa', '1', 'Administrator'),
 (9, 'mulya', 'mulya', '$2y$12$U1so1uG0/80/FcOxEql8fuotNQ1SPZBoR/nBPYPrVXSAmeSuoFu3C', 'Pimpinan'),
 (10, 'Noor Hamidah', 'midah', '$2y$12$szN96TWI8litd.eAIeJjy.EdYU28nhunm/4dBlvBcg7Ur.J2Jxu5W', 'Gudang');
 
@@ -282,7 +285,7 @@ ALTER TABLE `tbl_user`
 -- AUTO_INCREMENT for table `tbl_customer`
 --
 ALTER TABLE `tbl_customer`
-  MODIFY `id_customer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_customer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `tbl_satuan`

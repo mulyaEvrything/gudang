@@ -114,7 +114,7 @@ else {
                 // menambahkan karakter "TM-" diawal dan karakter "0" disebelah kiri nomor urut
                 $id_transaksi =  str_pad($nomor_urut, 5, "0", STR_PAD_LEFT) . "/LSA-AEK/II/24" ;
                 ?>
-                <label>ID Transaksi <span class="text-danger">*</span></label>
+                <label>No. Faktur <span class="text-danger">*</span></label>
                 <!-- tampilkan "id_transaksi" -->
                 <input type="text" name="id_transaksi" class="form-control" autofocus>
               </div>

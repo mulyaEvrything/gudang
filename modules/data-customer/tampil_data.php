@@ -99,6 +99,7 @@ else {
               <tr>
                 <th width="20"  class="text-center">No.</th>
                 <th width="250" class="text-center">Nama Perusahaan</th>
+                <th width="250" class="text-center">Singkatan</th>
                 <th width="200" class="text-center">Alamat</th>
                 <th width="150"  class="text-center">Kontak</th>
                 <th width="200" class="text-center">No Telpon</th>
@@ -128,6 +129,7 @@ else {
                 <tr>
                   <td class="text-center"><?php echo $no++; ?></td>
                   <td class="text-left"><?php echo $data['nama_perusahaan']; ?></td>
+                  <td class="text-center"><?php echo $data['singkatan']; ?></td>
                   <td class="text-left"><?php echo $data['alamat']; ?></td>
                   <td class="text-left"><?php echo $data['kontak']; ?></td>
                   <td class="text-center"><?php echo $format; ?></td>

@@ -36,9 +36,9 @@ else {
     <thead>
       <tr style="background-color:#6861ce;color:#fff">
         <th height="30" align="center" vertical="center">No.</th>
-        <th height="30" align="center" vertical="center">ID Transaksi</th>
+        <th height="30" align="center" vertical="center">No. Faktur</th>
         <th height="30" align="center" vertical="center">Tanggal</th>
-        <th height="30" align="center" vertical="center">Barang</th>
+        <th height="30" align="center" vertical="center">Nama Barang</th>
         <th height="30" align="center" vertical="center">Jumlah Masuk</th>
         <th height="30" align="center" vertical="center">Satuan</th>
       </tr>
@@ -53,21 +53,23 @@ else {
       $no = 1;
 
       // sql statement untuk menampilkan data dari tabel "tbl_barang_masuk", tabel "tbl_barang", dan tabel "tbl_satuan" berdasarkan "tanggal"
-      $query = mysqli_query($mysqli, "SELECT a.id_transaksi, a.tanggal, a.barang, a.jumlah, b.nama_barang, c.nama_satuan
-                                      FROM tbl_barang_masuk as a INNER JOIN tbl_barang as b INNER JOIN tbl_satuan as c 
-                                      ON a.barang=b.id_barang AND b.satuan=c.id_satuan 
-                                      WHERE a.tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' ORDER BY a.id_transaksi ASC")
+      $query = mysqli_query($mysqli, "SELECT * FROM tbl_detail_barang_masuk dbm
+                                      INNER JOIN tbl_barang_masuk bm ON bm.id_transaksi = dbm.id_masuk
+                                      INNER JOIN tbl_barang b ON b.id_barang = dbm.id_barang
+                                      INNER JOIN tbl_satuan s ON s.id_satuan = b.satuan
+                                      WHERE bm.tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir'
+                                      ORDER BY bm.id_transaksi ASC")
                                       or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
       // ambil data hasil query
       while ($data = mysqli_fetch_assoc($query)) { ?>
         <!-- tampilkan data -->
         <tr>
-          <td width="70" align="center"><?php echo $no++; ?></td>
-          <td width="150" align="center"><?php echo $data['id_transaksi']; ?></td>
-          <td width="130" align="center"><?php echo date('d-m-Y', strtotime($data['tanggal'])); ?></td>
-          <td width="300"><?php echo $data['barang']; ?> - <?php echo $data['nama_barang']; ?></td>
-          <td width="130" align="right"><?php echo number_format($data['jumlah'], 0, '', '.'); ?></td>
-          <td width="130"><?php echo $data['nama_satuan']; ?></td>
+          <td height="30" width="40" align="center"><?php echo $no++; ?></td>
+          <td height="30" width="150" align="center"><?php echo $data['id_transaksi']; ?></td>
+          <td height="30" width="130" align="center"><?php echo date('d-m-Y', strtotime($data['tanggal'])); ?></td>
+          <td height="30" width="300" align="left"><?php echo $data['nama_barang']; ?></td>
+          <td height="30" width="130" align="center"><?php echo number_format($data['jumlah'], 0, '', '.'); ?></td>
+          <td height="30" width="130" align="center"><?php echo $data['nama_satuan']; ?></td>
         </tr>
       <?php } ?>
     </tbody>

@@ -55,7 +55,7 @@ else {
                   <thead class="bg-secondary text-white text-center">
                     <tr>
                       <th>No.</th>
-                      <th>ID Barang</th>
+                      <th>Kode Barang</th>
                       <th>Nama Barang</th>
                       <th>Stok</th>
                       <th>Satuan</th>

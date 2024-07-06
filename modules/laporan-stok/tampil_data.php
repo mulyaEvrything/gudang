@@ -147,15 +147,6 @@ else { ?>
                                       (SELECT jlh_masuk - jlh_keluar) as stoknow
                                       FROM tbl_barang b
                                       LEFT JOIN tbl_satuan s ON s.id_satuan = b.satuan")
-                $query = mysqli_query($mysqli, "SELECT *,
-                                      IFNULL((SELECT SUM(jumlah) FROM tbl_detail_barang_masuk dbm, tbl_barang_masuk bm WHERE dbm.id_barang = b.id_barang
-                                            AND dbm.id_masuk = bm.id_transaksi AND bm.tanggal <= '$tanggal'),0) as jlh_masuk,
-                                      IFNULL((SELECT SUM(jumlah) FROM tbl_detail_barang_keluar dbk, tbl_barang_keluar bk WHERE dbk.id_barang = b.id_barang
-                                            AND dbk.id_keluar = bk.id_transaksi AND bk.tanggal <= '$tanggal'),0) as jlh_keluar,
-                                      (SELECT jlh_masuk - jlh_keluar) as stoknow
-                                      FROM tbl_barang b
-                                      LEFT JOIN tbl_satuan s ON s.id_satuan = b.satuan
-                                      ")
                                                 or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
                 // ambil data hasil query
                 while ($data = mysqli_fetch_assoc($query)) { ?>
