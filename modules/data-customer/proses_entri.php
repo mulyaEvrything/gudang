@@ -16,6 +16,7 @@ else {
   if (isset($_POST['simpan'])) {
     // ambil data hasil submit dari form
     $nama_perusahaan        = mysqli_real_escape_string($mysqli, trim($_POST['nama_perusahaan']));
+    $singkatan        = mysqli_real_escape_string($mysqli, trim($_POST['singkatan']));
     $alamat                 = mysqli_real_escape_string($mysqli, trim($_POST['alamat']));
     $kontak                 = mysqli_real_escape_string($mysqli, trim($_POST['kontak']));
     $no_tlp                 = mysqli_real_escape_string($mysqli, $_POST['no_tlp']);
@@ -23,8 +24,8 @@ else {
 
     
       // sql statement untuk insert data ke tabel "tbl_customer"
-      $insert = mysqli_query($mysqli, "INSERT INTO tbl_customer(nama_perusahaan, alamat, kontak, no_tlp, sites) 
-                                       VALUES('$nama_perusahaan', '$alamat', '$kontak', '$no_tlp', '$site')")
+      $insert = mysqli_query($mysqli, "INSERT INTO tbl_customer(nama_perusahaan, alamat, kontak, no_tlp, sites, singkatan) 
+                                       VALUES('$nama_perusahaan', '$alamat', '$kontak', '$no_tlp', '$site', '$singkatan')")
                                        or die('Ada kesalahan pada query insert : ' . mysqli_error($mysqli));
       // cek query
       // jika proses insert berhasil

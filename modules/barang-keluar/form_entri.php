@@ -64,16 +64,16 @@ else { ?>
                 // menambahkan karakter "TK-" diawal dan karakter "0" disebelah kiri nomor urut
                 $id_transaksi = str_pad($nomor_urut, 5, "0", STR_PAD_LEFT) . "/LSA-AEK/II/24";
                 ?>
-                <label>ID Transaksi <span class="text-danger">*</span></label>
+                <label>No. Faktur <span class="text-danger">*</span></label>
                 <!-- tampilkan "id_transaksi" -->
-                <input type="text" name="id_transaksi" class="form-control" value="<?php echo $id_transaksi; ?>" readonly>
+                <input type="text" id="id_transaksi" name="id_transaksi" class="form-control" readonly>
               </div>
             </div>
 
             <div class="col-md-6 ml-auto">
               <div class="form-group">
-                <label>Tanggal Nota<span class="text-danger">*</span></label>
-                <input type="text" name="tanggal" class="form-control date-picker" autocomplete="off" value="<?php echo date("d-m-Y"); ?>" required>
+                <label>Tanggal Faktur<span class="text-danger">*</span></label>
+                <input type="text" id="tanggal" name="tanggal" class="form-control date-picker" autocomplete="off" value="<?php echo date("d-m-Y"); ?>" required>
                 <div class="invalid-feedback">Tanggal tidak boleh kosong.</div>
               </div>
             </div>
@@ -83,7 +83,7 @@ else { ?>
             <div class="col-md-4">
               <div class="form-group">
                 <label>Customer <span class="text-danger">*</span></label>
-                <select id="data_cust" name="id_customer" class="form-control chosen-select" autocomplete="off" required>
+                <select id="id_customer" name="id_customer" class="form-control chosen-select" autocomplete="off" required>
                   <option selected disabled value="">-- Pilih --</option>
                   <?php
                   // sql statement untuk menampilkan data dari tabel "tbl_barang"
@@ -149,6 +149,51 @@ else { ?>
             $('#jumlah').focus();
           }
         });
+      });
+
+      $('#id_customer').change(function() {
+        // mengambil value dari "id_barang"
+        var id_customer = $('#id_customer').val();
+
+        $.ajax({
+          type: "GET",                                  // mengirim data dengan method GET 
+          url: "modules/barang-keluar/get_customer.php",  // proses get data berdasarkan "id_barang"
+          data: {id_customer: id_customer},                 // data yang dikirim
+          dataType: "JSON",                             // tipe data JSON
+          success: function(result) {                   // ketika proses get data selesai
+            // tampilkan data
+            var a = new Date();
+            var tahun=a.getFullYear();
+            var a=a.getMonth()+1;
+            switch (a){
+              case 1:bulan="I";break
+              case 2:bulan="II";break
+              case 3:bulan="III";break
+              case 4:bulan="IV";break
+              case 5:bulan="V";break
+              case 6:bulan="VI";break
+              case 7:bulan="VII";break
+              case 8:bulan="VIII";break
+              case 9:bulan="IX";break
+              case 10:bulan="X";break
+              case 11:bulan="XI";break
+              case 12:bulan="XII"
+              }
+
+            $('#id_transaksi').val('<?php echo str_pad($nomor_urut, 5, "0", STR_PAD_LEFT); ?>/LSA-'+result.singkatan + '/' + bulan + '/' + tahun);
+            // $('#harga').val(result.harga);
+            // $('#data_satuan').html('<span class="input-group-text">' + result.nama_satuan + '</span>');
+            // set focus
+            // $('#jumlah').focus();
+          }
+        });
+
+         // mengambil data dari form entri
+         var stok = $('#harga').val();
+        var jumlah = $('#jumlah').val();
+
+        var subtotal = eval(stok) * eval(jumlah);
+        $('#subtotal').val(subtotal);
       });
 
       // menghitung sisa stok
