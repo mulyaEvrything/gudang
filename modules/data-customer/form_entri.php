@@ -45,6 +45,12 @@ else { ?>
               </div>
 
               <div class="form-group">
+                <label>Singkatan <span class="text-danger">*</span></label>
+                <input type="text" name="singkatan" class="form-control" autocomplete="off" required>
+                <div class="invalid-feedback">Singkatan tidak boleh kosong.</div>
+              </div>
+
+              <div class="form-group">
                 <label>Alamat<span class="text-danger">*</span></label>
                 <textarea name="alamat" autocomplete="off" class="form-control"cols="10" rows="10" require></textarea>
                 <div class="invalid-feedback">Harga satuan tidak boleh kosong.</div>

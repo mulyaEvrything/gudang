@@ -92,7 +92,7 @@ else { ?>
               <div class="col-lg-2 pr-0">
                 <div class="form-group pt-3">
                   <!-- tombol cetak laporan -->
-                  <a href="modules/laporan-stok/cetak.php?tanggal_awal=<?php echo $tanggal; ?> target="_blank" class="btn btn-warning btn-round btn-block mt-4">
+                  <a href="modules/laporan-stok/cetak.php?tanggal=<?php echo $tanggal; ?>" target="_blank" class="btn btn-warning btn-round btn-block mt-4">
                     <span class="btn-label"><i class="fa fa-print mr-2"></i></span> Cetak
                   </a>
                 </div>
@@ -101,7 +101,7 @@ else { ?>
               <div class="col-lg-2 pl-0">
                 <div class="form-group pt-3">
                   <!-- tombol export laporan -->
-                  <a href="modules/laporan-stok/export.php?tanggal_awal=<?php echo $tanggal; ?>" target="_blank" class="btn btn-success btn-round btn-block mt-4">
+                  <a href="modules/laporan-stok/export.php?tanggal=<?php echo $tanggal; ?>" target="_blank" class="btn btn-success btn-round btn-block mt-4">
                     <span class="btn-label"><i class="fa fa-file-excel mr-2"></i></span> Export
                   </a>
                 </div>
@@ -139,6 +139,14 @@ else { ?>
                 $no = 1;
 
                 // sql statement untuk menampilkan data dari tabel "tbl_barang_masuk", tabel "tbl_barang", dan tabel "tbl_satuan" berdasarkan "tanggal"
+                $query = mysqli_query($mysqli, "SELECT *,
+                                      IFNULL((SELECT SUM(jumlah) FROM tbl_detail_barang_masuk dbm, tbl_barang_masuk bm WHERE dbm.id_barang = b.id_barang
+                                            AND dbm.id_masuk = bm.id_transaksi AND bm.tanggal <= '$tanggal'),0) as jlh_masuk,
+                                      IFNULL((SELECT SUM(jumlah) FROM tbl_detail_barang_keluar dbk, tbl_barang_keluar bk WHERE dbk.id_barang = b.id_barang
+                                            AND dbk.id_keluar = bk.id_transaksi AND bk.tanggal <= '$tanggal'),0) as jlh_keluar,
+                                      (SELECT jlh_masuk - jlh_keluar) as stoknow
+                                      FROM tbl_barang b
+                                      LEFT JOIN tbl_satuan s ON s.id_satuan = b.satuan")
                 $query = mysqli_query($mysqli, "SELECT *,
                                       IFNULL((SELECT SUM(jumlah) FROM tbl_detail_barang_masuk dbm, tbl_barang_masuk bm WHERE dbm.id_barang = b.id_barang
                                             AND dbm.id_masuk = bm.id_transaksi AND bm.tanggal <= '$tanggal'),0) as jlh_masuk,

@@ -116,7 +116,7 @@ else {
                 ?>
                 <label>ID Transaksi <span class="text-danger">*</span></label>
                 <!-- tampilkan "id_transaksi" -->
-                <input type="text" name="id_transaksi" class="form-control" value="<?php echo $id_transaksi; ?>" readonly>
+                <input type="text" name="id_transaksi" class="form-control" autofocus>
               </div>
             </div>
 

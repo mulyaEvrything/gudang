@@ -20,7 +20,8 @@ else {
   require_once "../../helper/fungsi_tanggal_indo.php";
 
   // ambil data GET dari tombol cetak
-  $stok = $_GET['stok'];
+  $tanggal = $_GET['tanggal'];
+  $tanggal_keluar = date('Y-m-d', strtotime($tanggal));
 
   // variabel untuk nomor urut tabel 
   $no = 1;
@@ -35,17 +36,18 @@ else {
 
   // mengecek filter data stok
   // jika filter data stok "Seluruh" dipilih, tampilkan laporan stok seluruh barang
-  if ($stok == 'Seluruh') {
+
     // halaman HTML yang akan diubah ke PDF
     $html = '<!DOCTYPE html>
             <html>
             <head>
-              <title>Laporan Stok Seluruh Barang</title>
+              <title>Laporan Stok Barang '.tanggal_indo(date('Y-m-d',strtotime($tanggal_keluar))).'</title>
               <link rel="stylesheet" href="../../assets/css/laporan.css">
             </head>
             <body class="text-dark">
               <div class="text-center mb-4">
-                <h1>LAPORAN STOK SELURUH BARANG</h1>
+                <h1>LAPORAN STOK BARANG</h1>
+                <h2>'.tanggal_indo(date('Y-m-d',strtotime($tanggal_keluar))).'</h2>
               </div>
               <hr>
               <div class="mt-4">
@@ -55,38 +57,31 @@ else {
                       <th>No.</th>
                       <th>ID Barang</th>
                       <th>Nama Barang</th>
-                      <th>Jenis Barang</th>
                       <th>Stok</th>
                       <th>Satuan</th>
                     </tr>
                   </thead>
                   <tbody class="text-dark">';
     // sql statement untuk menampilkan data dari tabel "tbl_barang", tabel "tbl_jenis", dan tabel "tbl_satuan"
-    $query = mysqli_query($mysqli, "SELECT a.id_barang, a.nama_barang, a.jenis, a.stok_minimum, a.stok, a.satuan, b.nama_jenis, c.nama_satuan
-										                FROM tbl_barang as a INNER JOIN tbl_jenis as b INNER JOIN tbl_satuan as c 
-										                ON a.jenis=b.id_jenis AND a.satuan=c.id_satuan 
-                                    ORDER BY a.id_barang ASC")
+    $query = mysqli_query($mysqli, "SELECT *,
+                                      IFNULL((SELECT SUM(jumlah) FROM tbl_detail_barang_masuk dbm, tbl_barang_masuk bm WHERE dbm.id_barang = b.id_barang
+                                            AND dbm.id_masuk = bm.id_transaksi AND bm.tanggal <= '$tanggal_keluar'),0) as jlh_masuk,
+                                      IFNULL((SELECT SUM(jumlah) FROM tbl_detail_barang_keluar dbk, tbl_barang_keluar bk WHERE dbk.id_barang = b.id_barang
+                                            AND dbk.id_keluar = bk.id_transaksi AND bk.tanggal <= '$tanggal_keluar'),0) as jlh_keluar,
+                                      (SELECT jlh_masuk - jlh_keluar) as stoknow
+                                      FROM tbl_barang b
+                                      LEFT JOIN tbl_satuan s ON s.id_satuan = b.satuan 
+                                    ORDER BY b.id_barang ASC")
                                     or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
     // ambil data hasil query
     while ($data = mysqli_fetch_assoc($query)) {
       // tampilkan data
       $html .= '		<tr>
                       <td width="50" class="text-center">' . $no++ . '</td>
-                      <td width="80" class="text-center">' . $data['id_barang'] . '</td>
-                      <td width="200">' . $data['nama_barang'] . '</td>
-                      <td width="140">' . $data['nama_jenis'] . '</td>';
-      // mengecek data "stok"
-      // jika data stok minim, tampilkan data dengan warna background
-      if ($data['stok'] <= $data['stok_minimum']) {
-        $html .= '		<td width="70" class="text-right">
-                        <span class="badge badge-warning">' . $data['stok'] . '</span>
-                      </td>';
-      }
-      // jika data stok tidak minim, tampilkan data tanpa warna background
-      else {
-        $html .= '		<td width="70" class="text-right">' . $data['stok'] . '</td>';
-      }
-      $html .= '			<td width="80">' . $data['nama_satuan'] . '</td>
+                      <td class="text-center">' . $data['id_barang'] . '</td>
+                      <td>' . $data['nama_barang'] . '</td>
+                      <td class="text-center">' . $data['stoknow'] . '</td>
+                      <td class="text-center">' . $data['nama_satuan'] . '</td>
 								    </tr>';
     }
     $html .= '		</tbody>
@@ -103,67 +98,6 @@ else {
     // mengubah dari HTML menjadi PDF
     $dompdf->render();
     // menampilkan file PDF yang dihasilkan ke browser dan berikan nama file "Laporan Stok Seluruh Barang.pdf"
-    $dompdf->stream('Laporan Stok Seluruh Barang.pdf', array('Attachment' => 0));
-  }
-  // jika filter data stok "Minimum" dipilih, tampilkan laporan stok barang yang mencapai batas minimum
-  else {
-    // halaman HTML yang akan diubah ke PDF
-    $html = '<!DOCTYPE html>
-            <html>
-            <head>
-              <title>Laporan Stok Barang Minimum</title>
-              <link rel="stylesheet" href="../../assets/css/laporan.css">
-            </head>
-            <body class="text-dark">
-              <div class="text-center mb-4">
-                <h1>LAPORAN STOK BARANG YANG MENCAPAI BATAS MINIMUM</h1>
-              </div>
-              <hr>
-              <div class="mt-4">
-                <table class="table table-bordered" width="100%" cellspacing="0">
-                  <thead class="bg-secondary text-white text-center">
-                    <tr>
-                      <th>No.</th>
-                      <th>ID Barang</th>
-                      <th>Nama Barang</th>
-                      <th>Jenis Barang</th>
-                      <th>Stok</th>
-                      <th>Satuan</th>
-                    </tr>
-                  </thead>
-                  <tbody class="text-dark">';
-    // sql statement untuk menampilkan data dari tabel "tbl_barang", tabel "tbl_jenis", dan tabel "tbl_satuan" berdasarkan "stok"
-    $query = mysqli_query($mysqli, "SELECT a.id_barang, a.nama_barang, a.jenis, a.stok_minimum, a.stok, a.satuan, b.nama_jenis, c.nama_satuan
-										                FROM tbl_barang as a INNER JOIN tbl_jenis as b INNER JOIN tbl_satuan as c 
-                                    ON a.jenis=b.id_jenis AND a.satuan=c.id_satuan 
-										                WHERE a.stok<=a.stok_minimum ORDER BY a.id_barang ASC")
-                                    or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
-    // ambil data hasil query
-    while ($data = mysqli_fetch_assoc($query)) {
-      // tampilkan data
-      $html .= '		<tr>
-                      <td width="50" class="text-center">' . $no++ . '</td>
-                      <td width="80" class="text-center">' . $data['id_barang'] . '</td>
-                      <td width="200">' . $data['nama_barang'] . '</td>
-                      <td width="140">' . $data['nama_jenis'] . '</td>
-                      <td width="70" class="text-right">' . $data['stok'] . '</td>
-                      <td width="80">' . $data['nama_satuan'] . '</td>
-                    </tr>';
-    }
-    $html .= '		</tbody>
-                </table>
-              </div>
-              <div class="text-right mt-5">............, ' . tanggal_indo(date('Y-m-d')) . '</div>
-            </body>
-            </html>';
-
-    // load html
-    $dompdf->loadHtml($html);
-    // mengatur ukuran dan orientasi kertas
-    $dompdf->setPaper('A4', 'landscape');
-    // mengubah dari HTML menjadi PDF
-    $dompdf->render();
-    // menampilkan file PDF yang dihasilkan ke browser dan berikan nama file "Laporan Stok Barang Minimum.pdf"
-    $dompdf->stream('Laporan Stok Barang Minimum.pdf', array('Attachment' => 0));
-  }
+    $dompdf->stream('Laporan Stok Barang '.tanggal_indo(date('Y-m-d')).'.pdf', array('Attachment' => 0));
+  
 }

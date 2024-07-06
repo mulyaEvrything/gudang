@@ -205,7 +205,18 @@ else {
                       <option value="">-- Pilih --</option>
                       <?php
                       // sql statement untuk menampilkan data dari tabel "tbl_barang"
-                      $query_barang = mysqli_query($mysqli, "SELECT id_barang, nama_barang FROM tbl_barang ORDER BY id_barang ASC")
+                      $query_barang = mysqli_query($mysqli, "SELECT *,
+                                      IFNULL((SELECT SUM(jumlah) FROM tbl_detail_barang_masuk dbm, tbl_barang_masuk bm WHERE dbm.id_barang = b.id_barang
+                                            AND dbm.id_masuk = bm.id_transaksi AND bm.tanggal <= '$tanggal'),0) as jlh_masuk,
+                                      IFNULL((SELECT SUM(jumlah) FROM tbl_detail_barang_keluar dbk, tbl_barang_keluar bk WHERE dbk.id_barang = b.id_barang
+                                            AND dbk.id_keluar = bk.id_transaksi AND bk.tanggal <= '$tanggal'),0) as jlh_keluar,
+                                      (SELECT jlh_masuk - jlh_keluar) as stoknow
+                                      FROM tbl_barang b
+                                      LEFT JOIN tbl_satuan s ON s.id_satuan = b.satuan
+                                      WHERE (SELECT (IFNULL((SELECT SUM(jumlah) FROM tbl_detail_barang_masuk dbm, tbl_barang_masuk bm WHERE dbm.id_barang = b.id_barang
+                                            AND dbm.id_masuk = bm.id_transaksi AND bm.tanggal <= '$tanggal'),0)) - ( IFNULL((SELECT SUM(jumlah) FROM tbl_detail_barang_keluar dbk, tbl_barang_keluar bk WHERE dbk.id_barang = b.id_barang
+                                            AND dbk.id_keluar = bk.id_transaksi AND bk.tanggal <= '$tanggal'),0))) > 0
+                                             ORDER BY id_barang ASC")
                                                             or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
                       // ambil data hasil query
                       while ($data_barang = mysqli_fetch_assoc($query_barang)) {
@@ -217,10 +228,12 @@ else {
                       <!-- <div class="invalid-feedback">Barang tidak boleh kosong.</div> -->
                   </td>
                   <td>
+                  <input type="hidden" id="sisa" name="sisa">
                     <input type="text" id="jumlah" name="jumlah" class="form-control" autocomplete="off" onKeyPress="return goodchars(event,'0123456789',this)" required>
                     <div class="invalid-feedback">Jumlah tidak boleh kosong.</div>
                   </td>
                   <td>
+                  <input type="hidden" id="stoknow" name="stoknow">
                     <input type="text" id="harga" name="harga" class="form-control" autocomplete="off">
                   </td>
                   <td>
@@ -252,12 +265,12 @@ else {
 
         $.ajax({
           type: "GET",                                  // mengirim data dengan method GET 
-          url: "modules/barang-masuk/get_barang.php",  // proses get data berdasarkan "id_barang"
+          url: "modules/barang-keluar/get_barang.php",  // proses get data berdasarkan "id_barang"
           data: {id_barang: id_barang},                 // data yang dikirim
           dataType: "JSON",                             // tipe data JSON
           success: function(result) {                   // ketika proses get data selesai
             // tampilkan data
-            $('#data_stok').val(result.stok);
+            $('#stoknow').val(result.stoknow);
             $('#harga').val(result.harga);
             $('#data_satuan').html('<span class="input-group-text">' + result.nama_satuan + '</span>');
             // set focus
@@ -276,11 +289,54 @@ else {
       // menghitung sisa stok
       $('#jumlah').keyup(function() {
         // mengambil data dari form entri
-        var stok = $('#harga').val();
+        var harga = $('#harga').val();
         var jumlah = $('#jumlah').val();
+        var stok = $('#stoknow').val();
 
-        var subtotal = eval(stok) * eval(jumlah);
+        var subtotal = eval(harga) * eval(jumlah);
         $('#subtotal').val(subtotal);
+
+        // mengecek input data
+        // jika data barang belum diisi
+        if (stok == "") {
+          // tampilkan pesan info
+          $('#pesan').html('<div class="alert alert-notify alert-info alert-dismissible fade show" role="alert"><span data-notify="icon" class="fas fa-info"></span><span data-notify="title" class="text-info">Info!</span> <span data-notify="message">Silahkan isi data barang terlebih dahulu.</span><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+          // reset input "jumlah"
+          $('#jumlah').val('');
+          // sisa stok kosong
+          var sisa_stok = "";
+        }
+        // jika "jumlah" belum diisi
+        else if (jumlah == "") {
+          // sisa stok kosong
+          var sisa_stok = "";
+        }
+        // jika "jumlah" diisi 0
+        else if (jumlah == 0) {
+          // tampilkan pesan peringatan
+          $('#pesan').html('<div class="alert alert-notify alert-warning alert-dismissible fade show" role="alert"><span data-notify="icon" class="fas fa-exclamation"></span><span data-notify="title" class="text-warning">Peringatan!</span> <span data-notify="message">Jumlah keluar tidak boleh 0 (nol).</span><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+          // reset input "jumlah"
+          $('#jumlah').val('');
+          // sisa stok kosong
+          var sisa_stok = "";
+        }
+        // jika "jumlah" lebih dari "stok"
+        else if (eval(jumlah) > eval(stok)) {
+          // tampilkan pesan peringatan
+          $('#pesan').html('<div class="alert alert-notify alert-warning alert-dismissible fade show" role="alert"><span data-notify="icon" class="fas fa-exclamation"></span><span data-notify="title" class="text-warning">Peringatan!</span> <span data-notify="message">Stok tidak memenuhi, kurangi jumlah keluar.</span><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+          // reset input "jumlah"
+          $('#jumlah').val('');
+          // sisa stok kosong
+          var sisa_stok = "";
+        }
+        // jika "jumlah" sudah diisi
+        else {
+          // hitung sisa stok
+          var sisa_stok = eval(stok) - eval(jumlah);
+          
+        }
+        // tampilkan sisa stok
+        $('#sisa').val(sisa_stok);
       
       });
     });
