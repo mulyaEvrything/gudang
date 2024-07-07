@@ -136,7 +136,7 @@ else {
                     <div>
                       
                       <!-- tombol ubah data -->
-                      <a href="#>" class="btn btn-icon btn-round btn-secondary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Ubah">
+                      <a href="#" class="btn btn-icon btn-round btn-secondary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Ubah">
                         <i class="fas fa-pencil-alt fa-sm"></i>
                       </a>
                       <!-- tombol hapus data -->

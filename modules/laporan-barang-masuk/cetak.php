@@ -49,7 +49,7 @@ else {
                 <thead class="bg-secondary text-white text-center">
 		              <tr>
                     <th>No.</th>
-                    <th>ID Transaksi</th>
+                    <th>No. Faktur</th>
                     <th>Tanggal</th>
                     <th>Barang</th>
                     <th>Jumlah Masuk</th>
@@ -63,10 +63,12 @@ else {
   // variabel untuk nomor urut tabel 
   $no = 1;
   // sql statement untuk menampilkan data dari tabel "tbl_barang_masuk", tabel "tbl_barang", dan tabel "tbl_satuan" berdasarkan "tanggal"
-  $query = mysqli_query($mysqli, "SELECT a.id_transaksi, a.tanggal, a.barang, a.jumlah, b.nama_barang, c.nama_satuan
-                                  FROM tbl_barang_masuk as a INNER JOIN tbl_barang as b INNER JOIN tbl_satuan as c 
-                                  ON a.barang=b.id_barang AND b.satuan=c.id_satuan 
-                                  WHERE a.tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir' ORDER BY a.id_transaksi ASC")
+  $query = mysqli_query($mysqli, "SELECT * FROM tbl_detail_barang_masuk dbm
+                                      INNER JOIN tbl_barang_masuk bm ON bm.id_transaksi = dbm.id_masuk
+                                      INNER JOIN tbl_barang b ON b.id_barang = dbm.id_barang
+                                      INNER JOIN tbl_satuan s ON s.id_satuan = b.satuan
+                                      WHERE bm.tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir'
+                                      ORDER BY bm.id_transaksi ASC")
                                   or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
   // ambil data hasil query
   while ($data = mysqli_fetch_assoc($query)) {
@@ -75,7 +77,7 @@ else {
                     <td width="50" class="text-center">' . $no++ . '</td>
                     <td width="90" class="text-center">' . $data['id_transaksi'] . '</td>
                     <td width="70" class="text-center">' . date('d-m-Y', strtotime($data['tanggal'])) . '</td>
-                    <td width="220">' . $data['barang'] . ' - ' . $data['nama_barang'] . '</td>
+                    <td width="220">' . $data['id_barang'] . ' - ' . $data['nama_barang'] . '</td>
                     <td width="70" class="text-right">' . number_format($data['jumlah'], 0, '', '.') . '</td>
                     <td width="70">' . $data['nama_satuan'] . '</td>
                   </tr>';

@@ -53,6 +53,17 @@ else {
                                     or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
     // ambil data hasil query
     $data = mysqli_fetch_assoc($query);
+
+     // sql statement untuk menampilkan data dari tabel "tbl_barang",  dan tabel "tbl_satuan" berdasarkan "id_barang"
+     $query1 = mysqli_query($mysqli, "SELECT GROUP_CONCAT(a.jlh, ' ', a.nama_satuan SEPARATOR ' + ') as nm FROM 
+                                    (SELECT SUM(dbk.jumlah) as jlh, s.nama_satuan from tbl_detail_barang_keluar dbk
+                                    left JOIN tbl_barang b ON b.id_barang = dbk.id_barang
+                                    left join tbl_satuan s on s.id_satuan = b.satuan
+                                    WHERE id_keluar = '$id_transaksi'
+                                    GROUP BY s.id_satuan) a")
+     or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
+// ambil data hasil query
+$data1 = mysqli_fetch_assoc($query1);
   }
 ?>
     
@@ -164,8 +175,8 @@ else {
       </tbody>
       <!-- Terbilang, sub total, ppn dan total -->
       <tr>
-          <td colspan="3" style="text-align: center;" width="59%"> TOTAL
-          <td colspan="2">(JLH)(SATUAN) + (JLH)(SATUAN)
+          <td colspan="3" style="text-align: center;" width="59%"> TOTAL </td>
+          <td colspan="2" style="text-align: center;"><?= $data1['nm']; ?></td>
         </tr>  
     </table>
     <!-- note -->
