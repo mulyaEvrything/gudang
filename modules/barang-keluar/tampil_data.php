@@ -90,8 +90,8 @@ else {
             <thead>
               <tr>
                 <th class="text-center">No.</th>
-                <th class="text-center">No. Nota</th>
-                <th class="text-center">Tgl Nota</th>
+                <th class="text-center">No. Faktur</th>
+                <th class="text-center">Tgl Faktur</th>
                 <th class="text-center">Tgl Jatuh Tempo</th>
                 <th class="text-center">Customer</th>
                 <th class="text-center">No. PO</th>

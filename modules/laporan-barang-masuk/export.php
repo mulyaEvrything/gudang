@@ -37,8 +37,9 @@ else {
       <tr style="background-color:#6861ce;color:#fff">
         <th height="30" align="center" vertical="center">No.</th>
         <th height="30" align="center" vertical="center">No. Faktur</th>
+        <th height="30" align="center" vertical="center">No. Faktur</th>
         <th height="30" align="center" vertical="center">Tanggal</th>
-        <th height="30" align="center" vertical="center">Barang</th>
+        <th height="30" align="center" vertical="center">Nama Barang</th>
         <th height="30" align="center" vertical="center">Jumlah Masuk</th>
         <th height="30" align="center" vertical="center">Satuan</th>
       </tr>
@@ -53,6 +54,12 @@ else {
       $no = 1;
 
       // sql statement untuk menampilkan data dari tabel "tbl_barang_masuk", tabel "tbl_barang", dan tabel "tbl_satuan" berdasarkan "tanggal"
+      $query = mysqli_query($mysqli, "SELECT * FROM tbl_detail_barang_masuk dbm
+                                      INNER JOIN tbl_barang_masuk bm ON bm.id_transaksi = dbm.id_masuk
+                                      INNER JOIN tbl_barang b ON b.id_barang = dbm.id_barang
+                                      INNER JOIN tbl_satuan s ON s.id_satuan = b.satuan
+                                      WHERE bm.tanggal BETWEEN '$tanggal_awal' AND '$tanggal_akhir'
+                                      ORDER BY bm.id_transaksi ASC")
       $query = mysqli_query($mysqli, "SELECT * FROM tbl_detail_barang_masuk dbm
                                       INNER JOIN tbl_barang_masuk bm ON bm.id_transaksi = dbm.id_masuk
                                       INNER JOIN tbl_barang b ON b.id_barang = dbm.id_barang

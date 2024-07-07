@@ -39,7 +39,7 @@ else {
       <thead>
         <tr style="background-color:#6861ce;color:#fff">
           <th height="30" align="center" vertical="center">No.</th>
-          <th height="30" align="center" vertical="center">ID Barang</th>
+          <th height="30" align="center" vertical="center">Kode Barang</th>
           <th height="30" align="center" vertical="center">Nama Barang</th>
           <th height="30" align="center" vertical="center">Stok</th>
           <th height="30" align="center" vertical="center">Satuan</th>

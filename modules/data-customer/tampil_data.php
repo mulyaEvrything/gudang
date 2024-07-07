@@ -99,11 +99,12 @@ else {
               <tr>
                 <th width="20"  class="text-center">No.</th>
                 <th width="250" class="text-center">Nama Perusahaan</th>
+                <th width="250" class="text-center">Singkatan</th>
                 <th width="200" class="text-center">Alamat</th>
                 <th width="150"  class="text-center">Kontak</th>
                 <th width="200" class="text-center">No Telpon</th>
                 <th width="100" class="text-center">Site</th>
-                <th width="100" class="text-center">Aksi</th>
+                <!-- <th width="100" class="text-center">Aksi</th> -->
               </tr>
             </thead>
             <tbody>
@@ -128,24 +129,25 @@ else {
                 <tr>
                   <td class="text-center"><?php echo $no++; ?></td>
                   <td class="text-left"><?php echo $data['nama_perusahaan']; ?></td>
+                  <td class="text-center"><?php echo $data['singkatan']; ?></td>
                   <td class="text-left"><?php echo $data['alamat']; ?></td>
                   <td class="text-left"><?php echo $data['kontak']; ?></td>
                   <td class="text-center"><?php echo $format; ?></td>
                   <td class="text-left"><?php echo $data['sites']; ?></td>
-                  <td class="text-center">
-                    <div>
+                  <!-- <td class="text-center"> -->
+                    <!-- <div> -->
                       
                       <!-- tombol ubah data -->
-                      <a href="#" class="btn btn-icon btn-round btn-secondary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Ubah">
+                      <!-- <a href="#>" class="btn btn-icon btn-round btn-secondary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Ubah">
                         <i class="fas fa-pencil-alt fa-sm"></i>
-                      </a>
+                      </a> -->
                       <!-- tombol hapus data -->
-                      <a href="modules/data-customer/proses_hapus.php?id=<?php echo $data['id_customer']; ?>" onclick="return confirm('Anda yakin ingin menghapus <?php echo $data['nama_perusahaan']; ?>?')" class="btn btn-icon btn-round btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
+                      <!-- <a href="modules/data-customer/proses_hapus.php?id=<?php echo $data['id_customer']; ?>" onclick="return confirm('Anda yakin ingin menghapus <?php echo $data['nama_perusahaan']; ?>?')" class="btn btn-icon btn-round btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
 
                         <i class="fas fa-trash fa-sm"></i>
-                      </a>
-                    </div>
-                  </td>
+                      </a> -->
+                    <!-- </div>
+                  </td> -->
                 </tr>
               <?php } ?>
             </tbody>
