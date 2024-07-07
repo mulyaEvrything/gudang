@@ -38,7 +38,7 @@ else {
         <th height="30" align="center" vertical="center">No.</th>
         <th height="30" align="center" vertical="center">No. Faktur</th>
         <th height="30" align="center" vertical="center">Tanggal</th>
-        <th height="30" align="center" vertical="center">Barang</th>
+        <th height="30" align="center" vertical="center">Nama Barang</th>
         <th height="30" align="center" vertical="center">Jumlah Keluar</th>
         <th height="30" align="center" vertical="center">Satuan</th>
       </tr>
@@ -64,12 +64,12 @@ else {
       while ($data = mysqli_fetch_assoc($query)) { ?>
         <!-- tampilkan data -->
         <tr>
-          <td width="70" align="center"><?php echo $no++; ?></td>
-          <td width="150" align="center"><?php echo $data['id_transaksi']; ?></td>
-          <td width="130" align="center"><?php echo date('d-m-Y', strtotime($data['tanggal'])); ?></td>
-          <td width="300"><?php echo $data['id_barang']; ?> - <?php echo $data['nama_barang']; ?></td>
-          <td width="130" align="right"><?php echo number_format($data['jumlah'], 0, '', '.'); ?></td>
-          <td width="130"><?php echo $data['nama_satuan']; ?></td>
+          <td height="30" width="40" align="center"><?php echo $no++; ?></td>
+          <td height="30" width="150" align="center"><?php echo $data['id_transaksi']; ?></td>
+          <td height="30" width="130" align="center"><?php echo date('d-m-Y', strtotime($data['tanggal'])); ?></td>
+          <td height="30" width="300"><?php echo $data['id_barang']; ?> - <?php echo $data['nama_barang']; ?></td>
+          <td height="30" width="130" align="right"><?php echo number_format($data['jumlah'], 0, '', '.'); ?></td>
+          <td height="30" width="130"><?php echo $data['nama_satuan']; ?></td>
         </tr>
       <?php } ?>
     </tbody>

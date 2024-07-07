@@ -49,7 +49,7 @@ else {
                 <thead class="bg-secondary text-white text-center">
 		              <tr>
                     <th>No.</th>
-                    <th>ID Transaksi</th>
+                    <th>No. Faktur</th>
                     <th>Tanggal</th>
                     <th>Nama Barang</th>
                     <th>Jumlah Keluar</th>
@@ -75,9 +75,9 @@ else {
     // tampilkan data
     $html .= '		<tr>
                     <td width="20" class="text-center">' . $no++ . '</td>
-                    <td width="100" class="text-center">' . $data['id_transaksi'] . '</td>
+                    <td width="110" class="text-center">' . $data['id_transaksi'] . '</td>
                     <td width="70" class="text-center">' . date('d-m-Y', strtotime($data['tanggal'])) . '</td>
-                    <td width="220">' . $data['id_barang'] . ' - ' . $data['nama_barang'] . '</td>
+                    <td width="220">' . $data['nama_barang'] . '</td>
                     <td width="70" class="text-right">' . number_format($data['jumlah'], 0, '', '.') . '</td>
                     <td width="70">' . $data['nama_satuan'] . '</td>
                   </tr>';

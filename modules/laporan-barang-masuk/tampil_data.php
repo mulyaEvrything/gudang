@@ -144,7 +144,7 @@ else { ?>
                   <th class="text-center">No.</th>
                   <th class="text-center">No. Faktur</th>
                   <th class="text-center">Tanggal</th>
-                  <th class="text-center">Barang</th>
+                  <th class="text-center">Nama Barang</th>
                   <th class="text-center">Jumlah Masuk</th>
                   <th class="text-center">Satuan</th>
                 </tr>
