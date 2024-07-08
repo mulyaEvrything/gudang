@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 07, 2024 at 10:05 AM
+-- Generation Time: Jul 08, 2024 at 03:14 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `gudang`
+-- Database: `gudang3`
 --
 
 -- --------------------------------------------------------
@@ -93,7 +93,8 @@ CREATE TABLE `tbl_barang_masuk` (
 --
 
 INSERT INTO `tbl_barang_masuk` (`id_transaksi`, `tanggal`) VALUES
-('0001/LSA-AEK/VI/2024', '2024-07-06');
+('0001/LSA-AEK/VI/2024', '2024-07-06'),
+('0003/LSA-AEK/VII/2024', '2024-07-08');
 
 -- --------------------------------------------------------
 
@@ -173,7 +174,8 @@ INSERT INTO `tbl_detail_barang_masuk` (`id_masuk`, `id_barang`, `jumlah`, `harga
 ('0001/LSA-AEK/VI/2024', 'B0008', 10, 6900000),
 ('0001/LSA-AEK/VI/2024', 'B0009', 10, 10500000),
 ('0001/LSA-AEK/VI/2024', 'B0010', 10, 5500000),
-('0001/LSA-AEK/VI/2024', 'B0011', 10, 5750001);
+('0001/LSA-AEK/VI/2024', 'B0011', 10, 5750001),
+('0003/LSA-AEK/VII/2024', 'B0001', 2, 6300000);
 
 -- --------------------------------------------------------
 
@@ -205,7 +207,7 @@ CREATE TABLE `tbl_user` (
   `nama_user` varchar(30) NOT NULL,
   `username` varchar(30) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `hak_akses` enum('Administrator','Gudang','Pimpinan') NOT NULL
+  `hak_akses` enum('Admin','Gudang','Pimpinan') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
@@ -213,9 +215,9 @@ CREATE TABLE `tbl_user` (
 --
 
 INSERT INTO `tbl_user` (`id_user`, `nama_user`, `username`, `password`, `hak_akses`) VALUES
-(4, 'Developer', 'adminlsa', '$2y$12$/k/WZ9/UmH1BmvwZR1HkcudK5ZsXALiMMggXqAEdlt80JvKUyyE5y', 'Administrator'),
-(9, 'mulya', 'mulya', '$2y$12$U1so1uG0/80/FcOxEql8fuotNQ1SPZBoR/nBPYPrVXSAmeSuoFu3C', 'Pimpinan'),
-(10, 'Noor Hamidah', 'midah', '$2y$12$szN96TWI8litd.eAIeJjy.EdYU28nhunm/4dBlvBcg7Ur.J2Jxu5W', 'Gudang');
+(10, 'Noor Hamidah', 'Midah', '$2y$12$szN96TWI8litd.eAIeJjy.EdYU28nhunm/4dBlvBcg7Ur.J2Jxu5W', 'Gudang'),
+(12, 'Mulya', 'Mulya', '$2y$12$zFwAHFRvf98p8j6qRUK38ucmwF.EX2GWSOtcSPmrLpXxi3n8dEAGe', 'Admin'),
+(14, 'Ramadhani Noor Pratama', 'Bapak', '$2y$12$6q5hv3/xMn4x2U86c6Kdee7hNqC6KNx5mVmpGtIGhFWNhYHyaqPwq', 'Pimpinan');
 
 --
 -- Indexes for dumped tables
@@ -299,7 +301,7 @@ ALTER TABLE `tbl_satuan`
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints for dumped tables
