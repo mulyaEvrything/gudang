@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 06, 2024 at 10:06 PM
+-- Generation Time: Jul 07, 2024 at 10:05 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -118,7 +118,10 @@ CREATE TABLE `tbl_customer` (
 INSERT INTO `tbl_customer` (`id_customer`, `nama_perusahaan`, `singkatan`, `alamat`, `kontak`, `no_tlp`, `sites`) VALUES
 (14, 'PT Berkerja Keras Anjay', 'BKA', 'Jl. Kuin utara No.36. Rt.12. Rw.03.', 'Amang Udin', '087899992133', 'Jembatan Putih'),
 (15, 'PT Kada Karuan Negeri', 'KKN', 'Jl. Handil Bhakti No.36. Rt.12. Rw.05 Kota Banjarm', 'Acil Bayah', '087855341234', 'Permata Indah'),
-(16, 'PT Pusaka Abadi Nan Jaya', 'PANJ', 'Jl. Kuin utara No.18. Rt.12. Rw.5 Kota Banjarmasin', 'Alm Udin', '087899992322', 'Kuburan');
+(16, 'PT Pusaka Abadi Nan Jaya', 'PANJ', 'Jl. Kuin utara No.18. Rt.12. Rw.5 Kota Banjarmasin', 'Alm Udin', '087899992322', 'Kuburan'),
+(17, 'PT. Wush Jer Ahai', 'WJA', 'Jl Mangga Besar Raya 4 NN,  Dki Jakarta', 'Adit', '08782123333', 'Jakar'),
+(18, 'PT Bermain Bersama', 'BB', 'Jl Alkateri 15, Jawa Barat', 'Mama Rika', '087734545555', 'Alkaut'),
+(19, 'PT Malindo Jaya Abadi', 'MJA', 'Jl Jend Basuki Rachmad 2-12 Plaza Tunjungan III 20', 'Amang Ijul', '087823661233', 'Basuki');
 
 -- --------------------------------------------------------
 
@@ -139,7 +142,8 @@ CREATE TABLE `tbl_detail_barang_keluar` (
 
 INSERT INTO `tbl_detail_barang_keluar` (`id_keluar`, `id_barang`, `jumlah`, `harga`) VALUES
 ('00001/LSA-BKA/VII/2024', 'B0001', 1, 6300000),
-('00001/LSA-BKA/VII/2024', 'B0002', 1, 5400000);
+('00001/LSA-BKA/VII/2024', 'B0002', 1, 5400000),
+('00001/LSA-BKA/VII/2024', 'B0003', 1, 5500000);
 
 -- --------------------------------------------------------
 
@@ -188,9 +192,7 @@ CREATE TABLE `tbl_satuan` (
 
 INSERT INTO `tbl_satuan` (`id_satuan`, `nama_satuan`) VALUES
 (2, 'Drum'),
-(3, 'Pail'),
-(4, '200/L'),
-(5, '180/KG');
+(3, 'Pail');
 
 -- --------------------------------------------------------
 
@@ -285,7 +287,7 @@ ALTER TABLE `tbl_user`
 -- AUTO_INCREMENT for table `tbl_customer`
 --
 ALTER TABLE `tbl_customer`
-  MODIFY `id_customer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_customer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `tbl_satuan`
