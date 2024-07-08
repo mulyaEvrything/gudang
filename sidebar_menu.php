@@ -8,8 +8,8 @@ if (basename($_SERVER['PHP_SELF']) === basename(__FILE__)) {
 // jika file di include oleh file lain, tampilkan isi file
 else {
   // pengecekan hak akses untuk menampilkan menu sesuai dengan hak akses
-  // jika hak akses = Administrator, tampilkan menu
-  if ($_SESSION['hak_akses'] == 'Administrator') {
+  // jika hak akses = Admin, tampilkan menu
+  if ($_SESSION['hak_akses'] == 'Admin') {
     // pengecekan menu aktif
     // jika menu dashboard dipilih, menu dashboard aktif
     if ($_GET['module'] == 'dashboard') { ?>
@@ -154,53 +154,36 @@ else {
       </li>
     <?php 
     }
-    // jika menu barang masuk (tampil data / form entri / detail / ubah) dipilih, menu barang masuk aktif
-    if ($_GET['module'] == 'barang_masuk' || $_GET['module'] == 'form_entri_barang_masuk' || $_GET['module'] == 'tampil_detail_barang_masuk' || $_GET['module'] == 'ubah_barang_masuk') { ?>
-      <li class="nav-section">
-        <span class="sidebar-mini-icon">
-          <i class="fa fa-ellipsis-h"></i>
-        </span>
-        <h4 class="text-section">Transaksi</h4>
-      </li>
-
-      <li class="nav-item active">
-        <a href="?module=barang_masuk">
-          <i class="fas fa-sign-in-alt"></i>
-          <p>Barang Masuk</p>
-        </a>
-      </li>
-    <?php
-    }
-    // jika tidak dipilih, menu barang masuk tidak aktif
-    else { ?>
-      <li class="nav-section">
-        <span class="sidebar-mini-icon">
-          <i class="fa fa-ellipsis-h"></i>
-        </span>
-        <h4 class="text-section">Transaksi</h4>
-      </li>
-
-      <li class="nav-item">
-        <a href="?module=barang_masuk">
-          <i class="fas fa-sign-in-alt"></i>
-          <p>Barang Masuk</p>
-        </a>
-      </li>
-    <?php
-    }
+    
 
     // jika menu barang keluar (tampil data / form entri) dipilih, menu barang keluar aktif
     if ($_GET['module'] == 'barang_keluar' || $_GET['module'] == 'form_entri_barang_keluar' || $_GET['module'] == 'tampil_detail_barang_keluar' || $_GET['module'] == 'ubah_barang_keluar') { ?>
+      <li class="nav-section">
+        <span class="sidebar-mini-icon">
+          <i class="fa fa-ellipsis-h"></i>
+        </span>
+        <h4 class="text-section">Transaksi</h4>
+      </li>   
+
       <li class="nav-item active">
         <a href="?module=barang_keluar">
           <i class="fas fa-sign-out-alt"></i>
           <p>Barang Keluar</p>
         </a>
       </li>
+      
     <?php
     }
     // jika tidak dipilih, menu barang keluar tidak aktif
     else { ?>
+
+      <li class="nav-section">
+        <span class="sidebar-mini-icon">
+          <i class="fa fa-ellipsis-h"></i>
+        </span>
+        <h4 class="text-section">Transaksi</h4>
+      </li>
+
       <li class="nav-item">
         <a href="?module=barang_keluar">
           <i class="fas fa-sign-out-alt"></i>
@@ -537,27 +520,7 @@ else {
     <?php
     }
 
-    // jika menu barang keluar (tampil data / form entri) dipilih, menu barang keluar aktif
-    if ($_GET['module'] == 'barang_keluar' || $_GET['module'] == 'form_entri_barang_keluar') { ?>
-      <li class="nav-item active">
-        <a href="?module=barang_keluar">
-          <i class="fas fa-sign-out-alt"></i>
-          <p>Barang Keluar</p>
-        </a>
-      </li>
-    <?php
-    }
-    // jika tidak dipilih, menu barang keluar tidak aktif
-    else { ?>
-      <li class="nav-item">
-        <a href="?module=barang_keluar">
-          <i class="fas fa-sign-out-alt"></i>
-          <p>Barang Keluar</p>
-        </a>
-      </li>
-    <?php
-    }
-
+    
     // jika menu laporan stok dipilih, menu laporan stok aktif
     if ($_GET['module'] == 'laporan_stok') { ?>
       <li class="nav-section">

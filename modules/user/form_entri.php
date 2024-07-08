@@ -55,7 +55,7 @@ else { ?>
             <label>Hak Akses <span class="text-danger">*</span></label>
             <select name="hak_akses" class="form-control chosen-select" autocomplete="off" required>
               <option selected disabled value="">-- Pilih --</option>
-              <option value="Administrator">Administrator</option>
+              <option value="Admin">Admin</option>
               <option value="Gudang">Gudang</option>
               <option value="Pimpinan">Pimpinan</option>
             </select>

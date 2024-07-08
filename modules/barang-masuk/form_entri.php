@@ -90,30 +90,6 @@ else {
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <?php
-                // membuat "id_transaksi"
-                // sql statement untuk menampilkan 7 digit terakhir dari "id_transaksi" pada tabel "tbl_barang_masuk"
-                $query = mysqli_query($mysqli, "SELECT LEFT(id_transaksi,5) as nomor FROM tbl_barang_masuk ORDER BY id_transaksi DESC LIMIT 1")
-                                                or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
-                // ambil jumlah baris data hasil query
-                $rows = mysqli_num_rows($query);
-
-                // cek hasil query
-                // jika "id_transaksi" sudah ada
-                if ($rows <> 0) {
-                  // ambil data hasil query
-                  $data = mysqli_fetch_assoc($query);
-                  // nomor urut "id_transaksi" yang terakhir + 1 (contoh nomor urut yang terakhir adalah 2, maka 2 + 1 = 3, dst..)
-                  $nomor_urut = $data['nomor'] + 1;
-                }
-                // jika "id_transaksi" belum ada
-                else {
-                  // nomor urut "id_transaksi" = 1
-                  $nomor_urut = 1;
-                }
-                // menambahkan karakter "TM-" diawal dan karakter "0" disebelah kiri nomor urut
-                $id_transaksi =  str_pad($nomor_urut, 5, "0", STR_PAD_LEFT) . "/LSA-AEK/II/24" ;
-                ?>
                 <label>No. Faktur <span class="text-danger">*</span></label>
                 <!-- tampilkan "id_transaksi" -->
                 <input type="text" name="id_transaksi" class="form-control" autofocus>

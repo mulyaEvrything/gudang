@@ -67,22 +67,22 @@ else {
     include "modules/satuan/form_ubah.php";
   }
   // jika module yang dipilih "barang_masuk" dan hak akses bukan "Pimpinan"
-  elseif ($_GET['module'] == 'barang_masuk' && $_SESSION['hak_akses'] != 'Pimpinan') {
+  elseif ($_GET['module'] == 'barang_masuk' && $_SESSION['hak_akses'] != 'Pimpinan' && $_SESSION['hak_akses'] != 'Admin') {
     // panggil file tampil data barang masuk
     include "modules/barang-masuk/tampil_data.php";
   }
   // jika module yang dipilih "form_entri_barang_masuk" dan hak akses bukan "Pimpinan"
-  elseif ($_GET['module'] == 'form_entri_barang_masuk' && $_SESSION['hak_akses'] != 'Pimpinan') {
+  elseif ($_GET['module'] == 'form_entri_barang_masuk' && $_SESSION['hak_akses'] != 'Pimpinan' && $_SESSION['hak_akses'] != 'Admin') {
     // panggil file form entri barang masuk
     include "modules/barang-masuk/form_entri.php";
   } 
   // jika module yang dipilih "detail_barang_masuk" dan hak akses bukan "Pimpinan"
-  elseif ($_GET['module'] == 'detail_barang_masuk' && $_SESSION['hak_akses'] != 'Pimpinan') {
+  elseif ($_GET['module'] == 'detail_barang_masuk' && $_SESSION['hak_akses'] != 'Pimpinan' && $_SESSION['hak_akses'] != 'Admin') {
     // panggil file form entri barang masuk
     include "modules/barang-masuk/form_entri_detail.php";
   }
   // jika module yang dipilih "detail_barang_masuk" dan hak akses bukan "Pimpinan"
-  elseif ($_GET['module'] == 'ubah_barang_masuk' && $_SESSION['hak_akses'] != 'Pimpinan') {
+  elseif ($_GET['module'] == 'ubah_barang_masuk' && $_SESSION['hak_akses'] != 'Pimpinan' && $_SESSION['hak_akses'] != 'Admin') {
     // panggil file form entri barang masuk
     include "modules/barang-masuk/form_ubah.php";
   }
@@ -102,16 +102,15 @@ else {
     include "modules/barang-masuk/form_entri2.php";
   }
   // jika module yang dipilih "barang_keluar" dan hak akses bukan "Pimpinan"
-  elseif ($_GET['module'] == 'barang_keluar' && $_SESSION['hak_akses'] != 'Pimpinan') {
+  elseif ($_GET['module'] == 'barang_keluar' && $_SESSION['hak_akses'] != 'Pimpinan' && $_SESSION['hak_akses'] != 'Gudang') {
     // panggil file tampil data barang keluar
     include "modules/barang-keluar/tampil_data.php";
   }
   // jika module yang dipilih "form_entri_barang_keluar" dan hak akses bukan "Pimpinan"
-  elseif ($_GET['module'] == 'form_entri_barang_keluar' && $_SESSION['hak_akses'] != 'Pimpinan') {
+  elseif ($_GET['module'] == 'form_entri_barang_keluar' && $_SESSION['hak_akses'] != 'Pimpinan' && $_SESSION['hak_akses'] != 'Gudang') {
     // panggil file form entri barang keluar
     include "modules/barang-keluar/form_entri.php";
   }
-
   // jika module yang dipilih "data_customer" dan hak akses bukan "Pimpinan"
   elseif ($_GET['module'] == 'data_customer' && $_SESSION['hak_akses'] != 'Pimpinan') {
     // panggil file tampil_data
@@ -162,18 +161,18 @@ else {
     // panggil file tampil data laporan barang keluar
     include "modules/laporan-barang-keluar/tampil_data.php";
   }
-  // jika module yang dipilih "user" dan hak akses "Administrator"
-  elseif ($_GET['module'] == 'user' && $_SESSION['hak_akses'] == 'Administrator') {
+  // jika module yang dipilih "user" dan hak akses "Admin"
+  elseif ($_GET['module'] == 'user' && $_SESSION['hak_akses'] == 'Admin') {
     // panggil file tampil data user
     include "modules/user/tampil_data.php";
   }
-  // jika module yang dipilih "form_entri_user" dan hak akses "Administrator"
-  elseif ($_GET['module'] == 'form_entri_user' && $_SESSION['hak_akses'] == 'Administrator') {
+  // jika module yang dipilih "form_entri_user" dan hak akses "Admin"
+  elseif ($_GET['module'] == 'form_entri_user' && $_SESSION['hak_akses'] == 'Admin') {
     // panggil file form entri user
     include "modules/user/form_entri.php";
   }
-  // jika module yang dipilih "form_ubah_user" dan hak akses "Administrator"
-  elseif ($_GET['module'] == 'form_ubah_user' && $_SESSION['hak_akses'] == 'Administrator') {
+  // jika module yang dipilih "form_ubah_user" dan hak akses "Admin"
+  elseif ($_GET['module'] == 'form_ubah_user' && $_SESSION['hak_akses'] == 'Admin') {
     // panggil file form ubah user
     include "modules/user/form_ubah.php";
   }

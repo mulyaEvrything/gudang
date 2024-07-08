@@ -69,7 +69,7 @@ else {
             <select name="hak_akses" class="form-control chosen-select" autocomplete="off" required>
               <option value="<?php echo $data['hak_akses']; ?>"><?php echo $data['hak_akses']; ?></option>
               <option disabled value="">-- Pilih --</option>
-              <option value="Administrator">Administrator</option>
+              <option value="Admin">Admin</option>
               <option value="Gudang">Gudang</option>
               <option value="Pimpinan">Pimpinan</option>
             </select>
