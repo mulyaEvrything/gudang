@@ -120,7 +120,21 @@ else {
           </div>
         </div>
       </div>
-    </div>    
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <div class="table-responsive">
+        <!-- tabel untuk menampilkan grafik penjualan dari database -->
+        
+          <h1>Grafik Penjualan</h1>
+          
+          
+        </div>
+      </div>
+    </div>
+    
+
     <!-- menampilkan informasi stok barang yang telah mencapai batas minimum -->
     <div class="card">
       <div class="card-header">

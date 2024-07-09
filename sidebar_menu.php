@@ -192,7 +192,6 @@ else {
       </li>
     <?php
     }
-
     // jika menu laporan stok dipilih, menu laporan stok aktif
     if ($_GET['module'] == 'laporan_stok') { ?>
       <li class="nav-section">
@@ -300,6 +299,41 @@ else {
         <a href="?module=user">
           <i class="fas fa-user"></i>
           <p>Manajemen User</p>
+        </a>
+      </li>
+    <?php
+    }
+
+    // jika menu  aktif
+    if ($_GET['module'] == 'backup_database') { ?>
+      <li class="nav-section">
+        <span class="sidebar-mini-icon">
+          <i class="fa fa-ellipsis-h"></i>
+        </span>
+      </li>   
+
+      <li class="nav-item active">
+        <a href="?module=backup_database">
+          <i class="fas fa-download"></i>
+          <p>Backup Database</p>
+        </a>
+      </li>
+      
+    <?php
+    }
+    // jika tidak dipilih, menu backup database tidak aktif
+    else { ?>
+
+      <li class="nav-section">
+        <span class="sidebar-mini-icon">
+          <i class="fa fa-ellipsis-h"></i>
+        </span>
+      </li>
+
+      <li class="nav-item">
+        <a href="?module=backup_database">
+          <i class="fas fa-download"></i>
+          <p>Backup Database</p>
         </a>
       </li>
     <?php

@@ -176,6 +176,12 @@ else {
     // panggil file form ubah user
     include "modules/user/form_ubah.php";
   }
+
+  // jika module yang dipilih "backup-data" dan hak akses "Admin"
+  elseif ($_GET['module'] == 'backup_database' && $_SESSION['hak_akses'] == 'Admin') {
+    // panggil file tampil data user
+    include "modules/backup-database/tampil_data.php";
+  }
   // jika module yang dipilih "form_ubah_password"
   elseif ($_GET['module'] == 'form_ubah_password') {
     // panggil file form ubah password

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 08, 2024 at 03:14 PM
+-- Generation Time: Jul 09, 2024 at 09:27 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -217,7 +217,8 @@ CREATE TABLE `tbl_user` (
 INSERT INTO `tbl_user` (`id_user`, `nama_user`, `username`, `password`, `hak_akses`) VALUES
 (10, 'Noor Hamidah', 'Midah', '$2y$12$szN96TWI8litd.eAIeJjy.EdYU28nhunm/4dBlvBcg7Ur.J2Jxu5W', 'Gudang'),
 (12, 'Mulya', 'Mulya', '$2y$12$zFwAHFRvf98p8j6qRUK38ucmwF.EX2GWSOtcSPmrLpXxi3n8dEAGe', 'Admin'),
-(14, 'Ramadhani Noor Pratama', 'Bapak', '$2y$12$6q5hv3/xMn4x2U86c6Kdee7hNqC6KNx5mVmpGtIGhFWNhYHyaqPwq', 'Pimpinan');
+(14, 'Ramadhani Noor Pratama', 'Bapak', '$2y$12$6q5hv3/xMn4x2U86c6Kdee7hNqC6KNx5mVmpGtIGhFWNhYHyaqPwq', 'Pimpinan'),
+(15, 'admin', 'adminlsa', '$2y$12$btzTrPMm8FgL5ckxcTEgT.aE3MN3glhw3U0bQonZwjYDhyTLkqwi6', 'Admin');
 
 --
 -- Indexes for dumped tables
@@ -301,7 +302,7 @@ ALTER TABLE `tbl_satuan`
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables

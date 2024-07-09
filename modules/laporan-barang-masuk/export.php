@@ -37,7 +37,6 @@ else {
       <tr style="background-color:#6861ce;color:#fff">
         <th height="30" align="center" vertical="center">No.</th>
         <th height="30" align="center" vertical="center">No. Faktur</th>
-        <th height="30" align="center" vertical="center">No. Faktur</th>
         <th height="30" align="center" vertical="center">Tanggal</th>
         <th height="30" align="center" vertical="center">Nama Barang</th>
         <th height="30" align="center" vertical="center">Jumlah Masuk</th>
