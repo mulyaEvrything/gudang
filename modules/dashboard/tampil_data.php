@@ -122,13 +122,61 @@ else {
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" onload=getDataBarangkeluar()>
       <div class="card-body">
         <div class="table-responsive">
         <!-- tabel untuk menampilkan grafik penjualan dari database -->
-        
           <h1>Grafik Penjualan</h1>
+          <div>
+            <canvas id="myChart"></canvas>
+          </div>
+          <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
           
+          <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+
+            <script>
+
+              function getDataBarangkeluar(){
+                $.ajax({
+                  type: 'GET',
+                  url: 'get_grafik.php',
+                  data: {
+                    functionName: 'getDataBk'
+                  },
+                  success: function(response){
+                    console.log(response)
+                  }
+                })
+              }
+
+              const ctx = document.getElementById('myChart');
+
+              new Chart(ctx, {
+                type: 'bar',
+                data: {
+                  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                  datasets: [{
+                    label: 'Data Penjualan',
+                    data: [12, 19, 3, 5, 2, 3],
+                    borderWidth: 1
+                  }]
+                },
+                options: {
+                  scales: {
+                    y: {
+                      beginAtZero: true
+                    }
+                  }
+                }
+              });
+            </script>
+
+
+
+
+
+
+
           
         </div>
       </div>

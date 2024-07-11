@@ -303,41 +303,6 @@ else {
       </li>
     <?php
     }
-
-    // jika menu  aktif
-    if ($_GET['module'] == 'backup_database') { ?>
-      <li class="nav-section">
-        <span class="sidebar-mini-icon">
-          <i class="fa fa-ellipsis-h"></i>
-        </span>
-      </li>   
-
-      <li class="nav-item active">
-        <a href="?module=backup_database">
-          <i class="fas fa-download"></i>
-          <p>Backup Database</p>
-        </a>
-      </li>
-      
-    <?php
-    }
-    // jika tidak dipilih, menu backup database tidak aktif
-    else { ?>
-
-      <li class="nav-section">
-        <span class="sidebar-mini-icon">
-          <i class="fa fa-ellipsis-h"></i>
-        </span>
-      </li>
-
-      <li class="nav-item">
-        <a href="?module=backup_database">
-          <i class="fas fa-download"></i>
-          <p>Backup Database</p>
-        </a>
-      </li>
-    <?php
-    }
   }
   // jika hak akses = Gudang, tampilkan menu
   elseif ($_SESSION['hak_akses'] == 'Gudang') {
