@@ -122,42 +122,45 @@ else {
       </div>
     </div>
 
-    <div class="card" onload=getDataBarangkeluar()>
+      
+    <div class="card">
       <div class="card-body">
         <div class="table-responsive">
         <!-- tabel untuk menampilkan grafik penjualan dari database -->
           <h1>Grafik Penjualan</h1>
           <div>
+        
+            <?php
+
+            $data_barang = mysqli_query($mysqli, "SELECT a.id_barang, a.jumlah, c.nama_barang, c.id_barang
+                                    FROM tbl_detail_barang_keluar as a INNER JOIN tbl_barang as c 
+                                    ON a.id_barang=c.id_barang 
+                                    GROUP BY c.nama_barang")
+                                    or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
+            $jumlah_penjualan = mysqli_query($mysqli, "SELECT SUM(jumlah) as sold FROM tbl_detail_barang_keluar GROUP BY id_barang")
+                                    or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
+            
+            ?>
+
+            
             <canvas id="myChart"></canvas>
           </div>
           <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
           
-          <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-
+          <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+            
             <script>
 
-              function getDataBarangkeluar(){
-                $.ajax({
-                  type: 'GET',
-                  url: 'get_grafik.php',
-                  data: {
-                    functionName: 'getDataBk'
-                  },
-                  success: function(response){
-                    console.log(response)
-                  }
-                })
-              }
-
+          
               const ctx = document.getElementById('myChart');
 
               new Chart(ctx, {
                 type: 'bar',
                 data: {
-                  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                  labels: [<?php while($row = mysqli_fetch_array ($data_barang)) {echo '"',$row['nama_barang'].'",';}?>],
                   datasets: [{
                     label: 'Data Penjualan',
-                    data: [12, 19, 3, 5, 2, 3],
+                    data: [<?php while($row = mysqli_fetch_array ($jumlah_penjualan)) {echo '"',$row['sold'].'",';}?>],
                     borderWidth: 1
                   }]
                 },
@@ -170,7 +173,7 @@ else {
                 }
               });
             </script>
-
+            <body>
 
 
 
