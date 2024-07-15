@@ -22,12 +22,20 @@ else {
     include "modules/barang/tampil_data.php";
   }
   // jika module yang dipilih "form_entri_barang" dan hak akses bukan "Pimpinan"
-  elseif ($_GET['module'] == 'form_entri_barang' && $_SESSION['hak_akses'] != 'Pimpinan') {
+  elseif ($_GET['module'] == 'form_entri_barang' && $_SESSION['hak_akses'] != 'Pimpinan' && $_SESSION['hak_akses'] != 'Gudang') {
     // panggil file form entri barang
     include "modules/barang/form_entri.php";
   }
+
+   // jika module yang dipilih "form_entri_barang" dan hak akses bukan "Pimpinan"
+   elseif ($_GET['module'] == 'form_entri_barang' && $_SESSION['hak_akses'] = 'Gudang') {
+    // panggil file form entri barang
+    include "eror-gudang/403.html";
+  }
+
+
   // jika module yang dipilih "form_ubah_barang" dan hak akses bukan "Pimpinan"
-  elseif ($_GET['module'] == 'form_ubah_barang' && $_SESSION['hak_akses'] != 'Pimpinan') {
+  elseif ($_GET['module'] == 'form_ubah_barang' && $_SESSION['hak_akses'] != 'Pimpinan' && $_SESSION['hak_akses'] != 'Gudang') {
     // panggil file form ubah barang
     include "modules/barang/form_ubah.php";
   }
@@ -35,21 +43,6 @@ else {
   elseif ($_GET['module'] == 'tampil_detail_barang' && $_SESSION['hak_akses'] != 'Pimpinan') {
     // panggil file tampil detail barang
     include "modules/barang/tampil_detail.php";
-  }
-  // jika module yang dipilih "jenis" dan hak akses bukan "Pimpinan"
-  elseif ($_GET['module'] == 'jenis' && $_SESSION['hak_akses'] != 'Pimpinan') {
-    // panggil file tampil data jenis
-    include "modules/jenis/tampil_data.php";
-  }
-  // jika module yang dipilih "form_entri_jenis" dan hak akses bukan "Pimpinan"
-  elseif ($_GET['module'] == 'form_entri_jenis' && $_SESSION['hak_akses'] != 'Pimpinan') {
-    // panggil file form entri jenis
-    include "modules/jenis/form_entri.php";
-  }
-  // jika module yang dipilih "form_ubah_jenis" dan hak akses bukan "Pimpinan"
-  elseif ($_GET['module'] == 'form_ubah_jenis' && $_SESSION['hak_akses'] != 'Pimpinan') {
-    // panggil file form ubah jenis
-    include "modules/jenis/form_ubah.php";
   }
   // jika module yang dipilih "satuan" dan hak akses bukan "Pimpinan"
   elseif ($_GET['module'] == 'satuan' && $_SESSION['hak_akses'] != 'Pimpinan') {

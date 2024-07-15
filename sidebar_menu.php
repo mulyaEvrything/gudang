@@ -329,7 +329,7 @@ else {
     }
 
     // jika menu data barang (tampil data / tampil detail / form entri / form ubah) dipilih, menu data barang aktif
-    if ($_GET['module'] == 'barang' || $_GET['module'] == 'tampil_detail_barang' || $_GET['module'] == 'form_entri_barang' || $_GET['module'] == 'form_ubah_barang') { ?>
+    if ($_GET['module'] == 'barang' || $_GET['module'] == 'tampil_detail_barang') { ?>
       <li class="nav-section">
         <span class="sidebar-mini-icon">
           <i class="fa fa-ellipsis-h"></i>
