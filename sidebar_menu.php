@@ -361,40 +361,7 @@ else {
       </li>
     <?php
     }
-    // jika menu jenis barang (tampil data / form entri / form ubah) dipilih, menu jenis barang aktif
-    elseif ($_GET['module'] == 'jenis' || $_GET['module'] == 'form_entri_jenis' || $_GET['module'] == 'form_ubah_jenis') { ?>
-      <li class="nav-section">
-        <span class="sidebar-mini-icon">
-          <i class="fa fa-ellipsis-h"></i>
-        </span>
-        <h4 class="text-section">Master</h4>
-      </li>
-
-      <li class="nav-item active submenu">
-        <a data-toggle="collapse" href="#barang">
-          <i class="fas fa-clone"></i>
-          <p>Barang</p>
-          <span class="caret"></span>
-        </a>
-
-        <div class="collapse show" id="barang">
-          <ul class="nav nav-collapse">
-            <li>
-              <a href="?module=barang">
-                <span class="sub-item">Data Barang</span>
-              </a>
-            </li>
-            
-            <li>
-              <a href="?module=satuan">
-                <span class="sub-item">Satuan</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </li>
-    <?php
-    }
+    
     // jika menu satuan (tampil data / form entri / form ubah) dipilih, menu satuan aktif
     elseif ($_GET['module'] == 'satuan' || $_GET['module'] == 'form_entri_satuan' || $_GET['module'] == 'form_ubah_satuan') { ?>
       <li class="nav-section">
@@ -462,26 +429,6 @@ else {
         </div>
       </li>
     <?php
-    }
-
-     // jika menu data customer, menu customer aktif
-     if ($_GET['module'] == 'data_customer' || $_GET['module'] == 'form_entri_customer') { ?>
-      <li class="nav-item active">
-        <a href="?module=data_customer">
-          <i class="fas fa-clipboard"></i>
-          <p>Data Customer</p>
-        </a>
-      </li>
-      <?php
-      }
-    else {?>
-      <li class="nav-item">
-        <a href="?module=data_customer">
-          <i class="fas fa-clipboard"></i>
-          <p>Data Customer</p>
-        </a>
-      </li>
-    <?php 
     }
 
     // jika menu barang masuk (tampil data / form entri) dipilih, menu barang masuk aktif

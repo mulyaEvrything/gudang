@@ -112,12 +112,12 @@ else {
     include "modules/barang-keluar/form_entri.php";
   }
   // jika module yang dipilih "data_customer" dan hak akses bukan "Pimpinan"
-  elseif ($_GET['module'] == 'data_customer' && $_SESSION['hak_akses'] != 'Pimpinan') {
+  elseif ($_GET['module'] == 'data_customer' && $_SESSION['hak_akses'] != 'Pimpinan' && $_SESSION['hak_akses'] != 'Gudang') {
     // panggil file tampil_data
     include "modules/data-customer/tampil_data.php";
   }
   // jika module yang dipilih "form_entri_customer" dan hak akses bukan "Pimpinan"
-  elseif ($_GET['module'] == 'form_entri_customer' && $_SESSION['hak_akses'] != 'Pimpinan') {
+  elseif ($_GET['module'] == 'form_entri_customer' && $_SESSION['hak_akses'] != 'Pimpinan' && $_SESSION['hak_akses'] != 'Gudang') {
     // panggil file form_entri_customer
     include "modules/data-customer/form_entri.php";
   }
