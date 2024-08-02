@@ -100,7 +100,7 @@ else {
                 <th width="20"  class="text-center">No.</th>
                 <th width="250" class="text-center">Nama Perusahaan</th>
                 <th width="250" class="text-center">Singkatan</th>
-                <th width="200" class="text-center">Alamat</th>
+                <th width="200" class="text-center">Alamat Perusahaan</th>
                 <th width="150"  class="text-center">Kontak</th>
                 <th width="200" class="text-center">No Telpon</th>
                 <th width="100" class="text-center">Site</th>

@@ -103,6 +103,17 @@ else {
               </div>
             </div>
           </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Alamat Untuk Surat Jalan<span class="text-danger">*</span></label>
+                <textarea name="alamat_srt_jln" autocomplete="off" class="form-control"cols="10" rows="10"require><?php echo $data['alamat_srt_jln']; ?></textarea>
+                <div class="invalid-feedback">Alamat tidak boleh kosong.</div>
+              </div>
+            </div>
+          </div>
+
         </div>
 
         

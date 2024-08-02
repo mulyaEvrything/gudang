@@ -81,7 +81,7 @@ else {
  
 <table>
   <tr>
-    <td style="vertical-align: top; padding-top:6px; " ><img style="border-radius: 50%;" height="30px" width="55px" src="avatar-1.png" alt=""></td>
+    <td style="vertical-align: top; padding-top:6px; " ><img style="border-radius: 50%;" height="30px" width="55px" src="avatar-1.jpeg" alt=""></td>
     <td>
       <div class="kop">
       <div class="left">
@@ -143,7 +143,6 @@ else {
               <?= $data['nama_perusahaan']; ?><br>
               <?= $data['alamat']; ?><br>
               No Telp : <?= $data['no_tlp']; ?><br>
-              Site : <?= $data['sites']; ?>
             </td>
           </tr>
         </table>

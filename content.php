@@ -17,7 +17,7 @@ else {
     include "modules/dashboard/tampil_data.php";
   }
   // jika module yang dipilih "barang" dan hak akses bukan "Pimpinan"
-  elseif ($_GET['module'] == 'barang' && $_SESSION['hak_akses'] != 'Pimpinan') {
+  elseif ($_GET['module'] == 'barang' && $_SESSION['hak_akses'] != 'Pimpinan' && $_SESSION['hak_akses'] != 'Gudang') {
     // panggil file tampil data barang
     include "modules/barang/tampil_data.php";
   }
@@ -26,71 +26,73 @@ else {
     // panggil file form entri barang
     include "modules/barang/form_entri.php";
   }
-
    // jika module yang dipilih "form_entri_barang" dan hak akses bukan "Pimpinan"
-   elseif ($_GET['module'] == 'form_entri_barang' && $_SESSION['hak_akses'] = 'Gudang') {
+   elseif ($_GET['module'] == 'form_entri_barang' && $_SESSION['hak_akses'] = 'Gudang' && $_SESSION['hak_akses'] != 'Gudang') {
     // panggil file form entri barang
     include "eror-gudang/403.html";
   }
-
-
   // jika module yang dipilih "form_ubah_barang" dan hak akses bukan "Pimpinan"
   elseif ($_GET['module'] == 'form_ubah_barang' && $_SESSION['hak_akses'] != 'Pimpinan' && $_SESSION['hak_akses'] != 'Gudang') {
     // panggil file form ubah barang
     include "modules/barang/form_ubah.php";
   }
   // jika module yang dipilih "tampil_detail_barang" dan hak akses bukan "Pimpinan"
-  elseif ($_GET['module'] == 'tampil_detail_barang' && $_SESSION['hak_akses'] != 'Pimpinan') {
+  elseif ($_GET['module'] == 'tampil_detail_barang' && $_SESSION['hak_akses'] != 'Pimpinan' && $_SESSION['hak_akses'] != 'Gudang') {
     // panggil file tampil detail barang
     include "modules/barang/tampil_detail.php";
   }
   // jika module yang dipilih "satuan" dan hak akses bukan "Pimpinan"
-  elseif ($_GET['module'] == 'satuan' && $_SESSION['hak_akses'] != 'Pimpinan') {
+  elseif ($_GET['module'] == 'satuan' && $_SESSION['hak_akses'] != 'Pimpinan' && $_SESSION['hak_akses'] != 'Gudang') {
     // panggil file tampil data satuan
     include "modules/satuan/tampil_data.php";
   }
   // jika module yang dipilih "form_entri_satuan" dan hak akses bukan "Pimpinan"
-  elseif ($_GET['module'] == 'form_entri_satuan' && $_SESSION['hak_akses'] != 'Pimpinan') {
+  elseif ($_GET['module'] == 'form_entri_satuan' && $_SESSION['hak_akses'] != 'Pimpinan' && $_SESSION['hak_akses'] != 'Gudang') {
     // panggil file form entri satuan
     include "modules/satuan/form_entri.php";
   }
+   // jika module yang dipilih "form_entri_satuan" dan hak akses bukan "Pimpinan"
+   elseif ($_GET['module'] == 'form_entri_satuan' && $_SESSION['hak_akses'] = 'Gudang') {
+    // panggil file form entri barang
+    include "eror-gudang/403_satuan.html";
+  }
   // jika module yang dipilih "form_ubah_satuan" dan hak akses bukan "Pimpinan"
-  elseif ($_GET['module'] == 'form_ubah_satuan' && $_SESSION['hak_akses'] != 'Pimpinan') {
+  elseif ($_GET['module'] == 'form_ubah_satuan') {
     // panggil file form ubah satuan
-    include "modules/satuan/form_ubah.php";
+    include "eror-gudang/403.html";
   }
   // jika module yang dipilih "barang_masuk" dan hak akses bukan "Pimpinan"
-  elseif ($_GET['module'] == 'barang_masuk' && $_SESSION['hak_akses'] != 'Pimpinan' && $_SESSION['hak_akses'] != 'Admin') {
+  elseif ($_GET['module'] == 'barang_masuk' && $_SESSION['hak_akses'] != 'Pimpinan' && $_SESSION['hak_akses'] != 'Gudang') {
     // panggil file tampil data barang masuk
     include "modules/barang-masuk/tampil_data.php";
   }
   // jika module yang dipilih "form_entri_barang_masuk" dan hak akses bukan "Pimpinan"
-  elseif ($_GET['module'] == 'form_entri_barang_masuk' && $_SESSION['hak_akses'] != 'Pimpinan' && $_SESSION['hak_akses'] != 'Admin') {
+  elseif ($_GET['module'] == 'form_entri_barang_masuk' && $_SESSION['hak_akses'] != 'Pimpinan' && $_SESSION['hak_akses'] != 'Gudang') {
     // panggil file form entri barang masuk
     include "modules/barang-masuk/form_entri.php";
   } 
   // jika module yang dipilih "detail_barang_masuk" dan hak akses bukan "Pimpinan"
-  elseif ($_GET['module'] == 'detail_barang_masuk' && $_SESSION['hak_akses'] != 'Pimpinan' && $_SESSION['hak_akses'] != 'Admin') {
+  elseif ($_GET['module'] == 'detail_barang_masuk' && $_SESSION['hak_akses'] != 'Pimpinan' && $_SESSION['hak_akses'] != 'Gudang') {
     // panggil file form entri barang masuk
     include "modules/barang-masuk/form_entri_detail.php";
   }
   // jika module yang dipilih "detail_barang_masuk" dan hak akses bukan "Pimpinan"
-  elseif ($_GET['module'] == 'ubah_barang_masuk' && $_SESSION['hak_akses'] != 'Pimpinan' && $_SESSION['hak_akses'] != 'Admin') {
+  elseif ($_GET['module'] == 'ubah_barang_masuk' && $_SESSION['hak_akses'] != 'Pimpinan' && $_SESSION['hak_akses'] != 'Gudang') {
     // panggil file form entri barang masuk
     include "modules/barang-masuk/form_ubah.php";
   }
   // jika module yang dipilih "detail_barang_keluar" dan hak akses bukan "Pimpinan"
-  elseif ($_GET['module'] == 'detail_barang_keluar' && $_SESSION['hak_akses'] != 'Pimpinan') {
+  elseif ($_GET['module'] == 'detail_barang_keluar' && $_SESSION['hak_akses'] != 'Pimpinan' && $_SESSION['hak_akses'] != 'Gudang') {
     // panggil file form entri barang masuk
     include "modules/barang-keluar/form_entri_detail.php";
   }
   // jika module yang dipilih "detail_barang_keluar" dan hak akses bukan "Pimpinan"
-  elseif ($_GET['module'] == 'ubah_barang_masuk' && $_SESSION['hak_akses'] != 'Pimpinan') {
+  elseif ($_GET['module'] == 'ubah_barang_masuk' && $_SESSION['hak_akses'] != 'Pimpinan' && $_SESSION['hak_akses'] != 'Gudang') {
     // panggil file form entri barang masuk
     include "modules/barang-keluar/form_ubah.php";
   }
 // Add Mulya
-  elseif ($_GET['module'] == 'form_entri_barang_masuk2' && $_SESSION['hak_akses'] != 'Pimpinan') {
+  elseif ($_GET['module'] == 'form_entri_barang_masuk2' && $_SESSION['hak_akses'] != 'Pimpinan' && $_SESSION['hak_akses'] != 'Gudang') {
     // panggil file form entri barang masuk
     include "modules/barang-masuk/form_entri2.php";
   }
@@ -116,25 +118,25 @@ else {
   }
 
   // jika module yang dipilih "tampil_detail_barang_masuk" dan hak akses bukan "Pimpinan"
-  elseif ($_GET['module'] == 'tampil_detail_barang_masuk' && $_SESSION['hak_akses'] != 'Pimpinan') {
+  elseif ($_GET['module'] == 'tampil_detail_barang_masuk' && $_SESSION['hak_akses'] != 'Pimpinan' && $_SESSION['hak_akses'] != 'Gudang') {
     // panggil file form_entri_customer
     include "modules/barang-masuk/tampil_detail.php";
   }
 
   // jika module yang dipilih "ubah_barang_masuk" dan hak akses bukan "Pimpinan"
-  elseif ($_GET['module'] == 'ubah_barang_masuk' && $_SESSION['hak_akses'] != 'Pimpinan') {
+  elseif ($_GET['module'] == 'ubah_barang_masuk' && $_SESSION['hak_akses'] != 'Pimpinan' && $_SESSION['hak_akses'] != 'Gudang') {
     // panggil file form_entri_customer
     include "modules/barang-masuk/form_ubah.php";
   }
 
   // jika module yang dipilih "tampil_detail_barang_keluar" dan hak akses bukan "Pimpinan"
-  elseif ($_GET['module'] == 'tampil_detail_barang_keluar' && $_SESSION['hak_akses'] != 'Pimpinan') {
+  elseif ($_GET['module'] == 'tampil_detail_barang_keluar' && $_SESSION['hak_akses'] != 'Pimpinan' && $_SESSION['hak_akses'] != 'Gudang') {
     // panggil file form_entri_customer
     include "modules/barang-keluar/tampil_detail.php";
   }
 
   // jika module yang dipilih "ubah_barang_keluar" dan hak akses bukan "Pimpinan"
-  elseif ($_GET['module'] == 'ubah_barang_keluar' && $_SESSION['hak_akses'] != 'Pimpinan') {
+  elseif ($_GET['module'] == 'ubah_barang_keluar' && $_SESSION['hak_akses'] != 'Pimpinan' && $_SESSION['hak_akses'] != 'Gudang') {
     // panggil file form_entri_customer
     include "modules/barang-keluar/form_ubah.php";
   }

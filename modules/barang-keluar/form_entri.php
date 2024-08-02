@@ -79,6 +79,8 @@ else { ?>
             </div>
           </div>
 
+          
+
           <div class="row">
             <div class="col-md-4">
               <div class="form-group">
@@ -99,7 +101,7 @@ else { ?>
                   <div class="invalid-feedback">Customer tidak boleh kosong.</div>
               </div>
             </div>
-
+            
             <div class="col-md-4 ml-auto">
               <div class="form-group">
                 <label>No. PO <span class="text-danger">*</span></label>
@@ -113,6 +115,16 @@ else { ?>
                 <label>Tanggal Jatuh Tempo<span class="text-danger">*</span></label>
                 <input type="text" name="tanggal_tempo" class="form-control date-picker" autocomplete="off" value="<?php echo date("d-m-Y"); ?>" required>
                 <div class="invalid-feedback">Tanggal tidak boleh kosong.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Alamat Untuk Surat Jalan<span class="text-danger">*</span></label>
+                <textarea name="alamat_srt_jln" autocomplete="off" class="form-control"cols="10" rows="10" require></textarea>
+                <div class="invalid-feedback">Alamat tidak boleh kosong.</div>
               </div>
             </div>
           </div>
