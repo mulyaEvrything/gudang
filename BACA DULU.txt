@@ -6,8 +6,8 @@ PETUNJUK PENGGUNAAN
 4. Import gudang.sql yang ada difolder Database ke dalam database yang telah dibuat
 5. Untuk membuka program ketikan localhost/gudang pada browser
 6. Login user :
-Hak Akses 	: Administrator
-Username 	: adminlsa
+Hak Akses 	: Admin
+Username 	: mulya
 Password 	: 123
 
 Hak Akses 	: Gudang
@@ -15,5 +15,5 @@ Username 	: midah
 Password 	: 123
 
 Hak Akses 	: Pimpinan
-Username 	: mulya
+Username 	: bapak
 Password 	: 123
