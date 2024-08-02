@@ -72,7 +72,7 @@ $data1 = mysqli_fetch_assoc($query1);
 <!-- BREAK -->
   <tr>
     <td style="vertical-align: top; padding-top:6px; " >
-      <img style="border-radius: 50%;" height="30px" width="55px" src="avatar-1.png" alt="">
+      <img style="border-radius: 50%;" height="30px" width="55px" src="avatar-1.jpeg" alt="">
     </td>
     <td>
       <div class="kop">
@@ -127,7 +127,7 @@ $data1 = mysqli_fetch_assoc($query1);
             <td width="200"><?= $data['nama_perusahaan']; ?></td>
           </tr>
           <tr>
-            <td width="200"><?= $data['alamat']; ?></td>
+            <td width="200"><?= $data['alamat_srt_jln']; ?></td>
           </tr>
           <tr>
             <td>No Telp : <?= $data['no_tlp']; ?></td>

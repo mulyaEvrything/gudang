@@ -20,14 +20,15 @@ else {
     $tanggal_t  = mysqli_real_escape_string($mysqli, trim($_POST['tanggal_tempo']));
     $customer        = mysqli_real_escape_string($mysqli, $_POST['id_customer']);
     $no_po        = mysqli_real_escape_string($mysqli, $_POST['no_po']);
+    $alamat_srt_jln        = mysqli_real_escape_string($mysqli, $_POST['alamat_srt_jln']);
 
     // ubah format tanggal menjadi Tahun-Bulan-Hari (Y-m-d) sebelum disimpan ke database
     $tanggal_keluar = date('Y-m-d', strtotime($tanggal));
     $tanggal_tempo = date('Y-m-d', strtotime($tanggal_t));
 
     // sql statement untuk insert data ke tabel "tbl_barang_keluar"
-    $insert = mysqli_query($mysqli, "INSERT INTO tbl_barang_keluar(id_transaksi, tanggal, tgl_jatuh_tempo, no_po, id_customer) 
-                                     VALUES('$id_transaksi', '$tanggal_keluar', '$tanggal_tempo', '$no_po', $customer)")
+    $insert = mysqli_query($mysqli, "INSERT INTO tbl_barang_keluar(id_transaksi, tanggal, tgl_jatuh_tempo, no_po, id_customer, alamat_srt_jln) 
+                                     VALUES('$id_transaksi', '$tanggal_keluar', '$tanggal_tempo', '$no_po', '$customer', '$alamat_srt_jln')")
                                      or die('Ada kesalahan pada query insert : ' . mysqli_error($mysqli));
     // cek query
     // jika proses insert berhasil

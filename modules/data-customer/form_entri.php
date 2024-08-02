@@ -53,7 +53,7 @@ else { ?>
               <div class="form-group">
                 <label>Alamat<span class="text-danger">*</span></label>
                 <textarea name="alamat" autocomplete="off" class="form-control"cols="10" rows="10" require></textarea>
-                <div class="invalid-feedback">Harga satuan tidak boleh kosong.</div>
+                <div class="invalid-feedback">Alamat satuan tidak boleh kosong.</div>
               </div>
               <div class="form-group">
                 <label>Site (Jika ada)<span class="text-danger">*</span></label>
